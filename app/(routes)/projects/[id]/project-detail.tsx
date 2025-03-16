@@ -36,7 +36,9 @@ import React from "react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useTheme } from "next-themes";
-import type { CodeComponent } from 'react-markdown/lib/ast-to-react';
+
+// Add this type declaration
+type PrismStyleType = { [key: string]: React.CSSProperties };
 
 interface ProjectDetailProps {
   project: Project;
@@ -86,7 +88,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
       });
       return <p>{content}</p>;
     },
-    code: ({ className, children, ...props }: CodeComponent) => {
+    code: ({ className, children, ...props }) => {
       const match = /language-(\w+)/.exec(className || '');
       const language = match ? match[1] : '';
       
@@ -121,6 +123,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
             {language || 'code'}
           </div>
           <SyntaxHighlighter
+            // @ts-ignore - Type mismatch between react-syntax-highlighter and its style definitions
             style={isDark ? oneDark : oneLight}
             language={language || 'html'}
             PreTag="div"
