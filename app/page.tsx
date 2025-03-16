@@ -36,7 +36,7 @@ export default function Home() {
       <div className="space-y-8">
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-tight sm:text-6xl">
-            Hi, I'm Brewen 👋
+            Hi, I&apos;m Brewen 👋
           </h1>
           <p className="text-lg text-muted-foreground max-w-[800px]">
             BSc Computer Science student specializing in cloud computing, systems programming, and cybersecurity. Passionate about building robust software with a focus on performance and security, while exploring AI integration for practical applications. Currently studying at the University of Bordeaux and Hanyang University.

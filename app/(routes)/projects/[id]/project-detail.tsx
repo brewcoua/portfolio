@@ -36,6 +36,7 @@ import React from "react";
 import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useTheme } from "next-themes";
+import type { CodeComponent } from 'react-markdown/lib/ast-to-react';
 
 interface ProjectDetailProps {
   project: Project;
@@ -85,7 +86,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
       });
       return <p>{content}</p>;
     },
-    code: ({ node, inline, className, children, ...props }: any) => {
+    code: ({ className, children, ...props }: CodeComponent) => {
       const match = /language-(\w+)/.exec(className || '');
       const language = match ? match[1] : '';
       
@@ -129,7 +130,7 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               borderRadius: '0 0 0.375rem 0.375rem',
               fontSize: '0.9rem',
               border: '1px solid var(--border)',
-            } as any}
+            } as Record<string, unknown>}
             showLineNumbers={false}
             wrapLines={true}
             {...props}
