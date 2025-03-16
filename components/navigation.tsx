@@ -12,14 +12,10 @@ import { ModeToggle } from "@/components/mode-toggle";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { Separator } from "@/components/ui/separator";
 
-const routes = [
+const links = [
   {
     href: "/",
     label: "Home",
-  },
-  {
-    href: "/about",
-    label: "About",
   },
   {
     href: "/projects",
@@ -28,7 +24,7 @@ const routes = [
   {
     href: "/resume",
     label: "Resume",
-  },
+  }
 ];
 
 export function Navigation() {
@@ -57,7 +53,7 @@ export function Navigation() {
                 </div>
                 <nav className="flex-1 px-2 py-4">
                   <div className="space-y-1">
-                    {routes.map((route) => (
+                    {links.map((route) => (
                       <Link
                         key={route.href}
                         href={route.href}
@@ -83,7 +79,7 @@ export function Navigation() {
           </Link>
           
           <nav className="hidden md:flex items-center space-x-6">
-            {routes.map((route) => (
+            {links.map((route) => (
               <Link
                 key={route.href}
                 href={route.href}

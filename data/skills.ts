@@ -8,6 +8,8 @@ const skillsData: SkillsData = {
         "TypeScript/JavaScript",
         "Python",
         "Java",
+        "Rust",
+        "C",
         "C++",
         "SQL"
       ]
@@ -21,7 +23,12 @@ const skillsData: SkillsData = {
         "AngularJS",
         "Tailwind CSS",
         "REST APIs",
-        "Playwright"
+        "Playwright",
+        "Docker",
+        "Kubernetes",
+        "AWS",
+        "CI/CD",
+        "GitOps"
       ]
     },
     {
@@ -32,7 +39,12 @@ const skillsData: SkillsData = {
         "AI/LLM Integration",
         "Chat GPT APIs",
         "Task Queue Systems",
-        "Web Automation"
+        "Web Automation",
+        "Actix Web",
+        "PostgreSQL",
+        "Redis",
+        "RabbitMQ",
+        "MongoDB"
       ]
     },
     {

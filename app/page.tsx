@@ -3,7 +3,7 @@
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Github, Mail, FileText, ExternalLink, Image as ImageIcon, ArrowRight } from "lucide-react";
+import { Github, Mail, ExternalLink, Image as ImageIcon, ArrowRight, Linkedin } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
@@ -48,11 +48,11 @@ export default function Home() {
                 GitHub
               </a>
             </Button>
-            <Button variant="outline" asChild>
-              <Link href="/about">
-                <FileText className="mr-2" />
-                About Me
-              </Link>
+            <Button asChild>
+              <a href="https://www.linkedin.com/in/brewcoua" target="_blank" rel="noopener noreferrer">
+                <Linkedin className="mr-2" />
+                LinkedIn
+              </a>
             </Button>
             <Button variant="outline" asChild>
               <a href="mailto:contact@brewen.dev">
@@ -67,7 +67,7 @@ export default function Home() {
           <div className="flex items-center justify-between">
             <h2 className="text-2xl font-bold tracking-tight">Skills & Technologies</h2>
             <Button variant="ghost" size="sm" asChild>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="/resume" target="_blank" rel="noopener noreferrer">
                 View Full Resume <ArrowRight className="ml-2 h-4 w-4" />
               </a>
             </Button>
