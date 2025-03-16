@@ -5,8 +5,8 @@ const skillsData: SkillsData = {
     {
       category: SkillCategory.LANGUAGES,
       items: [
+        "TypeScript/JavaScript",
         "Python",
-        "JavaScript/TypeScript",
         "Java",
         "C++",
         "SQL"
@@ -17,34 +17,31 @@ const skillsData: SkillsData = {
       items: [
         "React",
         "Next.js",
-        "Node.js",
-        "HTML/CSS",
+        "NestJS",
+        "AngularJS",
         "Tailwind CSS",
         "REST APIs",
-        "GraphQL"
+        "Playwright"
       ]
     },
     {
       category: SkillCategory.TOOLS_AND_FRAMEWORKS,
       items: [
         "Git",
-        "Docker",
-        "AWS",
-        "MongoDB",
-        "PostgreSQL",
-        "Linux",
-        "CI/CD"
+        "GitHub",
+        "AI/LLM Integration",
+        "Chat GPT APIs",
+        "Task Queue Systems",
+        "Web Automation"
       ]
     },
     {
-      category: SkillCategory.CONCEPTS,
+      category: SkillCategory.LANGUAGES_SPOKEN,
       items: [
-        "Object-Oriented Programming",
-        "Data Structures",
-        "Algorithms",
-        "System Design",
-        "Agile Methodologies",
-        "Test-Driven Development"
+        "English (Bilingual)",
+        "French (Native)",
+        "German (Elementary)",
+        "Korean (Elementary)"
       ]
     }
   ]

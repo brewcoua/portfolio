@@ -7,7 +7,7 @@ import { Github, Mail, FileText, ExternalLink, Image as ImageIcon, ArrowRight } 
 import Link from "next/link";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import projectsData from "@/data/projects";
+import projectsData from "@/data/projects/index";
 import skillsData from "@/data/skills";
 import { useState, useEffect } from "react";
 import { ProjectCardSkeleton } from "@/components/project-card-skeleton";
@@ -39,7 +39,7 @@ export default function Home() {
             Hi, I'm Brewen 👋
           </h1>
           <p className="text-lg text-muted-foreground max-w-[800px]">
-            Computer Science student at the University of Bordeaux, currently on exchange at Hanyang University. Passionate about building innovative solutions and learning new technologies.
+            BSc Computer Science student passionate about web technologies and AI integration. Currently studying at the University of Bordeaux and Hanyang University.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
@@ -49,15 +49,15 @@ export default function Home() {
               </a>
             </Button>
             <Button variant="outline" asChild>
+              <Link href="/about">
+                <FileText className="mr-2" />
+                About Me
+              </Link>
+            </Button>
+            <Button variant="outline" asChild>
               <a href="mailto:contact@brewen.dev">
                 <Mail className="mr-2" />
                 Contact
-              </a>
-            </Button>
-            <Button variant="outline" asChild>
-              <a href="/resume" target="_blank" rel="noopener noreferrer">
-                <FileText className="mr-2" />
-                Resume
               </a>
             </Button>
           </div>
@@ -98,7 +98,7 @@ export default function Home() {
                 </Link>
               </Button>
             </div>
-            <div className="grid gap-4 sm:grid-cols-[repeat(2,minmax(0,360px))]">
+            <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
               {isLoading ? (
                 <>
                   <ProjectCardSkeleton />

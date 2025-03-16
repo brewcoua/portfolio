@@ -1,13 +1,20 @@
 import { type Metadata } from "next"
-import projectsData from "@/data/projects"
+import projectsData from "@/data/projects/index"
 
-type Props = {
-  params: { id: string }
-  children: React.ReactNode
+interface Props {
+  params: Promise<{
+    id: string;
+  }>;
+  children: React.ReactNode;
+}
+
+async function getProject(params: Props['params']) {
+  const { id } = await params;
+  return Promise.resolve(projectsData.projects.find(p => p.id === id));
 }
 
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const project = projectsData.projects.find(p => p.id === params.id);
+  const project = await getProject(params);
   
   if (!project) {
     return {

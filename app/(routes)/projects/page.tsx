@@ -15,7 +15,7 @@ import {
 } from "lucide-react";
 import Link from "next/link";
 import Image from "next/image";
-import projectsData from "@/data/projects";
+import projectsData from "@/data/projects/index";
 import { useState, useEffect, useMemo } from "react";
 import { ProjectCardSkeleton } from "@/components/project-card-skeleton";
 import { getProjectStatusVariant, ProjectStatus } from "@/types";
@@ -182,7 +182,7 @@ export default function ProjectsPage() {
             </>
           ) : (
             filteredProjects.map((project) => (
-              <Card key={project.id} className="overflow-hidden">
+              <Card key={project.id} className="overflow-hidden flex flex-col">
                 <Link 
                   href={`/projects/${project.id}`}
                   className="block relative w-full h-48 overflow-hidden group/thumb"
@@ -206,62 +206,68 @@ export default function ProjectsPage() {
                     )}
                   </div>
                 </Link>
-                <CardContent className="pt-4 space-y-4">
-                  <h3 className="text-xl font-semibold">{project.title}</h3>
-                  <p className="text-muted-foreground line-clamp-3">
-                    {project.description}
-                  </p>
-                  <div className="flex flex-wrap gap-2">
-                    {project.technologies.slice(0, 3).map((tech) => (
-                      <Badge key={tech} variant="secondary">
-                        {tech}
-                      </Badge>
-                    ))}
-                    {project.technologies.length > 3 && (
-                      <Badge variant="secondary">
-                        +{project.technologies.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-                  <div className="flex justify-between items-center">
-                    <div className="flex items-center gap-2">
-                      <Badge variant={getProjectStatusVariant(project.status)} className="text-xs">
-                        {project.status}
-                      </Badge>
-                      <div className="flex gap-2">
-                        {project.githubUrl && (
-                          <Button variant="ghost" size="icon" asChild>
-                            <a 
-                              href={project.githubUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                            >
-                              <Github className="h-4 w-4" />
-                              <span className="sr-only">GitHub</span>
-                            </a>
-                          </Button>
-                        )}
-                        {project.liveUrl && (
-                          <Button variant="ghost" size="icon" asChild>
-                            <a 
-                              href={project.liveUrl} 
-                              target="_blank" 
-                              rel="noopener noreferrer"
-                            >
-                              <ExternalLink className="h-4 w-4" />
-                              <span className="sr-only">Demo</span>
-                            </a>
-                          </Button>
+                <div className="flex flex-col flex-1">
+                  <CardContent className="pt-4 flex-1">
+                    <div className="space-y-4">
+                      <h3 className="text-xl font-semibold">{project.title}</h3>
+                      <p className="text-muted-foreground line-clamp-3">
+                        {project.description}
+                      </p>
+                      <div className="flex flex-wrap gap-2">
+                        {project.technologies.slice(0, 3).map((tech) => (
+                          <Badge key={tech} variant="secondary">
+                            {tech}
+                          </Badge>
+                        ))}
+                        {project.technologies.length > 3 && (
+                          <Badge variant="secondary">
+                            +{project.technologies.length - 3}
+                          </Badge>
                         )}
                       </div>
                     </div>
-                    <Button variant="ghost" size="sm" asChild>
-                      <Link href={`/projects/${project.id}`}>
-                        Details <ArrowRight className="ml-2 h-4 w-4" />
-                      </Link>
-                    </Button>
-                  </div>
-                </CardContent>
+                  </CardContent>
+                  <CardFooter className="pt-0">
+                    <div className="flex justify-between items-center w-full">
+                      <div className="flex items-center gap-2">
+                        <Badge variant={getProjectStatusVariant(project.status)} className="text-xs">
+                          {project.status}
+                        </Badge>
+                        <div className="flex gap-2">
+                          {project.githubUrl && (
+                            <Button variant="ghost" size="icon" asChild>
+                              <a 
+                                href={project.githubUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                              >
+                                <Github className="h-4 w-4" />
+                                <span className="sr-only">GitHub</span>
+                              </a>
+                            </Button>
+                          )}
+                          {project.liveUrl && (
+                            <Button variant="ghost" size="icon" asChild>
+                              <a 
+                                href={project.liveUrl} 
+                                target="_blank" 
+                                rel="noopener noreferrer"
+                              >
+                                <ExternalLink className="h-4 w-4" />
+                                <span className="sr-only">Demo</span>
+                              </a>
+                            </Button>
+                          )}
+                        </div>
+                      </div>
+                      <Button variant="ghost" size="sm" asChild>
+                        <Link href={`/projects/${project.id}`}>
+                          Details <ArrowRight className="ml-2 h-4 w-4" />
+                        </Link>
+                      </Button>
+                    </div>
+                  </CardFooter>
+                </div>
               </Card>
             ))
           )}
