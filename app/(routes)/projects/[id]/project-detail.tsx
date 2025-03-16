@@ -37,9 +37,6 @@ import { Prism as SyntaxHighlighter } from 'react-syntax-highlighter';
 import { oneDark, oneLight } from 'react-syntax-highlighter/dist/cjs/styles/prism';
 import { useTheme } from "next-themes";
 
-// Add this type declaration
-type PrismStyleType = { [key: string]: React.CSSProperties };
-
 interface ProjectDetailProps {
   project: Project;
 }
