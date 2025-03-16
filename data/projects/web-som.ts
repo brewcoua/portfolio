@@ -4,12 +4,12 @@ const title = "Web SoM (Set-of-Marks)";
 
 const abstract = "A Set-of-Marks script for web grounding, suitable for web agent automation. This script enables precise visual element selection by analyzing visibility and interaction potential of web elements, making it particularly effective for automated web testing and interaction.";
 
-const description = `web-som is a specialized script for web element grounding that enhances web automation capabilities. When using this script, the web page should not have any animations or dynamic content that could interfere with the script's operation. Additionally, since the script uses pixel-based visibility analysis, the page should be fully loaded and stable to avoid deadlock.
+const description = `Web SoM is a specialized script for web element grounding that enhances web automation capabilities. When using this script, the web page should not have any animations or dynamic content that could interfere with the script's operation. Additionally, since the script uses pixel-based visibility analysis, the page should be fully loaded and stable to avoid deadlock.
 
 The script implements a sophisticated three-step process for reliable element selection:
 
 1. **Elements loading**
-   - Queries all elements on the page using specific selectors (e.g. \`button\`, \`input\`, etc.)
+   - Queries all elements on the page using specific selectors (e.g., \`button\`, \`input\`, etc.)
    - Uses \`querySelectorAll()\` to build a comprehensive list of interactive elements
    - Stores elements that display a pointer cursor for potential interaction
 
@@ -29,8 +29,22 @@ The script implements a sophisticated three-step process for reliable element se
 The script is designed to be easily integrated into web automation frameworks and testing tools. It can be included in web pages using standard script tags:
 
 \`\`\`html
-<script src="https://unpkg.com/@brewcoua/web-som/script.js"></script>
-<script src="https://unpkg.com/@brewcoua/web-som/somapi.js"></script>
+<!-- Latest version -->
+<script src="https://unpkg.com/@brewcoua/web-som"></script>
+
+<!-- Specific version -->
+<script src="https://unpkg.com/@brewcoua/web-som@1.0.0"></script>
+\`\`\`
+
+And then you can used in the following way:
+
+\`\`\`javascript
+(async () => {
+	await window.SoM.display();
+	console.log('Set-of-Marks displayed');
+	const mark = window.SoM.resolve(4); // Resolve the fourth mark (with label '4')
+	mark.click(); // Click the mark
+})();
 \`\`\`
 
 This work builds upon recent advances in visual grounding techniques [[1]](#ref-1), particularly in the context of web automation and testing [[2]](#ref-2). The implementation demonstrates practical applications of visual analysis in web interfaces while maintaining high reliability and usability.`;
