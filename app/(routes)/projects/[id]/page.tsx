@@ -12,6 +12,27 @@ import { useParams } from "next/navigation";
 import projectsData from "@/data/projects";
 import { Skeleton } from "@/components/ui/skeleton";
 import { getProjectStatusVariant } from "@/types";
+import { type Metadata } from "next"
+
+type Props = {
+  params: { id: string }
+}
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const project = projectsData.projects.find(p => p.id === params.id);
+  
+  if (!project) {
+    return {
+      title: "Project Not Found",
+      description: "The requested project could not be found.",
+    }
+  }
+
+  return {
+    title: `${project.title} / Projects`,
+    description: project.description,
+  }
+}
 
 export default function ProjectPage() {
   const params = useParams();

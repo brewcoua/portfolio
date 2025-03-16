@@ -10,7 +10,6 @@ import { useRouter } from "next/navigation";
 import projectsData from "@/data/projects";
 import skillsData from "@/data/skills";
 import { useState, useEffect } from "react";
-import { Skeleton } from "@/components/ui/skeleton";
 import { ProjectCardSkeleton } from "@/components/project-card-skeleton";
 import { SkillCategoryData } from "@/types";
 
@@ -44,7 +43,7 @@ export default function Home() {
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
-              <a href="https://github.com/brewen-dev" target="_blank" rel="noopener noreferrer">
+              <a href="https://github.com/brewcoua" target="_blank" rel="noopener noreferrer">
                 <Github className="mr-2" />
                 GitHub
               </a>
@@ -56,7 +55,7 @@ export default function Home() {
               </a>
             </Button>
             <Button variant="outline" asChild>
-              <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
+              <a href="/resume" target="_blank" rel="noopener noreferrer">
                 <FileText className="mr-2" />
                 Resume
               </a>

@@ -10,6 +10,7 @@ import projectsData from "@/data/projects";
 import { useState, useEffect } from "react";
 import { ProjectCardSkeleton } from "@/components/project-card-skeleton";
 import { getProjectStatusVariant } from "@/types";
+import { type Metadata } from "next"
 
 export default function ProjectsPage() {
   const [imageErrors, setImageErrors] = useState<Record<string, boolean>>({});

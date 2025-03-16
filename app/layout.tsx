@@ -1,9 +1,10 @@
-import type { Metadata } from "next";
+import { type Metadata } from "next";
 import { Geist } from "next/font/google";
 import "./globals.css";
 import { ThemeProvider } from "@/components/theme-provider";
 import { Navigation } from "@/components/navigation";
 import { Footer } from "@/components/footer";
+import { headers } from "next/headers";
 
 const geist = Geist({
   subsets: ["latin"],
@@ -11,7 +12,10 @@ const geist = Geist({
 });
 
 export const metadata: Metadata = {
-  title: "Brewen - Computer Science Student",
+  title: {
+    template: "Portfolio / %s | Brewen",
+    default: "Portfolio | Brewen"
+  },
   description: "Computer Science student at the University of Bordeaux, currently on exchange at Hanyang University.",
 };
 

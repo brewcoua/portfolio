@@ -8,12 +8,12 @@ export function Footer() {
 
   return (
     <footer className="border-t">
-      <div className="container max-w-4xl py-6 px-4">
-        <div className="flex flex-col items-center gap-4 sm:flex-row sm:justify-between">
+      <div className="w-full py-6 px-4">
+        <div className="grid grid-cols-[1fr_auto_1fr] items-center gap-4">
           <div className="flex items-center gap-2">
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://github.com/yourusername"
+                href="https://github.com/brewcoua"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitHub"
@@ -23,7 +23,7 @@ export function Footer() {
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://gitlab.com/yourusername"
+                href="https://gitlab.com/brewcoua"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="GitLab"
@@ -33,7 +33,7 @@ export function Footer() {
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://codeberg.org/yourusername"
+                href="https://codeberg.org/brewcoua"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Codeberg"
@@ -43,7 +43,7 @@ export function Footer() {
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://linkedin.com/in/yourusername"
+                href="https://linkedin.com/in/brewcoua"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -53,7 +53,7 @@ export function Footer() {
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="https://mastodon.social/@yourusername"
+                href="https://mastodon.social/@brewcoua"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Mastodon"
@@ -63,7 +63,7 @@ export function Footer() {
             </Button>
             <Button variant="ghost" size="icon" asChild>
               <a
-                href="mailto:your.email@example.com"
+                href="mailto:contact@brewen.dev"
                 aria-label="Email"
               >
                 <Mail className="h-5 w-5" />
@@ -71,8 +71,9 @@ export function Footer() {
             </Button>
           </div>
           <p className="text-sm text-muted-foreground">
-            © {currentYear} Your Name. All rights reserved.
+            © {currentYear} Brewen Couaran. All rights reserved.
           </p>
+          <div></div>
         </div>
       </div>
     </footer>
