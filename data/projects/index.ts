@@ -1,13 +1,17 @@
 import { ProjectsData } from "@/types";
-import { webSom } from "./web-som";
+import { webSom } from "./websom";
 import { webWisp } from "./webwisp";
-import { packmind } from "./packmind";
+import { promyze } from "./promyze";
+import { portfolio } from "./portfolio";
+import { jbCli } from "./jb";
 
 const projectsData: ProjectsData = {
   projects: [
+    portfolio,
     webWisp,
     webSom,
-    packmind
+    jbCli,
+    promyze
   ]
 };
 

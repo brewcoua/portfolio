@@ -84,6 +84,7 @@ export const webWisp: Project = {
   abstract,
   description,
   technologies,
+  thumbnail: "/thumbnails/webwisp.png",
   githubUrl: "https://github.com/brewcoua/webwisp",
   date: "May 2024",
   featured: true,

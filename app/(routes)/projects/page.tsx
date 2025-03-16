@@ -88,7 +88,7 @@ export default function ProjectsPage() {
   }, [searchQuery, selectedTechnology, selectedStatus, selectedRole]);
 
   return (
-    <div className="container max-w-6xl space-y-8 pt-24 px-4 sm:px-6 lg:px-8 mx-auto">
+    <div className="container max-w-6xl space-y-8 pt-24 pb-16 px-4 sm:px-6 lg:px-8 mx-auto">
       <div className="space-y-8">
         <div className="space-y-4">
           <h1 className="text-4xl font-bold tracking-tight">Projects</h1>
@@ -211,7 +211,7 @@ export default function ProjectsPage() {
                     <div className="space-y-4">
                       <h3 className="text-xl font-semibold">{project.title}</h3>
                       <p className="text-muted-foreground line-clamp-3">
-                        {project.description}
+                        {project.abstract}
                       </p>
                       <div className="flex flex-wrap gap-2">
                         {project.technologies.slice(0, 3).map((tech) => (

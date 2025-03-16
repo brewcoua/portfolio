@@ -11,7 +11,8 @@ const skillsData: SkillsData = {
         "Rust",
         "C",
         "C++",
-        "SQL"
+        "SQL",
+        "Bash/Shell Script"
       ]
     },
     {
@@ -28,7 +29,13 @@ const skillsData: SkillsData = {
         "Kubernetes",
         "AWS",
         "CI/CD",
-        "GitOps"
+        "GitOps",
+        "JWT Authentication",
+        "DOM API",
+        "Web APIs",
+        "Shadcn UI",
+        "Markdown",
+        "Responsive Design"
       ]
     },
     {
@@ -37,6 +44,7 @@ const skillsData: SkillsData = {
         "Git",
         "GitHub",
         "AI/LLM Integration",
+        "OpenAI API",
         "Chat GPT APIs",
         "Task Queue Systems",
         "Web Automation",
@@ -44,7 +52,26 @@ const skillsData: SkillsData = {
         "PostgreSQL",
         "Redis",
         "RabbitMQ",
-        "MongoDB"
+        "MongoDB",
+        "Tokio",
+        "Clap-rs",
+        "Reqwest",
+        "Flume",
+        "Flate2"
+      ]
+    },
+    {
+      category: SkillCategory.CONCEPTS,
+      items: [
+        "Cloud Computing",
+        "Systems Programming",
+        "Cybersecurity",
+        "Async Programming",
+        "Concurrent Programming",
+        "Distributed Systems",
+        "Microservices Architecture",
+        "Performance Optimization",
+        "Memory Management"
       ]
     },
     {

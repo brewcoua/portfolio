@@ -88,7 +88,7 @@ export const webSom: Project = {
   abstract,
   description,
   technologies,
-  thumbnail: "/thumbnails/websom-2024.png",
+  thumbnail: "/thumbnails/websom.png",
   githubUrl: "https://github.com/brewcoua/web-som",
   date: "May 2024",
   featured: true,

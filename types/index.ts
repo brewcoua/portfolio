@@ -38,7 +38,7 @@ export interface Project {
   githubUrl?: string;
   liveUrl?: string;
   date: string;
-  featured: boolean;
+  featured?: boolean;
   highlights?: string[];
   role: string;
   status: ProjectStatus;

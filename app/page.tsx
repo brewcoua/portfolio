@@ -39,7 +39,7 @@ export default function Home() {
             Hi, I'm Brewen 👋
           </h1>
           <p className="text-lg text-muted-foreground max-w-[800px]">
-            BSc Computer Science student passionate about web technologies and AI integration. Currently studying at the University of Bordeaux and Hanyang University.
+            BSc Computer Science student specializing in cloud computing, systems programming, and cybersecurity. Passionate about building robust software with a focus on performance and security, while exploring AI integration for practical applications. Currently studying at the University of Bordeaux and Hanyang University.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
@@ -103,6 +103,7 @@ export default function Home() {
                 <>
                   <ProjectCardSkeleton />
                   <ProjectCardSkeleton />
+                  <ProjectCardSkeleton />
                 </>
               ) : (
                 featuredProjects.map(project => (
@@ -133,7 +134,7 @@ export default function Home() {
                       <CardContent className="p-3 space-y-2">
                         <h3 className="font-medium">{project.title}</h3>
                         <p className="text-sm text-muted-foreground line-clamp-2">
-                          {project.description}
+                          {project.abstract}
                         </p>
                         <div className="flex items-center justify-between gap-2">
                           <div className="flex flex-wrap gap-1.5">
