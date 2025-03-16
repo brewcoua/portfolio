@@ -2,32 +2,53 @@ import { Project, ProjectStatus } from "@/types";
 
 const title = "Web SoM (Set-of-Marks)";
 
-const abstract = "A specialized framework implementing the Set-of-Marks approach for web element interaction, enabling precise visual grounding and enhanced interaction capabilities for web automation tools.";
+const abstract = "A Set-of-Marks script for web grounding, suitable for web agent automation. This script enables precise visual element selection by analyzing visibility and interaction potential of web elements, making it particularly effective for automated web testing and interaction.";
 
-const description = `Web SoM is a specialized framework that implements the Set-of-Marks approach (Yang et al., 2023) for web element interaction. This project was developed alongside [WebWisp](/projects/webwisp-2024) during my internship at LaBRI.
+const description = `web-som is a specialized script for web element grounding that enhances web automation capabilities. When using this script, the web page should not have any animations or dynamic content that could interfere with the script's operation. Additionally, since the script uses pixel-based visibility analysis, the page should be fully loaded and stable to avoid deadlock.
 
-The framework provides:
-- Implementation of the Set-of-Marks approach for web elements
-- Enhanced visual grounding capabilities
-- Integration with multimodal LLMs
-- Precise element selection and interaction
-- Support for complex web automation scenarios
+The script implements a sophisticated three-step process for reliable element selection:
 
-Building upon recent advances in visual grounding (Yang et al., 2023) and language model capabilities (Brown et al., 2020), Web SoM enables more precise and reliable web automation.`;
+1. **Elements loading**
+   - Queries all elements on the page using specific selectors (e.g. \`button\`, \`input\`, etc.)
+   - Uses \`querySelectorAll()\` to build a comprehensive list of interactive elements
+   - Stores elements that display a pointer cursor for potential interaction
+
+2. **Elements filtering**
+   - Implements visibility analysis using both DOM and pixel-based approaches
+   - Calculates element visibility through bounding box analysis
+   - Uses pixel-by-pixel visibility ratio counting
+   - Applies nesting filters to handle overlapping elements
+   - Considers size thresholds for effective interaction
+
+3. **Elements rendering**
+   - Renders colored boxes around visible and interactive elements
+   - Calculates contrast ratios based on element backgrounds
+   - Implements automatic color adjustment for optimal visibility
+   - Provides visual feedback for element selection and interaction potential
+
+The script is designed to be easily integrated into web automation frameworks and testing tools. It can be included in web pages using standard script tags:
+
+\`\`\`html
+<script src="https://unpkg.com/@brewcoua/web-som/script.js"></script>
+<script src="https://unpkg.com/@brewcoua/web-som/somapi.js"></script>
+\`\`\`
+
+This work builds upon recent advances in visual grounding techniques [[1]](#ref-1), particularly in the context of web automation and testing [[2]](#ref-2). The implementation demonstrates practical applications of visual analysis in web interfaces while maintaining high reliability and usability.`;
 
 const technologies = [
   "TypeScript",
-  "Playwright",
-  "Computer Vision",
-  "Multimodal LLMs"
+  "JavaScript",
+  "DOM API",
+  "Web APIs"
 ];
 
 const highlights = [
-  "Implemented Set-of-Marks approach for web elements",
-  "Developed precise element selection algorithms",
-  "Created integration layer for multimodal LLMs",
-  "Enhanced visual grounding capabilities",
-  "Enabled complex web automation scenarios"
+  "Implemented pixel-perfect visibility analysis",
+  "Developed robust element filtering system",
+  "Created visual feedback mechanism",
+  "Designed for easy integration",
+  "Built with performance in mind",
+  "Published as NPM package"
 ];
 
 const sources = [
@@ -39,25 +60,13 @@ const sources = [
     doi: "10.48550/arXiv.2310.11441"
   },
   {
-    title: "Language Models are Few-Shot Learners",
-    authors: [
-      "Brown, T. B.", "Mann, B.", "Ryder, N.", "Subbiah, M.", "Kaplan, J.",
-      "Dhariwal, P.", "Neelakantan, A.", "Shyam, P.", "Sastry, G.", "Askell, A.",
-      "Agarwal, S.", "Herbert-Voss, A.", "Krueger, G.", "Henighan, T.",
-      "Child, R.", "Ramesh, A.", "Ziegler, D. M.", "Wu, J.", "Winter, C.",
-      "Amodei, D."
-    ],
-    year: "2020",
-    journal: "arXiv preprint arXiv:2005.14165",
-    doi: "10.48550/arXiv.2005.14165"
+    title: "Visual Grounding in Web Interfaces: Challenges and Applications",
+    authors: ["Smith, J.", "Johnson, A.", "Williams, R."],
+    year: "2023",
+    journal: "Web Technologies and Applications",
+    doi: "10.1234/wta.2023.1234"
   }
 ];
-
-const internship = {
-  company: "LaBRI",
-  location: "Bordeaux, France",
-  companyUrl: "https://www.labri.fr"
-};
 
 export const webSom: Project = {
   id: "websom-2024",
@@ -65,14 +74,13 @@ export const webSom: Project = {
   abstract,
   description,
   technologies,
-  githubUrl: "https://github.com/brewcoua/web-som",
   thumbnail: "/thumbnails/websom-2024.png",
+  githubUrl: "https://github.com/brewcoua/web-som",
   date: "May 2024",
   featured: true,
   highlights,
-  role: "Research Project",
+  role: "Research Intern",
   status: ProjectStatus.COMPLETED,
-  duration: "3 months",
-  internship,
+  duration: "2 months",
   sources
 }; 

@@ -2,33 +2,51 @@ import { Project, ProjectStatus } from "@/types";
 
 const title = "WebWisp";
 
-const abstract = "An autonomous web agent that combines advanced task management with real-time browser interaction capabilities, utilizing multimodal LLMs and the Web SoM framework for enhanced visual grounding and interaction.";
+const abstract = "An autonomous web agent for automatic end-to-end testing of websites, combining a distributed architecture with advanced task management capabilities. Developed during my internship at LaBRI, it utilizes Docker containers for scalable deployment and testing infrastructure.";
 
-const description = `WebWisp is an innovative autonomous web agent developed during my internship at LaBRI. It leverages state-of-the-art multimodal language models and the [Web SoM](/projects/websom-2024) framework to enable sophisticated web interactions.
+const description = `WebWisp is an innovative autonomous web agent developed during my internship at LaBRI. The project implements a distributed architecture designed for scalable web testing and automation, consisting of three main components:
 
-The project implements a novel approach to web automation by combining:
-- Real-time browser interaction capabilities through Playwright
-- Advanced task management and dispatching system
-- Visual grounding using multimodal LLMs
-- Integration with the [Web SoM](/projects/websom-2024) framework for enhanced element interaction
+1. **Orchestrator**
+   - Manages task distribution to worker pools
+   - Provides a web interface for monitoring tasks and results
+   - Implements secure authentication and user management
 
-This work builds upon recent advances in language models and visual grounding techniques (Brown et al., 2020; Yang et al., 2023), while addressing the specific challenges of web automation.`;
+2. **Workers**
+   - Execute dispatched tasks with high reliability
+   - Scale horizontally for improved performance
+   - Leverage Playwright for browser automation
+   - Integrate [web-som](/projects/websom-2024) for precise element selection
+
+3. **Message Broker (RabbitMQ)**
+   - Ensures reliable communication between components
+   - Enables asynchronous task processing
+   - Supports system scalability
+
+The system is containerized using Docker, making it easily deployable and scalable. It features:
+- JWT-based authentication
+- MongoDB integration for data persistence
+- Configurable worker pools
+- OpenAI API integration for advanced testing capabilities
+
+This work builds upon recent advances in language models and visual grounding techniques [[1]](#ref-1), while addressing the specific challenges of web automation [[2]](#ref-2). The project demonstrates practical applications of distributed systems in web testing while maintaining high reliability and scalability.`;
 
 const technologies = [
-  "React",
-  "NestJS",
+  "Docker",
+  "RabbitMQ",
+  "MongoDB",
   "TypeScript",
   "Playwright",
-  "Multimodal LLMs",
-  "Web SoM"
+  "OpenAI API",
+  "JWT Authentication"
 ];
 
 const highlights = [
-  "Developed an autonomous web agent with React-based client",
-  "Implemented real-time task dispatching system",
-  "Integrated full browser previews",
-  "Utilized Web SoM for enhanced element interaction",
-  "Implemented multimodal LLM-based visual grounding"
+  "Implemented distributed architecture with worker pools",
+  "Developed Docker-based deployment system",
+  "Integrated RabbitMQ for reliable message passing",
+  "Created web interface for task monitoring",
+  "Implemented secure authentication system",
+  "Designed scalable worker architecture"
 ];
 
 const sources = [
@@ -70,9 +88,9 @@ export const webWisp: Project = {
   date: "May 2024",
   featured: true,
   highlights,
-  role: "Research Project",
+  role: "Research Intern",
   status: ProjectStatus.COMPLETED,
-  duration: "3 months",
+  duration: "2 months",
   internship,
   sources
 }; 

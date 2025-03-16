@@ -28,6 +28,9 @@ import { useState } from "react";
 import { Project, getProjectStatusVariant } from "@/types";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
+import rehypeRaw from "rehype-raw";
+import type { Components } from 'react-markdown';
+import React from "react";
 
 interface ProjectDetailProps {
   project: Project;
@@ -35,6 +38,41 @@ interface ProjectDetailProps {
 
 export function ProjectDetail({ project }: ProjectDetailProps) {
   const [imageError, setImageError] = useState(false);
+
+  // Custom components for ReactMarkdown
+  const components: Components = {
+    ol: ({ children }) => (
+      <ol className="list-decimal pl-6 space-y-1">{children}</ol>
+    ),
+    ul: ({ children }) => (
+      <ul className="list-disc pl-6 space-y-1">{children}</ul>
+    ),
+    a: ({ href, children, ...props }) => {
+      if (href?.startsWith('#ref-')) {
+        // For reference links, just show the number
+        return (
+          <a href={href} className="text-primary hover:underline" {...props}>
+            {children}
+          </a>
+        );
+      }
+      return (
+        <a href={href} className="text-primary hover:underline" target="_blank" rel="noopener noreferrer" {...props}>
+          {children}
+        </a>
+      );
+    },
+    p: ({ children }) => {
+      // Convert [^1] style references to anchor links
+      const content = React.Children.map(children, child => {
+        if (typeof child === 'string') {
+          return child.replace(/\[\^(\d+)\]/g, (_, num) => `[${num}](#ref-${num})`);
+        }
+        return child;
+      });
+      return <p>{content}</p>;
+    }
+  };
 
   return (
     <div className="container max-w-4xl space-y-8 pt-24 pb-16 px-4 sm:px-6 lg:px-8 mx-auto">
@@ -216,7 +254,11 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               <CardTitle>Description</CardTitle>
             </CardHeader>
             <CardContent className="prose prose-neutral dark:prose-invert max-w-none text-muted-foreground">
-              <ReactMarkdown remarkPlugins={[remarkGfm]}>
+              <ReactMarkdown 
+                remarkPlugins={[remarkGfm]} 
+                rehypePlugins={[rehypeRaw]}
+                components={components}
+              >
                 {project.description}
               </ReactMarkdown>
             </CardContent>
@@ -245,7 +287,11 @@ export function ProjectDetail({ project }: ProjectDetailProps) {
               <CardContent>
                 <div className="space-y-4">
                   {project.sources.map((source, index) => (
-                    <div key={index} className="space-y-2">
+                    <div 
+                      key={index} 
+                      id={`ref-${index + 1}`}
+                      className="space-y-2 rounded-md -mx-2 px-2 py-1 target:bg-muted/50 transition-colors duration-300"
+                    >
                       <div className="flex items-start gap-2">
                         <BookOpen className="h-5 w-5 mt-0.5 flex-shrink-0 text-muted-foreground" />
                         <div>
