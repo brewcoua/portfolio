@@ -8,7 +8,7 @@ export default function ResumePage() {
       <div className="flex items-center justify-between">
         <div className="space-y-1">
           <h1 className="text-4xl font-bold tracking-tight">Brewen Couaran</h1>
-          <p className="text-lg text-muted-foreground">BSc Comp. Sci. Student</p>
+          <p className="text-lg text-muted-foreground">M.Sc. Comp. Sci. Student</p>
         </div>
         <Button asChild>
           <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
@@ -48,7 +48,7 @@ export default function ResumePage() {
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>Bordeaux, France | Ansan, South Korea</span>
+                <span>Delft, Netherlands</span>
               </div>
             </div>
           </div>
@@ -102,13 +102,26 @@ export default function ResumePage() {
           <div>
             <div className="flex justify-between items-start mb-2">
               <div>
+                <h3 className="font-semibold">TU Delft</h3>
+                <p className="text-sm text-muted-foreground">Master of Science in Computer Science</p>
+              </div>
+              <p className="text-sm text-muted-foreground">2025 - now</p>
+            </div>
+            <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
+              <li>ESN Delft, DISS Member</li>
+              <li>Christiaan Huygens Member (Student Association)</li>
+            </ul>
+          </div>
+          <div>
+            <div className="flex justify-between items-start mb-2">
+              <div>
                 <h3 className="font-semibold">Hanyang University (한양대학교)</h3>
                 <p className="text-sm text-muted-foreground">Exchange Student | Bachelor of Science in Computer Science</p>
               </div>
-              <p className="text-sm text-muted-foreground">2024 - now</p>
+              <p className="text-sm text-muted-foreground">2024 - 2025</p>
             </div>
             <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>Fall Semester GPA: 93.3/100 (KR)</li>
+              <li>Yearly GPA: 93/100 (KR)</li>
               <li>Residential College Center Member</li>
               <li>International Club Member</li>
             </ul>
@@ -119,11 +132,10 @@ export default function ResumePage() {
                 <h3 className="font-semibold">University of Bordeaux</h3>
                 <p className="text-sm text-muted-foreground">Bachelor of Science in Computer Science | International Track</p>
               </div>
-              <p className="text-sm text-muted-foreground">2022 - now</p>
+              <p className="text-sm text-muted-foreground">2022 - 2025</p>
             </div>
             <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>2nd Year GPA: 165.24/200 (FR)</li>
-              <li>1st Year GPA: 151.28/200 (FR)</li>
+              <li>GPA: 165.24/200 (FR)</li>
               <li>Selective International Programme Member</li>
               <li>Courses mainly followed in English</li>
             </ul>

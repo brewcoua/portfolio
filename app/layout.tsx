@@ -15,7 +15,7 @@ export const metadata: Metadata = {
     template: "Portfolio / %s | Brewen",
     default: "Portfolio | Brewen"
   },
-  description: "Computer Science student at the University of Bordeaux, currently on exchange at Hanyang University.",
+  description: "M.Sc. Computer Science student at TU Delft, specializing in software engineering, cloud computing, and systems programming.",
 };
 
 export default function RootLayout({
