@@ -39,7 +39,9 @@ export default function Home() {
             Hi, I&apos;m Brewen 👋
           </h1>
           <p className="text-lg text-muted-foreground max-w-[800px]">
-            BSc Computer Science student specializing in cloud computing, systems programming, and cybersecurity. Passionate about building robust software with a focus on performance and security, while exploring AI integration for practical applications. Currently studying at the University of Bordeaux and Hanyang University.
+            M.Sc. Computer Science student specializing in software engineering, cloud computing, and systems programming. 
+            Passionate about building robust software with a focus on performance and security, while exploring AI integration for practical applications.
+            Currently studying at TU Delft in the Netherlands.
           </p>
           <div className="flex flex-wrap gap-3">
             <Button asChild>
