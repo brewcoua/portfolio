@@ -1,20 +1,57 @@
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { Button } from "@/components/ui/button"
-import { FileDown, Github, Mail, Link as LinkIcon, MapPin } from "lucide-react"
+"use client";
+
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { FileDown, Github, Mail, Link as LinkIcon, MapPin } from "lucide-react";
+import resumeData from "@/public/resume.json";
+import { useState } from "react";
 
 export default function ResumePage() {
+  const { personal, education, experience, languages, certifications } =
+    resumeData;
+  const [isGenerating, setIsGenerating] = useState(false);
+
+  const handleDownloadPDF = async () => {
+    setIsGenerating(true);
+    try {
+      const response = await fetch("/api/gen-cv", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(resumeData),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to generate PDF");
+      }
+
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${personal.name.replace(/\s+/g, "_")}_Resume.pdf`;
+      document.body.appendChild(a);
+      a.click();
+      window.URL.revokeObjectURL(url);
+      document.body.removeChild(a);
+    } catch (error) {
+      console.error("Error generating PDF:", error);
+      alert("Failed to generate PDF. Please try again.");
+    } finally {
+      setIsGenerating(false);
+    }
+  };
   return (
     <div className="container max-w-4xl space-y-8 pt-24 pb-16 px-4 sm:px-6 lg:px-8 mx-auto">
       <div className="flex items-center justify-between">
         <div className="space-y-1">
-          <h1 className="text-4xl font-bold tracking-tight">Brewen Couaran</h1>
-          <p className="text-lg text-muted-foreground">M.Sc. Comp. Sci. Student</p>
+          <h1 className="text-4xl font-bold tracking-tight">{personal.name}</h1>
+          <p className="text-lg text-muted-foreground">{personal.title}</p>
         </div>
-        <Button asChild>
-          <a href="/resume.pdf" target="_blank" rel="noopener noreferrer">
-            <FileDown className="mr-2 h-4 w-4" />
-            Download PDF
-          </a>
+        <Button onClick={handleDownloadPDF} disabled={isGenerating}>
+          <FileDown className="mr-2 h-4 w-4" />
+          {isGenerating ? "Generating..." : "Download PDF"}
         </Button>
       </div>
 
@@ -28,27 +65,40 @@ export default function ResumePage() {
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <Mail className="h-4 w-4" />
-                <a href="mailto:contact@brewen.dev" className="text-primary hover:underline">
-                  contact@brewen.dev
+                <a
+                  href={`mailto:${personal.email}`}
+                  className="text-primary hover:underline"
+                >
+                  {personal.email}
                 </a>
               </div>
               <div className="flex items-center gap-2 text-sm">
                 <LinkIcon className="h-4 w-4" />
-                <a href="https://www.brewen.dev" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  www.brewen.dev
+                <a
+                  href={`https://${personal.website}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  {personal.website}
                 </a>
               </div>
             </div>
             <div className="space-y-2">
               <div className="flex items-center gap-2 text-sm">
                 <Github className="h-4 w-4" />
-                <a href="https://github.com/brewcoua" target="_blank" rel="noopener noreferrer" className="text-primary hover:underline">
-                  @brewcoua
+                <a
+                  href={`https://github.com/${personal.github}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-primary hover:underline"
+                >
+                  @{personal.github}
                 </a>
               </div>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                <span>Delft, Netherlands</span>
+                <span>{personal.location}</span>
               </div>
             </div>
           </div>
@@ -61,35 +111,24 @@ export default function ResumePage() {
           <CardTitle>Professional & Research Experience</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div>
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-semibold">Research Intern</h3>
-                <p className="text-sm text-muted-foreground">Laboratoire Bordelais de Recherche en Informatique (LaBRI)</p>
+          {experience.map((exp, index) => (
+            <div key={index}>
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-semibold">{exp.position}</h3>
+                  <p className="text-sm text-muted-foreground">{exp.company}</p>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {exp.startDate} - {exp.endDate}
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground">May 2024 - July 2024</p>
+              <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
+                {exp.achievements.map((achievement, achIndex) => (
+                  <li key={achIndex}>{achievement}</li>
+                ))}
+              </ul>
             </div>
-            <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>Developed WebWisp, an autonomous web agent, with a React-based client for real-time task dispatching and full browser previews.</li>
-              <li>Collaborated with start-ups to innovate web grounding solutions, including a Set-of-Marks script for interactive elements.</li>
-              <li>Created a NestJS server-side API for task management, integrating Multimodal LLMs for dynamic workflows.</li>
-              <li>Utilized Playwright for automating user interactions, optimized performance with distributed task queue architecture.</li>
-            </ul>
-          </div>
-          <div>
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-semibold">Developer Intern</h3>
-                <p className="text-sm text-muted-foreground">Packmind (prev. Promyze)</p>
-              </div>
-              <p className="text-sm text-muted-foreground">June 2023 - August 2023</p>
-            </div>
-            <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>Developed new features like new roles and icons, integrated with Git hosts like GitHub.</li>
-              <li>Utilized web technologies such as Javascript, Typescript, AngularJS, and React.</li>
-              <li>Created algorithms to recommend modifications in Git history, integrating AI using Chat GPT APIs.</li>
-            </ul>
-          </div>
+          ))}
         </CardContent>
       </Card>
 
@@ -99,47 +138,25 @@ export default function ResumePage() {
           <CardTitle>Education</CardTitle>
         </CardHeader>
         <CardContent className="space-y-6">
-          <div>
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-semibold">TU Delft</h3>
-                <p className="text-sm text-muted-foreground">Master of Science in Computer Science</p>
+          {education.map((edu, index) => (
+            <div key={index}>
+              <div className="flex justify-between items-start mb-2">
+                <div>
+                  <h3 className="font-semibold">{edu.institution}</h3>
+                  <p className="text-sm text-muted-foreground">{edu.degree}</p>
+                </div>
+                <p className="text-sm text-muted-foreground">
+                  {edu.startDate} - {edu.endDate}
+                </p>
               </div>
-              <p className="text-sm text-muted-foreground">2025 - now</p>
+              <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
+                {edu.gpa && <li>{edu.gpa}</li>}
+                {edu.details.map((detail, detailIndex) => (
+                  <li key={detailIndex}>{detail}</li>
+                ))}
+              </ul>
             </div>
-            <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>ESN Delft, DISS Member</li>
-              <li>Christiaan Huygens Member (Student Association)</li>
-            </ul>
-          </div>
-          <div>
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-semibold">Hanyang University (한양대학교)</h3>
-                <p className="text-sm text-muted-foreground">Exchange Student | Bachelor of Science in Computer Science</p>
-              </div>
-              <p className="text-sm text-muted-foreground">2024 - 2025</p>
-            </div>
-            <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>Yearly GPA: 93/100 (KR)</li>
-              <li>Residential College Center Member</li>
-              <li>International Club Member</li>
-            </ul>
-          </div>
-          <div>
-            <div className="flex justify-between items-start mb-2">
-              <div>
-                <h3 className="font-semibold">University of Bordeaux</h3>
-                <p className="text-sm text-muted-foreground">Bachelor of Science in Computer Science | International Track</p>
-              </div>
-              <p className="text-sm text-muted-foreground">2022 - 2025</p>
-            </div>
-            <ul className="mt-2 list-disc list-inside text-sm text-muted-foreground space-y-1">
-              <li>GPA: 165.24/200 (FR)</li>
-              <li>Selective International Programme Member</li>
-              <li>Courses mainly followed in English</li>
-            </ul>
-          </div>
+          ))}
         </CardContent>
       </Card>
 
@@ -150,14 +167,14 @@ export default function ResumePage() {
         </CardHeader>
         <CardContent>
           <div className="grid gap-4 sm:grid-cols-2">
-            <div>
-              <h3 className="font-semibold">CAE C1 English - 194 | 2022</h3>
-              <p className="text-sm text-muted-foreground">Cambridge University Assessment English</p>
-            </div>
-            <div>
-              <h3 className="font-semibold">TOEFL iBT - 109 | 2025</h3>
-              <p className="text-sm text-muted-foreground">ETS - Educational Testing Service</p>
-            </div>
+            {certifications.map((cert, index) => (
+              <div key={index}>
+                <h3 className="font-semibold">
+                  {cert.name} - {cert.score} | {cert.year}
+                </h3>
+                <p className="text-sm text-muted-foreground">{cert.issuer}</p>
+              </div>
+            ))}
           </div>
         </CardContent>
       </Card>
@@ -170,28 +187,28 @@ export default function ResumePage() {
         <CardContent>
           <div className="grid gap-4 sm:grid-cols-2">
             <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold">English</h3>
-                <p className="text-sm text-muted-foreground">Bilingual proficiency</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">French (Français)</h3>
-                <p className="text-sm text-muted-foreground">Native proficiency</p>
-              </div>
+              {languages.slice(0, 2).map((lang, index) => (
+                <div key={index}>
+                  <h3 className="font-semibold">{lang.language}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {lang.proficiency}
+                  </p>
+                </div>
+              ))}
             </div>
             <div className="space-y-4">
-              <div>
-                <h3 className="font-semibold">German (Deutsch)</h3>
-                <p className="text-sm text-muted-foreground">Elementary proficiency</p>
-              </div>
-              <div>
-                <h3 className="font-semibold">Korean (한국어)</h3>
-                <p className="text-sm text-muted-foreground">Elementary proficiency</p>
-              </div>
+              {languages.slice(2).map((lang, index) => (
+                <div key={index + 2}>
+                  <h3 className="font-semibold">{lang.language}</h3>
+                  <p className="text-sm text-muted-foreground">
+                    {lang.proficiency}
+                  </p>
+                </div>
+              ))}
             </div>
           </div>
         </CardContent>
       </Card>
     </div>
-  )
-} 
+  );
+}

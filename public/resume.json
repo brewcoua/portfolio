@@ -1,0 +1,156 @@
+{
+  "personal": {
+    "name": "Brewen Couaran",
+    "title": "M.Sc. Comp. Sci. Student",
+    "phone": "+33 6 36 96 40 43",
+    "email": "contact@brewen.dev",
+    "location": "Delft, Netherlands",
+    "website": "www.brewen.dev",
+    "github": "brewcoua",
+    "linkedin": "brewcoua"
+  },
+  "education": [
+    {
+      "institution": "TU Delft",
+      "degree": "Master of Science in Computer Science",
+      "location": "Netherlands",
+      "startDate": "2025",
+      "endDate": "present",
+      "details": ["ESN Delft, DISS Member", "Christiaan Huygens Member (SA)"]
+    },
+    {
+      "institution": "Hanyang University (한양대학교)",
+      "degree": "Exchange Student | Bachelor of Science in Computer Science",
+      "location": "South Korea",
+      "startDate": "2024",
+      "endDate": "2025",
+      "gpa": "Yearly GPA: 93/100 (KR)",
+      "details": ["Residential College Center Member", "MCPC & HY-CoRA Member"]
+    },
+    {
+      "institution": "University of Bordeaux",
+      "degree": "Bachelor of Science in Computer Science | International Track",
+      "location": "France",
+      "startDate": "2022",
+      "endDate": "2025",
+      "gpa": "GPA: 165/200 (FR) / honors",
+      "details": [
+        "Selective International Programme Member",
+        "Courses mainly followed in English"
+      ]
+    }
+  ],
+  "experience": [
+    {
+      "company": "Laboratoire Bordelais de Recherche en Informatique (LABRI)",
+      "position": "Research Intern",
+      "location": "Bordeaux, France",
+      "startDate": "May 2024",
+      "endDate": "July 2024",
+      "achievements": [
+        "Developed WebWisp, an autonomous web agent, with a React-based client for real-time task dispatching and full browser previews",
+        "Collaborated with start-ups to innovate web grounding solutions, including a Set-of-Marks script for interactive elements",
+        "Created a NestJS server-side API for task management, integrating Multimodal LLMs for dynamic web workflows",
+        "Utilized Playwright for automating user interactions, optimized performance with distributed task queue architecture",
+        "Featured at the JFTL 2024 national conference on testing and automation"
+      ],
+      "technologies": ["React", "NestJS", "Playwright", "LLMs"]
+    },
+    {
+      "company": "Packmind (prev. Promyze)",
+      "position": "Developer Intern",
+      "location": "Remote",
+      "startDate": "June 2023",
+      "endDate": "August 2023",
+      "achievements": [
+        "Developed new features like new roles and icons, integrated with Git hosts like GitHub",
+        "Utilized web technologies such as Javascript, Typescript, AngularJS, and React",
+        "Created algorithms to recommend modifications in Git history, integrating AI using Chat GPT APIs"
+      ],
+      "technologies": ["JavaScript", "TypeScript", "AngularJS", "React", "Git"]
+    }
+  ],
+  "projects": [
+    {
+      "name": "WebWisp",
+      "description": "Autonomous web agent with browser automation",
+      "link": "github.com/brewcoua/webwisp",
+      "technologies": ["React", "NestJS", "Playwright"],
+      "highlights": [
+        "Real-time task dispatching system",
+        "Full browser preview integration",
+        "Multimodal LLM integration"
+      ]
+    },
+    {
+      "name": "Web Set-of-Marks",
+      "description": "Interactive element detection for web grounding",
+      "link": "github.com/brewcoua/web-som",
+      "technologies": ["JavaScript", "DOM Manipulation"],
+      "highlights": [
+        "Automated interactive element identification",
+        "Integration with web agents"
+      ]
+    }
+  ],
+  "skills": {
+    "languages": ["Rust", "JavaScript", "TypeScript", "Python", "Java"],
+    "frameworks": ["React", "AngularJS", "NestJS", "Node.js", "Actix Web"],
+    "tools": [
+      "Git",
+      "GitHub",
+      "Playwright",
+      "Docker",
+      "RabbitMQ",
+      "Redis",
+      "PostgreSQL",
+      "MongoDB"
+    ],
+    "other": [
+      "Web Automation",
+      "API Design",
+      "LLM Integration",
+      "Distributed Systems",
+      "System Programming",
+      "Cybersecurity",
+      "Async Programming",
+      "Concurrent Programming",
+      "Distributed Systems",
+      "Microservices Architecture",
+      "Performance Optimization",
+      "Memory Management"
+    ]
+  },
+  "languages": [
+    {
+      "language": "English",
+      "proficiency": "Bilingual proficiency"
+    },
+    {
+      "language": "French (Français)",
+      "proficiency": "Native proficiency"
+    },
+    {
+      "language": "German (Deutsch)",
+      "proficiency": "Elementary proficiency"
+    },
+    {
+      "language": "Korean (한국어)",
+      "proficiency": "Elementary proficiency"
+    }
+  ],
+  "certifications": [
+    {
+      "name": "CAE C1 English",
+      "issuer": "Cambridge University Assessment English",
+      "score": "194",
+      "year": "2022"
+    },
+    {
+      "name": "TOEFL iBT",
+      "issuer": "ETS - Educational Testing Service",
+      "score": "109",
+      "year": "2025"
+    }
+  ]
+}
