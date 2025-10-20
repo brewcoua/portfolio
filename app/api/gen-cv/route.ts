@@ -249,8 +249,9 @@ export async function POST(request: NextRequest) {
       await fs.rm(tempDir, { recursive: true, force: true }).catch(() => {});
     }
 
-    await fs.writeFile(
-      path.join(process.cwd(), "error.txt"),
+    // Log error to console instead of writing to file
+    console.error(
+      "PDF Generation Error Details:",
       JSON.stringify(error, null, 2),
     );
 
