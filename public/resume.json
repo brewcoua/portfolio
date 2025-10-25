@@ -95,7 +95,7 @@
   ],
   "skills": {
     "languages": ["Rust", "JavaScript", "TypeScript", "Python", "Java"],
-    "frameworks": ["React", "AngularJS", "NestJS", "Node.js", "Actix Web"],
+    "frameworks": ["React", "AngularJS", "NestJS", "Node.js", "Actix Web", "Flutter"],
     "tools": [
       "Git",
       "GitHub",
@@ -110,10 +110,9 @@
       "Web Automation",
       "API Design",
       "LLM Integration",
-      "Distributed Systems",
       "System Programming",
-      "Cybersecurity",
-      "Async Programming",
+      "Software Security",
+      "Good Practices",
       "Concurrent Programming",
       "Distributed Systems",
       "Microservices Architecture",
