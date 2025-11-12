@@ -1,65 +1,9 @@
-import { NextRequest, NextResponse } from "next/server";
-import { exec } from "child_process";
-import { promisify } from "util";
 import fs from "fs/promises";
 import path from "path";
-import os from "os";
+import crypto from "crypto";
+import { ResumeData } from "@/types/resume";
 
-const execAsync = promisify(exec);
-
-interface ResumeData {
-  personal: {
-    name: string;
-    title: string;
-    phone: string;
-    email: string;
-    website: string;
-    github: string;
-    linkedin: string;
-  };
-  education: Array<{
-    institution: string;
-    degree: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    gpa?: string;
-    details?: string[];
-  }>;
-  experience: Array<{
-    company: string;
-    position: string;
-    location: string;
-    startDate: string;
-    endDate: string;
-    achievements: string[];
-  }>;
-  projects: Array<{
-    name: string;
-    description: string;
-    link: string;
-    technologies: string[];
-    highlights: string[];
-  }>;
-  skills: {
-    languages: string[];
-    frameworks: string[];
-    tools: string[];
-    other: string[];
-  };
-  languages: Array<{
-    language: string;
-    proficiency: string;
-  }>;
-  certifications: Array<{
-    name: string;
-    issuer: string;
-    score: string;
-    year: string;
-  }>;
-}
-
-function escapeLatex(text: string): string {
+export function escapeLatex(text: string): string {
   return text
     .replace(/\\/g, "\\textbackslash{}")
     .replace(/[&%$#_{}]/g, "\\$&")
@@ -79,10 +23,53 @@ function generateEducationItems(education: ResumeData["education"]): string {
     .map((edu) => {
       // Add GPA to degree title if available
       const degreeWithGpa = edu.gpa ? `${edu.degree} | ${edu.gpa}` : edu.degree;
+      const detailItems = (edu.details ?? [])
+        .slice(0, 2)
+        .map((detail) => `\\item \\small{${escapeLatex(detail)}}`)
+        .join("\n        ");
+      const detailsBlock = detailItems
+        ? `
+      \\resumeItemListStart
+        ${detailItems}
+      \\resumeItemListEnd`
+        : "";
+      const exchangesBlock = (edu.exchanges ?? [])
+        .map((exchange) => {
+          const exchangeTitleParts = [
+            escapeLatex(exchange.institution),
+            exchange.program ? `\\emph{${escapeLatex(exchange.program)}}` : null,
+            exchange.location ? `\\small{${escapeLatex(exchange.location)}}` : null,
+          ].filter(Boolean) as string[];
+          const exchangeHeader = exchangeTitleParts.join(" $\\vert$ ");
+          const exchangeDetails = [
+            exchange.gpa ? `\\item \\small{${escapeLatex(exchange.gpa)}}` : null,
+            ...(exchange.details ?? [])
+              .slice(0, 2)
+              .map(
+                (detail) => `\\item \\small{${escapeLatex(detail)}}`,
+              ),
+          ]
+            .filter(Boolean)
+            .join("\n        ");
+          const exchangeDetailBlock = exchangeDetails
+            ? `
+      \\resumeItemListStart
+        ${exchangeDetails}
+      \\resumeItemListEnd`
+            : "";
+
+          return `\\resumeSubSubheading{${exchangeHeader}}{${formatDateRange(
+            exchange.startDate,
+            exchange.endDate,
+          )}}${exchangeDetailBlock}`;
+        })
+        .join("\n    ");
 
       return `\\resumeSubheading
       {${escapeLatex(edu.institution)}}{${escapeLatex(edu.location)}}
-      {${escapeLatex(degreeWithGpa)}}{${formatDateRange(edu.startDate, edu.endDate)}}`;
+      {${escapeLatex(degreeWithGpa)}}{${formatDateRange(edu.startDate, edu.endDate)}}${detailsBlock}${
+        exchangesBlock ? `\n    ${exchangesBlock}` : ""
+      }`;
     })
     .join("\n    ");
 }
@@ -91,6 +78,7 @@ function generateExperienceItems(experience: ResumeData["experience"]): string {
   return experience
     .map((exp) => {
       const achievements = exp.achievements
+        .slice(0, 3)
         .map((a) => `\\item \\small{${escapeLatex(a)}}`)
         .join("\n        ");
 
@@ -108,9 +96,10 @@ function generateProjectItems(projects: ResumeData["projects"]): string {
   return projects
     .map((proj) => {
       const highlights = proj.highlights
+        .slice(0, 2)
         .map((h) => `\\item \\small{${escapeLatex(h)}}`)
         .join("\n        ");
-      const tech = proj.technologies.join(", ");
+      const tech = proj.technologies.slice(0, 3).join(", ");
 
       return `\\resumeSubheading
       {\\textbf{${escapeLatex(proj.name)}} $|$ \\emph{${escapeLatex(tech)}}}{\\href{https://${proj.link}}{${proj.link}}}
@@ -135,6 +124,7 @@ function generateCertifications(
 
 function generateSpokenLanguages(languages: ResumeData["languages"]): string {
   return languages
+    .slice(0, 3)
     .map(
       (lang) =>
         `\\item \\small{\\textbf{${escapeLatex(lang.language)}}: ${escapeLatex(lang.proficiency)}}`,
@@ -142,7 +132,7 @@ function generateSpokenLanguages(languages: ResumeData["languages"]): string {
     .join("\n    ");
 }
 
-async function fillTemplate(
+export async function fillTemplate(
   data: ResumeData,
   templateContent: string,
 ): Promise<string> {
@@ -190,77 +180,37 @@ async function fillTemplate(
   return latex;
 }
 
-async function compilePDF(
-  texFilePath: string,
-  outputDir: string,
-): Promise<void> {
-  const command = `pdflatex -output-directory="${outputDir}" -interaction=nonstopmode "${texFilePath}"`;
-
-  // Run twice for proper rendering
-  await execAsync(command);
-  await execAsync(command);
+export async function getTemplateContent(): Promise<string> {
+  const templatePath = path.join(process.cwd(), "public", "resume.tex");
+  return await fs.readFile(templatePath, "utf-8");
 }
 
-export async function POST(request: NextRequest) {
-  let tempDir: string | null = null;
+// In-memory cache for resume data (keyed by hash)
+const resumeDataCache = new Map<string, ResumeData>();
 
-  try {
-    const data: ResumeData = await request.json();
+export function storeResumeData(data: ResumeData, preferredHash?: string): string {
+  // Generate a hash from the resume data when one is not provided
+  const dataString = JSON.stringify(data);
+  const hash =
+    preferredHash ??
+    crypto.createHash("sha256").update(dataString).digest("hex").substring(0, 16);
 
-    // Create temp directory
-    tempDir = await fs.mkdtemp(path.join(os.tmpdir(), "resume-"));
+  // Store in cache (with TTL - we'll clean up old entries periodically)
+  resumeDataCache.set(hash, data);
 
-    // Read template
-    const templatePath = path.join(process.cwd(), "public", "resume.tex");
-    const templateContent = await fs.readFile(templatePath, "utf-8");
-
-    // Fill template
-    const filledLatex = await fillTemplate(data, templateContent);
-
-    // Generate unique filename
-    const filename = `resume_${Date.now()}`;
-    const texFilePath = path.join(tempDir, `${filename}.tex`);
-    const pdfFilePath = path.join(tempDir, `${filename}.pdf`);
-
-    // Write .tex file
-    await fs.writeFile(texFilePath, filledLatex);
-
-    // Compile to PDF
-    await compilePDF(texFilePath, tempDir);
-
-    // Read PDF
-    const pdfBuffer = await fs.readFile(pdfFilePath);
-
-    // Cleanup temp directory
-    await fs.rm(tempDir, { recursive: true, force: true });
-
-    // Return PDF
-    return new NextResponse(new Uint8Array(pdfBuffer), {
-      headers: {
-        "Content-Type": "application/pdf",
-        "Content-Disposition": `attachment; filename="${data.personal.name.replace(/\s+/g, "_")}_Resume.pdf"`,
-      },
-    });
-  } catch (error) {
-    console.error("PDF Generation Error:", error);
-
-    // Cleanup on error
-    if (tempDir) {
-      await fs.rm(tempDir, { recursive: true, force: true }).catch(() => {});
+  // Clean up entries older than 1 hour (simple approach: limit cache size)
+  if (resumeDataCache.size > 100) {
+    // Remove oldest entries (simple FIFO)
+    const firstKey = resumeDataCache.keys().next().value;
+    if (firstKey) {
+      resumeDataCache.delete(firstKey);
     }
-
-    // Log error to console instead of writing to file
-    console.error(
-      "PDF Generation Error Details:",
-      JSON.stringify(error, null, 2),
-    );
-
-    return NextResponse.json(
-      {
-        error: "Failed to generate PDF",
-        details: error instanceof Error ? error.message : "Unknown error",
-      },
-      { status: 500 },
-    );
   }
+
+  return hash;
 }
+
+export function getResumeData(hash: string): ResumeData | undefined {
+  return resumeDataCache.get(hash);
+}
+

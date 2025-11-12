@@ -19,15 +19,6 @@
       "details": ["ESN Delft, DISS Member", "Christiaan Huygens Member (SA)"]
     },
     {
-      "institution": "Hanyang University (한양대학교)",
-      "degree": "Exchange Student | Bachelor of Science in Computer Science",
-      "location": "South Korea",
-      "startDate": "2024",
-      "endDate": "2025",
-      "gpa": "Yearly GPA: 93/100 (KR)",
-      "details": ["Residential College Center Member", "MCPC & HY-CoRA Member"]
-    },
-    {
       "institution": "University of Bordeaux",
       "degree": "Bachelor of Science in Computer Science | International Track",
       "location": "France",
@@ -35,8 +26,20 @@
       "endDate": "2025",
       "gpa": "GPA: 165/200 (FR) / honors",
       "details": [
-        "Selective International Programme Member",
-        "Courses mainly followed in English"
+        "Selective international programme with courses primarily in English"
+      ],
+      "exchanges": [
+        {
+          "institution": "Hanyang University (한양대학교)",
+          "program": "Academic Exchange | Computer Science",
+          "location": "Seoul, South Korea",
+          "startDate": "2024",
+          "endDate": "2025",
+          "gpa": "Yearly GPA: 93/100 (KR)",
+          "details": [
+            "Residential College Center Member; MCPC & HY-CoRA Member"
+          ]
+        }
       ]
     }
   ],

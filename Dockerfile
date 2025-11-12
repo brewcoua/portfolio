@@ -21,28 +21,13 @@ COPY . .
 # Build Next.js
 RUN pnpm build
 
-# -------- Runtime with LaTeX --------
+# -------- Runtime --------
 FROM node:20-bookworm-slim AS runner
 WORKDIR /app
 
-# Install LaTeX toolchain required for pdflatex used by app/api/gen-cv
-# Keep minimal by installing texlive-base and latex packages commonly used
+# Install ca-certificates for HTTPS requests to latexonline.cc
 RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y --no-install-recommends \
     ca-certificates \
-    ghostscript \
-    make \
-    perl \
-    # minimal TeX Live pieces
-    texlive-base \
-    texlive-latex-base \
-    texlive-latex-recommended \
-    texlive-latex-extra \
-    texlive-fonts-recommended \
-    texlive-lang-english \
-    # CJK support for Korean characters in resume data
-    texlive-lang-cjk \
-    texlive-lang-korean \
-    latex-cjk-korean \
   && rm -rf /var/lib/apt/lists/*
 
 ENV NODE_ENV=production
