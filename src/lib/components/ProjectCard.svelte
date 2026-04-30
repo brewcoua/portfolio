@@ -13,16 +13,18 @@
 	import * as Card from '$lib/components/ui/card';
 	import { formatEntityDate } from '$lib/content/format';
 	import { resolveLink } from '$lib/content/presentation';
+	import { cn } from '$lib/utils';
 	import TechBadge from '$lib/components/TechBadge.svelte';
 	import type { LinkItem, Project, Role, Skill, Technology } from '$lib/content/types';
 	import type { Component } from 'svelte';
 
-	let { project, technologies = [], skills = [], roles = [], showActions = true } = $props<{
+	let { project, technologies = [], skills = [], roles = [], showActions = true, matchHeight = false } = $props<{
 		project: Project;
 		technologies?: Technology[];
 		skills?: Skill[];
 		roles?: Role[];
 		showActions?: boolean;
+		matchHeight?: boolean;
 	}>();
 
 	const resolvedLinks = $derived(project.links.map((link: LinkItem) => resolveLink(link)));
@@ -48,7 +50,7 @@
 	}
 </script>
 
-<Card.Root class="h-full">
+<Card.Root class={cn(matchHeight && 'flex h-full flex-col')}>
 	{#if project.thumbnail}
 		<img src={project.thumbnail} alt={project.title} class="h-40 w-full object-cover" />
 	{/if}
@@ -70,9 +72,9 @@
 		</div>
 	</Card.Header>
 
-	<Card.Content class="space-y-4">
+	<Card.Content class={cn('flex flex-col gap-4', matchHeight && 'flex-1')}>
 		<p class="text-sm">{project.abstract}</p>
-		<div class="flex flex-wrap gap-2">
+		<div class="mt-auto flex flex-wrap gap-2">
 			{#each project.technologies as tech}
 				<TechBadge techId={tech} {technologies} {skills} />
 			{/each}
@@ -80,7 +82,7 @@
 	</Card.Content>
 
 	{#if showActions}
-		<Card.Footer class="flex flex-wrap justify-between gap-2">
+		<Card.Footer class="flex flex-wrap items-start justify-between gap-2">
 			<div class="flex flex-wrap gap-2">
 				{#each resolvedLinks.slice(0, 2) as link}
 					{@const Icon = iconFor(link.icon)}

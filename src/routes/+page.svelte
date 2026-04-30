@@ -19,9 +19,15 @@
 
 <section class="mt-16">
 	<h2 class="mb-5 text-2xl font-semibold">Featured Projects</h2>
-	<div class="grid gap-4 md:grid-cols-2">
+	<div class="grid items-start gap-4 md:grid-cols-2">
 		{#each data.featuredProjects as project}
-			<ProjectCard {project} technologies={data.technologies} skills={data.skills} roles={data.roles} />
+			<ProjectCard
+				{project}
+				technologies={data.technologies}
+				skills={data.skills}
+				roles={data.roles}
+				matchHeight
+			/>
 		{/each}
 	</div>
 </section>

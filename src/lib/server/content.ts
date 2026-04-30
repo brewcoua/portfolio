@@ -44,6 +44,10 @@ function isIsoDate(value: string): boolean {
 	return /^\d{4}-\d{2}(-\d{2})?$/.test(value);
 }
 
+function isHexColor(value: string): boolean {
+	return /^#([0-9a-fA-F]{3}|[0-9a-fA-F]{6})$/.test(value);
+}
+
 function isHttpsUrl(value: string): boolean {
 	try {
 		const url = new URL(value);
@@ -248,6 +252,9 @@ function validateReferences(content: PortfolioContent): void {
 
 	for (const technology of content.technologies) {
 		validateRelationships(`technology ${technology.id}`, technology.relationships, index);
+		if (technology.color && !isHexColor(technology.color)) {
+			throw new Error(`Invalid technology color "${technology.color}" in ${technology.id}`);
+		}
 		for (const link of technology.links) {
 			validateLink(link, `technology ${technology.id}`);
 		}
@@ -255,6 +262,9 @@ function validateReferences(content: PortfolioContent): void {
 
 	for (const skill of content.skills) {
 		validateRelationships(`skill ${skill.id}`, skill.relationships, index);
+		if (skill.color && !isHexColor(skill.color)) {
+			throw new Error(`Invalid skill color "${skill.color}" in ${skill.id}`);
+		}
 		for (const link of skill.links) {
 			validateLink(link, `skill ${skill.id}`);
 		}

@@ -41,14 +41,16 @@
 				No projects match current filters.
 			</div>
 		{:else}
-			<div class="grid gap-4 md:grid-cols-2">
+			<div class="columns-1 gap-4 md:columns-2">
 				{#each filteredProjects as project}
-					<ProjectCard
-						{project}
-						technologies={data.technologies}
-						skills={data.skills}
-						roles={data.roles}
-					/>
+					<div class="mb-4 break-inside-avoid">
+						<ProjectCard
+							{project}
+							technologies={data.technologies}
+							skills={data.skills}
+							roles={data.roles}
+						/>
+					</div>
 				{/each}
 			</div>
 		{/if}
