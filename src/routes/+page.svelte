@@ -18,7 +18,7 @@
 	/>
 
 	<div class="flex flex-wrap gap-3 pt-2">
-		<Button href="/projects" variant="outline">View Projects</Button>
+		<Button href="/projects" variant="outline">Explore Projects</Button>
 		<Button href="/cv" variant="outline">Download CV</Button>
 	</div>
 </section>

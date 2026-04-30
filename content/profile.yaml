@@ -1,11 +1,13 @@
 id: profile-brewen
 name: Brewen Couaran
-headline: Fullstack developer and graduate computer science student
+headline: Full-Stack Engineer Building AI-Driven Systems
 location: Delft, Netherlands
 summary: >
-  Developer focused on fullstack systems, AI-enabled workflows, and practical
-  research. Building fast, reliable products with strong software engineering
-  fundamentals.
+  Full-stack engineer focused on backend-heavy products, browser automation,
+  and AI-assisted workflows. I build reliable systems end to end, from APIs
+  and orchestration layers to user-facing interfaces. Currently pursuing an
+  MSc in Computer Science at TU Delft after internships in research (LaBRI)
+  and startup engineering.
 roles:
   - fullstack-developer
   - graduate-student

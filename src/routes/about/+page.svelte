@@ -22,8 +22,8 @@
 		class="max-w-3xl text-lg text-muted-foreground"
 	/>
 	<p class="max-w-3xl text-sm leading-7">
-		I am currently based in Delft and focused on building robust software across fullstack systems,
-		AI integrations, and research-oriented projects.
+		Based in Delft, I focus on building robust full-stack products with strong backend architecture,
+		practical agentic integrations, and research-informed engineering.
 	</p>
 </section>
 
