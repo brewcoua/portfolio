@@ -12,6 +12,8 @@
 	import { Button } from '$lib/components/ui/button';
 	import * as Card from '$lib/components/ui/card';
 	import { formatEntityDate } from '$lib/content/format';
+	import ProjectStatusBadge from '$lib/components/ProjectStatusBadge.svelte';
+	import RoleBadge from '$lib/components/RoleBadge.svelte';
 	import { resolveLink } from '$lib/content/presentation';
 	import { cn } from '$lib/utils';
 	import TechBadge from '$lib/components/TechBadge.svelte';
@@ -28,8 +30,6 @@
 	}>();
 
 	const resolvedLinks = $derived(project.links.map((link: LinkItem) => resolveLink(link)));
-	const roleLabel = $derived(roles.find((role: Role) => role.id === project.role)?.label ?? project.role);
-
 	const iconByName: Record<string, Component> = {
 		github: LinkIcon,
 		'external-link': ExternalLinkIcon,
@@ -61,13 +61,11 @@
 		{#if project.subtitle}
 			<Card.Description>{project.subtitle}</Card.Description>
 		{/if}
-		<div class="flex flex-wrap gap-2 text-xs text-muted-foreground">
-			<span>{roleLabel}</span>
-			<span>•</span>
-			<span class="capitalize">{project.status}</span>
-			<span>•</span>
-			<span>{project.duration}</span>
-			<span>•</span>
+		<div class="flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+			<RoleBadge roleId={project.role} {roles} />
+			<span class="opacity-40" aria-hidden="true">•</span>
+			<ProjectStatusBadge status={project.status} />
+			<span class="opacity-40" aria-hidden="true">•</span>
 			<span>{formatEntityDate(project)}</span>
 		</div>
 	</Card.Header>

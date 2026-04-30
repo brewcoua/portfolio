@@ -97,6 +97,8 @@ export type Skill = SlugEntity & {
 
 export type Role = SlugEntity & {
 	label: string;
+	icon?: string;
+	color?: string;
 	description?: string;
 };
 

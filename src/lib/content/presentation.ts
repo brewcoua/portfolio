@@ -1,4 +1,4 @@
-import type { LinkItem, Skill, Technology } from '$lib/content/types';
+import type { LinkItem, ProjectStatus, Role, Skill, Technology } from '$lib/content/types';
 
 export function getTechnologyById(id: string, technologies: Technology[]): Technology | undefined {
 	return technologies.find((technology) => technology.id === id);
@@ -90,14 +90,14 @@ export function pickReadableForeground(
 	return (passing ?? sorted[0]).candidate;
 }
 
-function getEntityChipStyle(color: string | undefined, kind: 'technology' | 'skill'): string {
+function getEntityChipStyle(color: string | undefined, kind: 'technology' | 'skill' | 'status' | 'role'): string {
 	if (!color) return FALLBACK_CHIP_STYLE;
 
 	const parsed = parseHexColor(color);
 	if (!parsed) return FALLBACK_CHIP_STYLE;
 
-	const tintStrength = kind === 'technology' ? 0.16 : 0.15;
-	const borderStrength = kind === 'technology' ? 0.52 : 0.48;
+	const tintStrength = kind === 'technology' ? 0.16 : kind === 'status' ? 0.17 : 0.15;
+	const borderStrength = kind === 'technology' ? 0.52 : kind === 'status' ? 0.5 : 0.48;
 	const tintedLightBackground = blend(parsed, LIGHT_SURFACE, tintStrength);
 	const tintedDarkBackground = blend(parsed, DARK_SURFACE, tintStrength + 0.08);
 	const borderLight = blend(parsed, LIGHT_SURFACE, borderStrength);
@@ -138,6 +138,38 @@ export function getSkillById(id: string, skills: Skill[]): Skill | undefined {
 export function getSkillChipStyle(id: string, skills: Skill[]): string {
 	const color = getSkillById(id, skills)?.color;
 	return getEntityChipStyle(color, 'skill');
+}
+
+export function getRoleById(id: string, roles: Role[]): Role | undefined {
+	return roles.find((role) => role.id === id);
+}
+
+export function getRoleChipStyle(id: string, roles: Role[]): string {
+	const color = getRoleById(id, roles)?.color;
+	return getEntityChipStyle(color, 'role');
+}
+
+/** Brand hues for status badges — contrast is finalized in `getProjectStatusBadgeStyle`. */
+export const PROJECT_STATUS_BRAND_HEX: Record<ProjectStatus, string> = {
+	completed: '#16a34a',
+	active: '#2563eb',
+	paused: '#d97706',
+	archived: '#64748b'
+};
+
+export const PROJECT_STATUS_LABELS: Record<ProjectStatus, string> = {
+	completed: 'Completed',
+	active: 'Active',
+	paused: 'Paused',
+	archived: 'Archived'
+};
+
+export function getProjectStatusLabel(status: ProjectStatus): string {
+	return PROJECT_STATUS_LABELS[status] ?? status;
+}
+
+export function getProjectStatusBadgeStyle(status: ProjectStatus): string {
+	return getEntityChipStyle(PROJECT_STATUS_BRAND_HEX[status], 'status');
 }
 
 export type ResolvedLink = LinkItem & {

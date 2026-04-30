@@ -1,5 +1,7 @@
 id: role-backend-developer
 slug: backend-developer
 label: Back-end Developer
+icon: database
+color: '#4f46e5'
 description: Focused on APIs, data flow, and backend reliability.
 relationships: []

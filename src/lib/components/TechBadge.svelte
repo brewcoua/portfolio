@@ -1,10 +1,10 @@
 <script lang="ts">
-	import SparklesIcon from '@lucide/svelte/icons/sparkles';
-	import { cn } from '$lib/utils';
+	import ColoredEntityBadge from '$lib/components/ColoredEntityBadge.svelte';
 	import * as Popover from '$lib/components/ui/popover';
 	import { Button } from '$lib/components/ui/button';
-	import { getTechnologyById, getTechnologyChipStyle } from '$lib/content/presentation';
 	import { Badge } from '$lib/components/ui/badge';
+	import { cn } from '$lib/utils';
+	import { getTechnologyById, getTechnologyChipStyle } from '$lib/content/presentation';
 	import type { Skill, Technology } from '$lib/content/types';
 
 	let { techId, technologies = [], skills = [], class: className = '' } = $props<{
@@ -30,10 +30,7 @@
 
 <Popover.Root>
 	<Popover.Trigger>
-		<Badge variant="outline" class={cn('cursor-pointer px-2 py-1 text-xs', className)} style={style}>
-			<SparklesIcon class="size-3.5 opacity-80" aria-hidden="true" />
-			{label}
-		</Badge>
+		<ColoredEntityBadge {label} {style} icon={technology?.icon} class={cn('cursor-pointer', className)} />
 	</Popover.Trigger>
 	<Popover.Content class="space-y-2">
 		<p class="text-sm font-medium">{label}</p>

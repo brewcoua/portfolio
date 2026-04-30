@@ -9,6 +9,8 @@
 	import PaletteIcon from '@lucide/svelte/icons/palette';
 	import RadioIcon from '@lucide/svelte/icons/radio';
 	import VideoIcon from '@lucide/svelte/icons/video';
+	import ProjectStatusBadge from '$lib/components/ProjectStatusBadge.svelte';
+	import RoleBadge from '$lib/components/RoleBadge.svelte';
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
 	import SkillBadge from '$lib/components/SkillBadge.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
@@ -20,7 +22,6 @@
 
 	let { data } = $props();
 
-	const roleLabel = $derived(data.roles.find((role) => role.id === data.project.role)?.label ?? data.project.role);
 	const links = $derived(data.project.links.map((link) => resolveLink(link)));
 
 	const relatedExperienceItems = $derived(
@@ -59,9 +60,8 @@
 	</header>
 
 	<div class="flex flex-wrap items-center gap-2 text-sm">
-		<Badge variant="outline">{roleLabel}</Badge>
-		<Badge variant="outline" class="capitalize">{data.project.status}</Badge>
-		<Badge variant="outline">{data.project.duration}</Badge>
+		<RoleBadge roleId={data.project.role} roles={data.roles} />
+		<ProjectStatusBadge status={data.project.status} />
 		<Badge variant="outline">{formatEntityDate(data.project)}</Badge>
 	</div>
 

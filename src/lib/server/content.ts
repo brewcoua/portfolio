@@ -272,6 +272,9 @@ function validateReferences(content: PortfolioContent): void {
 
 	for (const role of content.roles) {
 		validateRelationships(`role ${role.id}`, role.relationships, index);
+		if (role.color && !isHexColor(role.color)) {
+			throw new Error(`Invalid role color "${role.color}" in ${role.id}`);
+		}
 	}
 }
 

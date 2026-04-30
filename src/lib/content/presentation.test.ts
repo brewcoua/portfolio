@@ -1,5 +1,11 @@
 import { describe, expect, it } from 'vitest';
-import { contrastRatio, parseHexColor, pickReadableForeground } from '$lib/content/presentation';
+import {
+	contrastRatio,
+	getRoleChipStyle,
+	parseHexColor,
+	pickReadableForeground
+} from '$lib/content/presentation';
+import type { Role } from '$lib/content/types';
 
 describe('presentation color helpers', () => {
 	it('parses 3 and 6 digit hex colors', () => {
@@ -30,5 +36,14 @@ describe('presentation color helpers', () => {
 		const candidateB = { r: 70, g: 70, b: 70 };
 
 		expect(pickReadableForeground(background, [candidateA, candidateB], 7)).toEqual(candidateB);
+	});
+
+	it('getRoleChipStyle emits contrast tokens when role has valid color', () => {
+		const roles: Role[] = [
+			{ id: 'role-x', slug: 'x', label: 'X', color: '#4f46e5', relationships: [] }
+		];
+		const style = getRoleChipStyle('role-x', roles);
+		expect(style).toContain('--chip-bg-light');
+		expect(style).toContain('light-dark');
 	});
 });

@@ -1,6 +1,9 @@
 <script lang="ts">
 	import { filterProjects } from '$lib/content/project-discovery';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import ProjectStatusFilter from '$lib/components/ProjectStatusFilter.svelte';
+	import RoleFilter from '$lib/components/RoleFilter.svelte';
+	import TechnologyFilter from '$lib/components/TechnologyFilter.svelte';
 	import type { ProjectStatus } from '$lib/content/types';
 
 	let { data } = $props();
@@ -57,48 +60,10 @@
 	</div>
 
 	<aside class="space-y-4 border border-border p-4">
-		<div class="space-y-2">
-			<label class="text-xs uppercase tracking-wide text-muted-foreground" for="technology-filter">
-				Technology
-			</label>
-			<select
-				id="technology-filter"
-				bind:value={selectedTech}
-				class="h-10 w-full border border-border bg-background px-3 py-2 text-sm"
-			>
-				<option value="all">All technologies</option>
-				{#each data.filterOptions.technologies as technology}
-					<option value={technology.id}>{technology.label}</option>
-				{/each}
-			</select>
-		</div>
+		<TechnologyFilter technologies={data.filterOptions.technologies} bind:selected={selectedTech} />
 
-		<div class="space-y-2">
-			<label class="text-xs uppercase tracking-wide text-muted-foreground" for="status-filter">Status</label>
-			<select
-				id="status-filter"
-				bind:value={selectedStatus}
-				class="h-10 w-full border border-border bg-background px-3 py-2 text-sm"
-			>
-				<option value="all">All statuses</option>
-				{#each data.filterOptions.statuses as status}
-					<option value={status} class="capitalize">{status}</option>
-				{/each}
-			</select>
-		</div>
+		<ProjectStatusFilter statuses={data.filterOptions.statuses} bind:selected={selectedStatus} />
 
-		<div class="space-y-2">
-			<label class="text-xs uppercase tracking-wide text-muted-foreground" for="role-filter">Role</label>
-			<select
-				id="role-filter"
-				bind:value={selectedRole}
-				class="h-10 w-full border border-border bg-background px-3 py-2 text-sm"
-			>
-				<option value="all">All roles</option>
-				{#each data.filterOptions.roles as role}
-					<option value={role.id}>{role.label}</option>
-				{/each}
-			</select>
-		</div>
+		<RoleFilter roles={data.filterOptions.roles} bind:selected={selectedRole} />
 	</aside>
 </section>

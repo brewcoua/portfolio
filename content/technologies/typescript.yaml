@@ -2,7 +2,7 @@ id: typescript
 slug: typescript
 label: TypeScript
 category: programming-language
-icon: file-json
+icon: file-braces
 color: "#3178C6"
 description: Typed superset of JavaScript for robust applications.
 relationships:
