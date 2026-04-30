@@ -9,3 +9,6 @@ relationships:
   - type: skill
     targetId: skill-cloud-computing
     role: related-skill
+links:
+  - type: docs
+    url: https://docs.docker.com/

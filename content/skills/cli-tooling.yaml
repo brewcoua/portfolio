@@ -11,3 +11,7 @@ relationships:
   - type: technology
     targetId: bash
     role: related-technology
+links:
+  - type: article
+    url: https://clig.dev/
+    label: CLI Guidelines

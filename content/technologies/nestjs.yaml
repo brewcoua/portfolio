@@ -9,3 +9,6 @@ relationships:
   - type: skill
     targetId: skill-api-development
     role: related-skill
+links:
+  - type: docs
+    url: https://docs.nestjs.com/

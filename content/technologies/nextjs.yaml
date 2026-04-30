@@ -9,3 +9,6 @@ relationships:
   - type: skill
     targetId: skill-web-development
     role: related-skill
+links:
+  - type: docs
+    url: https://nextjs.org/docs

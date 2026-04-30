@@ -20,3 +20,7 @@ relationships:
   - type: technology
     targetId: python
     role: related-technology
+links:
+  - type: article
+    url: https://restfulapi.net/
+    label: REST API Guide

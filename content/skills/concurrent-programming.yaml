@@ -11,3 +11,7 @@ relationships:
   - type: technology
     targetId: actix
     role: related-technology
+links:
+  - type: article
+    url: https://en.wikipedia.org/wiki/Concurrent_computing
+    label: Concurrent Computing

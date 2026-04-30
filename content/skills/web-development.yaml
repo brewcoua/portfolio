@@ -20,3 +20,7 @@ relationships:
   - type: technology
     targetId: angular
     role: related-technology
+links:
+  - type: article
+    url: https://developer.mozilla.org/en-US/docs/Learn_web_development
+    label: Web Dev Guide

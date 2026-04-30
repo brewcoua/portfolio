@@ -14,3 +14,7 @@ relationships:
   - type: technology
     targetId: java
     role: related-technology
+links:
+  - type: article
+    url: https://en.wikipedia.org/wiki/Systems_programming
+    label: Systems Programming

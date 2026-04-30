@@ -84,6 +84,7 @@ export type Technology = SlugEntity & {
 	icon?: string;
 	color?: string;
 	description?: string;
+	links: LinkItem[];
 };
 
 export type Skill = SlugEntity & {
@@ -91,6 +92,7 @@ export type Skill = SlugEntity & {
 	category: string;
 	description?: string;
 	color?: string;
+	links: LinkItem[];
 };
 
 export type Role = SlugEntity & {

@@ -11,3 +11,7 @@ relationships:
   - type: technology
     targetId: llm
     role: related-technology
+links:
+  - type: article
+    url: https://playwright.dev/docs/intro
+    label: Automation Reference

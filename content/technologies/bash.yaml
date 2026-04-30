@@ -9,3 +9,6 @@ relationships:
   - type: skill
     targetId: skill-web-automation
     role: related-skill
+links:
+  - type: docs
+    url: https://www.gnu.org/software/bash/manual/

@@ -15,3 +15,6 @@ relationships:
   - type: skill
     targetId: skill-cli-tooling
     role: related-skill
+links:
+  - type: docs
+    url: https://doc.rust-lang.org/book/

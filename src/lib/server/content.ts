@@ -248,10 +248,16 @@ function validateReferences(content: PortfolioContent): void {
 
 	for (const technology of content.technologies) {
 		validateRelationships(`technology ${technology.id}`, technology.relationships, index);
+		for (const link of technology.links) {
+			validateLink(link, `technology ${technology.id}`);
+		}
 	}
 
 	for (const skill of content.skills) {
 		validateRelationships(`skill ${skill.id}`, skill.relationships, index);
+		for (const link of skill.links) {
+			validateLink(link, `skill ${skill.id}`);
+		}
 	}
 
 	for (const role of content.roles) {

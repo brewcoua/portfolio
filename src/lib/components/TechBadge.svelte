@@ -2,6 +2,7 @@
 	import SparklesIcon from '@lucide/svelte/icons/sparkles';
 	import { cn } from '$lib/utils';
 	import * as Popover from '$lib/components/ui/popover';
+	import { Button } from '$lib/components/ui/button';
 	import { getTechnologyById, getTechnologyChipStyle } from '$lib/content/presentation';
 	import { Badge } from '$lib/components/ui/badge';
 	import type { Skill, Technology } from '$lib/content/types';
@@ -45,6 +46,18 @@
 				<div class="flex flex-wrap gap-1">
 					{#each relatedSkillLabels as relatedSkill}
 						<Badge variant="secondary" class="text-[11px]">{relatedSkill}</Badge>
+					{/each}
+				</div>
+			</div>
+		{/if}
+		{#if technology?.links.length}
+			<div class="space-y-1">
+				<p class="text-[11px] uppercase tracking-wide text-muted-foreground">Links</p>
+				<div class="flex flex-wrap gap-1.5">
+					{#each technology.links as link}
+						<Button href={link.url} variant="outline" size="xs" target="_blank" rel="noreferrer">
+							{link.label ?? link.type}
+						</Button>
 					{/each}
 				</div>
 			</div>

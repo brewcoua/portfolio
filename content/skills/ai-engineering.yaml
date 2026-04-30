@@ -17,3 +17,7 @@ relationships:
   - type: technology
     targetId: python
     role: related-technology
+links:
+  - type: article
+    url: https://huggingface.co/docs
+    label: Applied AI Resources

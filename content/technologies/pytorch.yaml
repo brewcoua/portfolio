@@ -9,3 +9,6 @@ relationships:
   - type: skill
     targetId: skill-ai-engineering
     role: related-skill
+links:
+  - type: docs
+    url: https://pytorch.org/docs/stable/index.html

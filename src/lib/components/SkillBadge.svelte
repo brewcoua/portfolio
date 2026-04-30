@@ -2,6 +2,7 @@
 	import ZapIcon from '@lucide/svelte/icons/zap';
 	import { cn } from '$lib/utils';
 	import { Badge } from '$lib/components/ui/badge';
+	import { Button } from '$lib/components/ui/button';
 	import * as Popover from '$lib/components/ui/popover';
 	import { getSkillById, getSkillChipStyle } from '$lib/content/presentation';
 	import type { Skill, Technology } from '$lib/content/types';
@@ -45,6 +46,18 @@
 				<div class="flex flex-wrap gap-1">
 					{#each relatedTechnologyLabels as relatedTechnology}
 						<Badge variant="secondary" class="text-[11px]">{relatedTechnology}</Badge>
+					{/each}
+				</div>
+			</div>
+		{/if}
+		{#if skill?.links.length}
+			<div class="space-y-1">
+				<p class="text-[11px] uppercase tracking-wide text-muted-foreground">Links</p>
+				<div class="flex flex-wrap gap-1.5">
+					{#each skill.links as link}
+						<Button href={link.url} variant="outline" size="xs" target="_blank" rel="noreferrer">
+							{link.label ?? link.type}
+						</Button>
 					{/each}
 				</div>
 			</div>

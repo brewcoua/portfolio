@@ -11,3 +11,7 @@ relationships:
   - type: technology
     targetId: docker
     role: related-technology
+links:
+  - type: article
+    url: https://en.wikipedia.org/wiki/Cloud_computing
+    label: Cloud Computing

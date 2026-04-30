@@ -12,3 +12,6 @@ relationships:
   - type: skill
     targetId: skill-concurrent-programming
     role: related-skill
+links:
+  - type: docs
+    url: https://actix.rs/docs/
