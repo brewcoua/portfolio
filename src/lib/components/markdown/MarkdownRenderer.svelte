@@ -32,8 +32,6 @@
 	</div>
 {:else if inline}
 	<span class={cn('markdown-inline', className)}>
-		{#each inline as node}
-			<MarkdownInlineNodeComponent {node} {skills} {technologies} />
-		{/each}
+		{#each inline as node}<MarkdownInlineNodeComponent {node} {skills} {technologies} />{/each}
 	</span>
 {/if}

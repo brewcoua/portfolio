@@ -17,46 +17,32 @@
 
 {#if node.type === 'paragraph'}
 	<p>
-		{#each node.children as child}
-			<MarkdownInlineNode node={child} {skills} {technologies} />
-		{/each}
+		{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 	</p>
 {:else if node.type === 'heading'}
 	{#if node.level === 1}
 		<h1>
-			{#each node.children as child}
-				<MarkdownInlineNode node={child} {skills} {technologies} />
-			{/each}
+			{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 		</h1>
 	{:else if node.level === 2}
 		<h2>
-			{#each node.children as child}
-				<MarkdownInlineNode node={child} {skills} {technologies} />
-			{/each}
+			{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 		</h2>
 	{:else if node.level === 3}
 		<h3>
-			{#each node.children as child}
-				<MarkdownInlineNode node={child} {skills} {technologies} />
-			{/each}
+			{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 		</h3>
 	{:else if node.level === 4}
 		<h4>
-			{#each node.children as child}
-				<MarkdownInlineNode node={child} {skills} {technologies} />
-			{/each}
+			{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 		</h4>
 	{:else if node.level === 5}
 		<h5>
-			{#each node.children as child}
-				<MarkdownInlineNode node={child} {skills} {technologies} />
-			{/each}
+			{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 		</h5>
 	{:else}
 		<h6>
-			{#each node.children as child}
-				<MarkdownInlineNode node={child} {skills} {technologies} />
-			{/each}
+			{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 		</h6>
 	{/if}
 {:else if node.type === 'blockquote'}

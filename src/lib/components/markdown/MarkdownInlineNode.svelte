@@ -35,27 +35,13 @@
 	<MarkdownCode value={node.value} inline />
 {:else if node.type === 'strong'}
 	<strong>
-		{#each node.children as child}
-			<MarkdownInlineNode node={child} {skills} {technologies} />
-		{/each}
+		{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 	</strong>
 {:else if node.type === 'emphasis'}
 	<em>
-		{#each node.children as child}
-			<MarkdownInlineNode node={child} {skills} {technologies} />
-		{/each}
+		{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 	</em>
 {:else if node.type === 'link'}
 	<MarkdownLink href={node.href} external={node.external} label={inlineText(node.children)} />
-{:else if node.type === 'mention'}
-	<MarkdownMention
-		mentionKind={node.mentionKind}
-		label={node.label}
-		entityId={node.entityId}
-		href={node.href}
-		popoverTitle={node.popoverTitle}
-		popoverBody={node.popoverBody}
-		{skills}
-		{technologies}
-	/>
+{:else if node.type === 'mention'}<MarkdownMention mentionKind={node.mentionKind} label={node.label} entityId={node.entityId} href={node.href} popoverTitle={node.popoverTitle} popoverBody={node.popoverBody} {skills} {technologies} />
 {/if}

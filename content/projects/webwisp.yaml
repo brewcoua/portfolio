@@ -11,7 +11,7 @@ date:
   - 2024-07
 summary: Distributed autonomous testing platform built during research internship at LaBRI.
 description: |
-  WebWisp is an autonomous web agent developed during my internship at LaBRI.
+  WebWisp is an autonomous web agent developed during my [internship at LaBRI](@exp-labri-research-intern).
   It uses a distributed architecture for scalable web testing and automation:
 
   1. **Orchestrator**

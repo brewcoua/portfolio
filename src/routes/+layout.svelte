@@ -15,7 +15,7 @@
 </svelte:head>
 
 <div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-8">
-	<header class="mb-12 pb-6">
+	<header class="mb-7 pb-2">
 		<div class="mb-4 flex flex-wrap items-center justify-between gap-3">
 			<a class="text-xl font-semibold tracking-tight" href="/">{data.profile.name}</a>
 			<p class="text-sm text-muted-foreground">{data.profile.location}</p>
@@ -34,7 +34,7 @@
 				{/each}
 			</NavigationMenu.List>
 		</NavigationMenu.Root>
-		<Separator class="mt-6" />
+		<Separator class="mt-4" />
 	</header>
 
 	<main class="flex-1">{@render children()}</main>

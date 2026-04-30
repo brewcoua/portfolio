@@ -53,11 +53,14 @@
 </script>
 
 <Popover.Root>
-	<Popover.Trigger>
+	<Popover.Trigger
+		class={cn(
+			'inline items-baseline border-0 bg-transparent p-0 m-0 text-inherit font-inherit',
+			triggerMode === 'badge' && 'inline-flex items-center'
+		)}
+	>
 		{#if triggerMode === 'text'}
-			<span class={cn('mention-link mention-static mention-popover-trigger', className)}>
-				{label}
-			</span>
+			<span class={cn('mention-link mention-static mention-popover-trigger', className)}>{label}</span>
 		{:else}
 			<Badge variant="outline" class={cn('cursor-pointer px-2 py-1 text-xs', className)} style={style}>
 				<ZapIcon class="size-3.5 opacity-80" aria-hidden="true" />

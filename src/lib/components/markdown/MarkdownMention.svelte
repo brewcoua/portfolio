@@ -24,24 +24,4 @@
 	} = $props();
 </script>
 
-{#if href}
-	<a href={href} class="mention-link">{label}</a>
-{:else if mentionKind === 'skill' && entityId}
-	<SkillBadge
-		skillId={entityId}
-		{skills}
-		{technologies}
-		triggerMode="text"
-		class="mention-popover-trigger"
-	/>
-{:else if mentionKind === 'technology' && entityId}
-	<TechBadge
-		techId={entityId}
-		{skills}
-		{technologies}
-		triggerMode="text"
-		class="mention-popover-trigger"
-	/>
-{:else}
-	<span class="mention-link" title={popoverBody ?? popoverTitle ?? mentionKind}>{label}</span>
-{/if}
+{#if href}<a href={href} class="mention-link">{label}</a>{:else if mentionKind === 'skill' && entityId}<SkillBadge skillId={entityId} {skills} {technologies} triggerMode="text" class="mention-popover-trigger" />{:else if mentionKind === 'technology' && entityId}<TechBadge techId={entityId} {skills} {technologies} triggerMode="text" class="mention-popover-trigger" />{:else}<span class="mention-link" title={popoverBody ?? popoverTitle ?? mentionKind}>{label}</span>{/if}
