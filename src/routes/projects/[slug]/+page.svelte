@@ -11,6 +11,8 @@
 	import VideoIcon from '@lucide/svelte/icons/video';
 	import ProjectStatusBadge from '$lib/components/ProjectStatusBadge.svelte';
 	import RoleBadge from '$lib/components/RoleBadge.svelte';
+	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
+	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
 	import SkillBadge from '$lib/components/SkillBadge.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
@@ -50,13 +52,28 @@
 	function iconFor(name: string): Component {
 		return iconByName[name] ?? LinkIcon;
 	}
+
+	function formatReference(reference: {
+		authors: string[];
+		year: string;
+		journal?: string;
+		venue?: string;
+		doi?: string;
+	}): string {
+		const authors = reference.authors.join(', ');
+		const container = reference.journal ?? reference.venue;
+		const doi = reference.doi ? `DOI: ${reference.doi}` : '';
+		return [authors, `(${reference.year})`, container, doi].filter(Boolean).join('. ');
+	}
 </script>
 
 <article class="space-y-6">
 	<header class="space-y-2">
 		<p class="text-sm uppercase tracking-[0.2em] text-muted-foreground">Project</p>
 		<h1 class="text-4xl font-semibold tracking-tight">{data.project.title}</h1>
-		<p class="text-muted-foreground">{data.project.subtitle}</p>
+		{#if data.project.subtitle}
+			<p class="text-muted-foreground">{data.project.subtitle}</p>
+		{/if}
 	</header>
 
 	<div class="flex flex-wrap items-center gap-2 text-sm">
@@ -73,14 +90,30 @@
 		/>
 	{/if}
 
-	<p class="max-w-3xl leading-7">{data.project.abstract}</p>
-	<p class="max-w-3xl leading-7">{data.project.description}</p>
+	<MarkdownBlock
+		markdown={data.project.abstractMarkdown}
+		skills={data.skills}
+		technologies={data.technologies}
+		class="max-w-3xl leading-7"
+	/>
+	<MarkdownBlock
+		markdown={data.project.descriptionMarkdown}
+		skills={data.skills}
+		technologies={data.technologies}
+		class="max-w-3xl leading-7"
+	/>
 
 	<section>
 		<h2 class="mb-3 text-2xl font-semibold">Highlights</h2>
 		<ul class="list-disc space-y-2 pl-5">
-			{#each data.project.highlights as highlight}
-				<li>{highlight}</li>
+			{#each data.project.highlights as highlight, highlightIndex}
+				<li>
+					<MarkdownInline
+						markdown={data.project.highlightsMarkdown?.[highlightIndex]}
+						skills={data.skills}
+						technologies={data.technologies}
+					/>
+				</li>
 			{/each}
 		</ul>
 	</section>
@@ -128,6 +161,38 @@
 						<Icon />
 						{link.label}
 					</Button>
+				{/each}
+			</div>
+		</section>
+	{/if}
+
+	{#if data.project.references?.length}
+		<section>
+			<h2 class="mb-3 text-2xl font-semibold">References</h2>
+			<div class="space-y-3">
+				{#each data.project.references as reference}
+					<div class="border border-border p-3 space-y-2">
+						<p class="font-medium">{reference.title}</p>
+						<p class="text-sm text-muted-foreground">{formatReference(reference)}</p>
+						<div class="flex flex-wrap gap-2">
+							{#if reference.url}
+								<Button href={reference.url} variant="outline" size="sm" target="_blank" rel="noreferrer">
+									Open
+								</Button>
+							{/if}
+							{#if reference.doi}
+								<Button
+									href={`https://doi.org/${reference.doi}`}
+									variant="outline"
+									size="sm"
+									target="_blank"
+									rel="noreferrer"
+								>
+									DOI
+								</Button>
+							{/if}
+						</div>
+					</div>
 				{/each}
 			</div>
 		</section>

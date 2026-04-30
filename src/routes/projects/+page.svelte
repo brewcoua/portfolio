@@ -52,6 +52,7 @@
 							technologies={data.technologies}
 							skills={data.skills}
 							roles={data.roles}
+							maxVisibleTechnologies={5}
 						/>
 					</div>
 				{/each}

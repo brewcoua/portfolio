@@ -1,6 +1,11 @@
 import { readFile, readdir } from 'node:fs/promises';
 import { join } from 'node:path';
 import { parse } from 'yaml';
+import {
+	renderMarkdownDoc,
+	renderMarkdownInline,
+	type MentionDictionaries
+} from '$lib/server/markdown/index';
 import type {
 	DateValue,
 	DateRangeOrSingleDate,
@@ -11,6 +16,7 @@ import type {
 	PortfolioContent,
 	Profile,
 	Project,
+	ProjectReference,
 	ProjectStatus,
 	Publication,
 	Relationship,
@@ -27,6 +33,11 @@ let cached: PortfolioContent | null = null;
 
 const isNonEmptyString = (value: unknown): value is string =>
 	typeof value === 'string' && value.trim().length > 0;
+
+function plainText(value: string | undefined): string {
+	if (!value) return '';
+	return value.replace(/[*_`[\]()>#-]/g, ' ').replace(/\s+/g, ' ').trim();
+}
 
 async function readYaml<T>(relativePath: string): Promise<T> {
 	const content = await readFile(join(CONTENT_DIR, relativePath), 'utf-8');
@@ -135,6 +146,31 @@ function validateLink(link: LinkItem, ownerLabel: string): void {
 	}
 }
 
+function validateProjectReference(reference: ProjectReference, ownerLabel: string, index: number): void {
+	if (!isNonEmptyString(reference.title)) {
+		throw new Error(`Invalid reference title in ${ownerLabel} at index ${index}`);
+	}
+	if (!Array.isArray(reference.authors) || reference.authors.length === 0) {
+		throw new Error(`Invalid reference authors in ${ownerLabel} at index ${index}`);
+	}
+	for (const [authorIndex, author] of reference.authors.entries()) {
+		if (!isNonEmptyString(author)) {
+			throw new Error(
+				`Invalid reference author in ${ownerLabel} at index ${index}, author ${authorIndex}`
+			);
+		}
+	}
+	if (!isNonEmptyString(reference.year) || !/^\d{4}$/.test(reference.year)) {
+		throw new Error(`Invalid reference year in ${ownerLabel} at index ${index}`);
+	}
+	if (reference.url !== undefined && !isHttpsUrl(reference.url)) {
+		throw new Error(`Invalid reference url in ${ownerLabel} at index ${index}`);
+	}
+	if (reference.doi !== undefined && !isNonEmptyString(reference.doi)) {
+		throw new Error(`Invalid reference doi in ${ownerLabel} at index ${index}`);
+	}
+}
+
 function assertUnique(values: string[], label: string): void {
 	const seen = new Set<string>();
 	for (const value of values) {
@@ -229,6 +265,9 @@ function validateReferences(content: PortfolioContent): void {
 		}
 		for (const link of project.links) {
 			validateLink(link, `project ${project.id}`);
+		}
+		for (const [index, reference] of (project.references ?? []).entries()) {
+			validateProjectReference(reference, `project ${project.id}`, index);
 		}
 		validateRelationships(`project ${project.id}`, project.relationships, index);
 	}
@@ -325,6 +364,166 @@ function validateCore(content: PortfolioContent): void {
 	validateReferences(content);
 }
 
+function buildMarkdownMentions(content: PortfolioContent): MentionDictionaries {
+	const tokenToLink = new Map<
+		string,
+		{ kind: 'project' | 'experience' | 'education' | 'publication' | 'role'; href: string }
+	>();
+	const labelToLink = new Map<
+		string,
+		{ kind: 'project' | 'experience' | 'education' | 'publication' | 'role'; href: string }
+	>();
+	const labelToPopover = new Map<
+		string,
+		{ kind: 'skill' | 'technology'; entityId: string; title: string; body: string }
+	>();
+
+	const add = (
+		token: string | undefined,
+		kind: 'project' | 'experience' | 'education' | 'publication' | 'role',
+		href: string
+	): void => {
+		if (!token?.trim()) return;
+		const normalized = token.trim().toLowerCase();
+		if (!tokenToLink.has(normalized)) tokenToLink.set(normalized, { kind, href });
+	};
+
+	const addLabel = (
+		label: string | undefined,
+		kind: 'project' | 'experience' | 'education' | 'publication' | 'role',
+		href: string
+	): void => {
+		if (!label?.trim()) return;
+		const normalized = label.trim().toLowerCase();
+		if (!labelToLink.has(normalized)) labelToLink.set(normalized, { kind, href });
+	};
+
+	const addStaticLabel = (
+		label: string | undefined,
+		kind: 'skill' | 'technology',
+		entityId: string,
+		title: string,
+		body: string
+	): void => {
+		if (!label?.trim()) return;
+		const normalized = label.trim().toLowerCase();
+		if (!labelToPopover.has(normalized)) labelToPopover.set(normalized, { kind, entityId, title, body });
+	};
+
+	for (const project of content.projects) {
+		const href = `/projects/${project.slug}`;
+		add(project.id, 'project', href);
+		add(project.slug, 'project', href);
+		addLabel(project.title, 'project', href);
+	}
+
+	for (const experience of content.experience) {
+		const href = `/experience/${experience.slug}`;
+		add(experience.id, 'experience', href);
+		add(experience.slug, 'experience', href);
+		addLabel(experience.title, 'experience', href);
+		addLabel(experience.organization, 'experience', href);
+	}
+
+	for (const education of content.education) {
+		const href = `/about#education-${education.id}`;
+		add(education.id, 'education', href);
+		add(education.slug, 'education', href);
+		addLabel(education.degree, 'education', href);
+		addLabel(education.institution, 'education', href);
+	}
+
+	for (const publication of content.publications) {
+		const href = `/about#publication-${publication.id}`;
+		add(publication.id, 'publication', href);
+		add(publication.slug, 'publication', href);
+		addLabel(publication.title, 'publication', href);
+	}
+
+	for (const technology of content.technologies) {
+		const body = technology.description ? plainText(technology.description) : 'Technology mention';
+		addStaticLabel(technology.label, 'technology', technology.id, technology.label, body);
+		addStaticLabel(technology.slug, 'technology', technology.id, technology.label, body);
+		addStaticLabel(technology.id, 'technology', technology.id, technology.label, body);
+	}
+
+	for (const skill of content.skills) {
+		const body = skill.description ? plainText(skill.description) : 'Skill mention';
+		addStaticLabel(skill.label, 'skill', skill.id, skill.label, body);
+		addStaticLabel(skill.slug, 'skill', skill.id, skill.label, body);
+		addStaticLabel(skill.id, 'skill', skill.id, skill.label, body);
+	}
+
+	for (const role of content.roles) {
+		const href = '/projects';
+		add(role.id, 'role', href);
+		add(role.slug, 'role', href);
+		addLabel(role.label, 'role', href);
+	}
+
+	return { tokenToLink, labelToLink, labelToPopover };
+}
+
+function enrichMarkdown(content: PortfolioContent, mentions: MentionDictionaries): PortfolioContent {
+	const profile = {
+		...content.profile,
+		summaryMarkdown: renderMarkdownDoc(content.profile.summary, { mentions })
+	};
+
+	const projects = content.projects.map((project) => ({
+			...project,
+			abstractMarkdown: renderMarkdownDoc(project.abstract, { mentions }),
+			summaryMarkdown: renderMarkdownDoc(project.summary, { mentions }),
+			descriptionMarkdown: renderMarkdownDoc(project.description, { mentions }),
+			highlightsMarkdown: project.highlights.map((highlight) => renderMarkdownInline(highlight, { mentions }))
+		}));
+
+	const experience = content.experience.map((item) => ({
+			...item,
+			summaryMarkdown: renderMarkdownDoc(item.summary, { mentions }),
+			detailsMarkdown: item.details.map((detail) => renderMarkdownInline(detail, { mentions }))
+		}));
+
+	const education = content.education.map((item) => ({
+			...item,
+			highlightsMarkdown: item.highlights.map((highlight) => renderMarkdownInline(highlight, { mentions })),
+			subEducation: item.subEducation
+				? item.subEducation.map((subItem) => ({
+							...subItem,
+							highlightsMarkdown: subItem.highlights.map((highlight) =>
+								renderMarkdownInline(highlight, { mentions })
+							)
+						}))
+				: undefined
+		}));
+
+	const technologies = content.technologies.map((technology) => ({
+			...technology,
+			descriptionMarkdown: renderMarkdownInline(technology.description, { mentions })
+		}));
+
+	const skills = content.skills.map((skill) => ({
+			...skill,
+			descriptionMarkdown: renderMarkdownInline(skill.description, { mentions })
+		}));
+
+	const roles = content.roles.map((role) => ({
+			...role,
+			descriptionMarkdown: renderMarkdownInline(role.description, { mentions })
+		}));
+
+	return {
+		...content,
+		profile,
+		projects,
+		experience,
+		education,
+		technologies,
+		skills,
+		roles
+	};
+}
+
 export async function loadContent(): Promise<PortfolioContent> {
 	if (cached) return cached;
 
@@ -364,6 +563,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 	};
 
 	validateCore(content);
-	cached = content;
-	return content;
+	const mentions = buildMarkdownMentions(content);
+	cached = enrichMarkdown(content, mentions);
+	return cached;
 }

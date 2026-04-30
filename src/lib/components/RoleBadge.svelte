@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ColoredEntityBadge from '$lib/components/ColoredEntityBadge.svelte';
+	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import * as Popover from '$lib/components/ui/popover';
 	import { cn } from '$lib/utils';
 	import { getRoleById, getRoleChipStyle } from '$lib/content/presentation';
@@ -23,7 +24,7 @@
 	<Popover.Content class="space-y-2">
 		<p class="text-sm font-medium">{label}</p>
 		{#if role?.description}
-			<p class="text-xs text-muted-foreground">{role.description}</p>
+			<MarkdownInline markdown={role.descriptionMarkdown} class="text-xs text-muted-foreground" />
 		{/if}
 	</Popover.Content>
 </Popover.Root>

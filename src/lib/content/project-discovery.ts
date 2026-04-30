@@ -1,4 +1,14 @@
-import type { PortfolioContent, Project, ProjectStatus, Role, Skill, Technology } from '$lib/content/types';
+import type {
+	MarkdownBlockNode,
+	MarkdownDoc,
+	MarkdownInlineNode,
+	PortfolioContent,
+	Project,
+	ProjectStatus,
+	Role,
+	Skill,
+	Technology
+} from '$lib/content/types';
 
 export type ProjectFilters = {
 	query: string;
@@ -18,6 +28,36 @@ function normalize(value: string): string {
 	return value.toLowerCase().replace(/\s+/g, ' ').trim();
 }
 
+function inlineToText(nodes: MarkdownInlineNode[]): string {
+	return nodes
+		.map((node) => {
+			if (node.type === 'text' || node.type === 'inlineCode') return node.value;
+			if (node.type === 'mention') return node.label;
+			if (node.type === 'strong' || node.type === 'emphasis' || node.type === 'link') {
+				return inlineToText(node.children);
+			}
+			return '';
+		})
+		.join(' ');
+}
+
+function blockToText(node: MarkdownBlockNode): string {
+	if (node.type === 'paragraph' || node.type === 'heading') return inlineToText(node.children);
+	if (node.type === 'blockquote') return node.children.map((child) => blockToText(child)).join(' ');
+	if (node.type === 'list') return node.items.flatMap((item) => item.map((block) => blockToText(block))).join(' ');
+	if (node.type === 'code') return node.value;
+	return '';
+}
+
+function markdownToPlainText(doc: MarkdownDoc | undefined): string {
+	if (!doc) return '';
+	return doc.blocks
+		.map((block) => blockToText(block))
+		.join(' ')
+		.replace(/\s+/g, ' ')
+		.trim();
+}
+
 function lookupLabels(ids: string[], map: Map<string, string>): string[] {
 	return ids.map((id) => map.get(id) ?? id);
 }
@@ -26,10 +66,10 @@ export function buildProjectSearchText(project: Project, roleLabel: string, tech
 	const content = [
 		project.title,
 		project.subtitle ?? '',
-		project.abstract,
-		project.summary,
-		project.description,
-		project.highlights.join(' '),
+		markdownToPlainText(project.abstractMarkdown),
+		markdownToPlainText(project.summaryMarkdown),
+		markdownToPlainText(project.descriptionMarkdown),
+		(project.highlightsMarkdown ?? []).map((highlight) => inlineToText(highlight)).join(' '),
 		project.searchKeywords?.join(' ') ?? '',
 		roleLabel,
 		technologyLabels.join(' '),

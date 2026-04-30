@@ -2,9 +2,19 @@
 	import { Badge } from '$lib/components/ui/badge';
 	import * as Card from '$lib/components/ui/card';
 	import { formatEntityDate } from '$lib/content/format';
-	import type { Experience } from '$lib/content/types';
+	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
+	import type { Experience, MarkdownInlineNode, Skill, Technology } from '$lib/content/types';
 
-	let { experience } = $props<{ experience: Experience }>();
+	let { experience, skills = [], technologies = [] } = $props<{
+		experience: Experience;
+		skills?: Skill[];
+		technologies?: Technology[];
+	}>();
+
+	function firstParagraphInline(): MarkdownInlineNode[] {
+		const first = experience.summaryMarkdown?.blocks[0];
+		return first?.type === 'paragraph' ? first.children : [];
+	}
 </script>
 
 <Card.Root>
@@ -21,6 +31,6 @@
 		<Badge variant="outline" class="w-fit">{experience.employmentType}</Badge>
 	</Card.Header>
 	<Card.Content>
-		<p class="text-sm">{experience.summary}</p>
+		<MarkdownInline markdown={firstParagraphInline()} {skills} {technologies} class="text-sm" />
 	</Card.Content>
 </Card.Root>

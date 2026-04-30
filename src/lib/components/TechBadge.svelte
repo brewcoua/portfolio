@@ -1,16 +1,26 @@
 <script lang="ts">
 	import ColoredEntityBadge from '$lib/components/ColoredEntityBadge.svelte';
+	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import * as Popover from '$lib/components/ui/popover';
 	import { Button } from '$lib/components/ui/button';
 	import { Badge } from '$lib/components/ui/badge';
 	import { cn } from '$lib/utils';
 	import { getTechnologyById, getTechnologyChipStyle } from '$lib/content/presentation';
-	import type { Skill, Technology } from '$lib/content/types';
+	import type { MentionSource, Skill, Technology } from '$lib/content/types';
 
-	let { techId, technologies = [], skills = [], class: className = '' } = $props<{
+	let {
+		techId,
+		technologies = [],
+		skills = [],
+		mentionedIn = [],
+		triggerMode = 'badge',
+		class: className = ''
+	} = $props<{
 		techId: string;
 		technologies?: Technology[];
 		skills?: Skill[];
+		mentionedIn?: MentionSource[];
+		triggerMode?: 'badge' | 'text';
 		class?: string;
 	}>();
 
@@ -26,16 +36,41 @@
 					relationship.targetId
 			)
 	);
+
+	function fadeOnOverflow(node: HTMLSpanElement) {
+		const update = () => {
+			node.dataset.overflowing = node.scrollWidth > node.clientWidth + 1 ? 'true' : 'false';
+		};
+		const observer = new ResizeObserver(update);
+		observer.observe(node);
+		queueMicrotask(update);
+		return {
+			destroy() {
+				observer.disconnect();
+			}
+		};
+	}
 </script>
 
 <Popover.Root>
 	<Popover.Trigger>
-		<ColoredEntityBadge {label} {style} icon={technology?.icon} class={cn('cursor-pointer', className)} />
+		{#if triggerMode === 'text'}
+			<span class={cn('mention-link mention-static mention-popover-trigger', className)}>
+				{label}
+			</span>
+		{:else}
+			<ColoredEntityBadge {label} {style} icon={technology?.icon} class={cn('cursor-pointer', className)} />
+		{/if}
 	</Popover.Trigger>
 	<Popover.Content class="space-y-2">
 		<p class="text-sm font-medium">{label}</p>
 		{#if technology?.description}
-			<p class="text-xs text-muted-foreground">{technology.description}</p>
+			<MarkdownInline
+				markdown={technology.descriptionMarkdown}
+				{skills}
+				{technologies}
+				class="text-xs text-muted-foreground"
+			/>
 		{/if}
 		{#if relatedSkillLabels.length > 0}
 			<div class="space-y-1">
@@ -43,6 +78,29 @@
 				<div class="flex flex-wrap gap-1">
 					{#each relatedSkillLabels as relatedSkill}
 						<Badge variant="secondary" class="text-[11px]">{relatedSkill}</Badge>
+					{/each}
+				</div>
+			</div>
+		{/if}
+		{#if mentionedIn.length > 0}
+			<div class="space-y-1">
+				<p class="text-[11px] uppercase tracking-wide text-muted-foreground">Mentioned in</p>
+				<div class="flex flex-wrap gap-1.5">
+					{#each mentionedIn as source}
+						<Button
+							href={source.href}
+							variant="outline"
+							size="xs"
+							class="max-w-full min-w-0 justify-start overflow-hidden"
+							title={source.label}
+						>
+							<span
+								use:fadeOnOverflow
+								class="block max-w-full min-w-0 overflow-hidden whitespace-nowrap [mask-image:none] data-[overflowing=true]:[mask-image:linear-gradient(to_right,black_82%,transparent)]"
+							>
+								{source.label}
+							</span>
+						</Button>
 					{/each}
 				</div>
 			</div>

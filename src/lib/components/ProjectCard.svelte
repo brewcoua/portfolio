@@ -10,23 +10,34 @@
 	import RadioIcon from '@lucide/svelte/icons/radio';
 	import VideoIcon from '@lucide/svelte/icons/video';
 	import { Button } from '$lib/components/ui/button';
+	import { Badge } from '$lib/components/ui/badge';
 	import * as Card from '$lib/components/ui/card';
 	import { formatEntityDate } from '$lib/content/format';
 	import ProjectStatusBadge from '$lib/components/ProjectStatusBadge.svelte';
 	import RoleBadge from '$lib/components/RoleBadge.svelte';
 	import { resolveLink } from '$lib/content/presentation';
 	import { cn } from '$lib/utils';
+	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
-	import type { LinkItem, Project, Role, Skill, Technology } from '$lib/content/types';
+	import type { LinkItem, MarkdownInlineNode, Project, Role, Skill, Technology } from '$lib/content/types';
 	import type { Component } from 'svelte';
 
-	let { project, technologies = [], skills = [], roles = [], showActions = true, matchHeight = false } = $props<{
+	let {
+		project,
+		technologies = [],
+		skills = [],
+		roles = [],
+		showActions = true,
+		matchHeight = false,
+		maxVisibleTechnologies
+	} = $props<{
 		project: Project;
 		technologies?: Technology[];
 		skills?: Skill[];
 		roles?: Role[];
 		showActions?: boolean;
 		matchHeight?: boolean;
+		maxVisibleTechnologies?: number;
 	}>();
 
 	const resolvedLinks = $derived(project.links.map((link: LinkItem) => resolveLink(link)));
@@ -48,6 +59,22 @@
 	function iconFor(name: string): Component {
 		return iconByName[name] ?? LinkIcon;
 	}
+
+	function abstractInline(): MarkdownInlineNode[] {
+		const first = project.abstractMarkdown?.blocks[0];
+		return first?.type === 'paragraph' ? first.children : [];
+	}
+
+	const visibleTechnologies = $derived(
+		typeof maxVisibleTechnologies === 'number' && maxVisibleTechnologies > 0
+			? project.technologies.slice(0, maxVisibleTechnologies)
+			: project.technologies
+	);
+	const hiddenTechnologiesCount = $derived(
+		typeof maxVisibleTechnologies === 'number' && maxVisibleTechnologies > 0
+			? Math.max(0, project.technologies.length - maxVisibleTechnologies)
+			: 0
+	);
 </script>
 
 <Card.Root class={cn(matchHeight && 'flex h-full flex-col')}>
@@ -71,11 +98,16 @@
 	</Card.Header>
 
 	<Card.Content class={cn('flex flex-col gap-4', matchHeight && 'flex-1')}>
-		<p class="text-sm">{project.abstract}</p>
+		<MarkdownInline markdown={abstractInline()} {skills} {technologies} class="text-sm" />
 		<div class="mt-auto flex flex-wrap gap-2">
-			{#each project.technologies as tech}
+			{#each visibleTechnologies as tech}
 				<TechBadge techId={tech} {technologies} {skills} />
 			{/each}
+			{#if hiddenTechnologiesCount > 0}
+				<Badge variant="outline" class="px-2 py-1 text-xs text-muted-foreground">
+					+{hiddenTechnologiesCount}
+				</Badge>
+			{/if}
 		</div>
 	</Card.Content>
 

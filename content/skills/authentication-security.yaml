@@ -1,0 +1,17 @@
+id: skill-authentication-security
+slug: authentication-security
+label: Authentication & Security
+category: backend
+description: Designing secure auth flows with token-based access control and session integrity.
+color: "#38BDF8"
+relationships:
+  - type: technology
+    targetId: nestjs
+    role: related-technology
+  - type: technology
+    targetId: typescript
+    role: related-technology
+links:
+  - type: article
+    url: https://jwt.io/introduction
+    label: JWT Introduction

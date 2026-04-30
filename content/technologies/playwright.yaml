@@ -1,0 +1,14 @@
+id: playwright
+slug: playwright
+label: Playwright
+category: frontend
+icon: test-tube
+color: "#2EAD33"
+description: Browser automation framework for deterministic end-to-end web interactions.
+relationships:
+  - type: skill
+    targetId: skill-web-automation
+    role: related-skill
+links:
+  - type: docs
+    url: https://playwright.dev/docs/intro

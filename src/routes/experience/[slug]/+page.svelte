@@ -1,6 +1,8 @@
 <script lang="ts">
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
+	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
+	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import { formatEntityDate } from '$lib/content/format';
 
 	let { data } = $props();
@@ -22,13 +24,24 @@
 		<p class="text-sm text-muted-foreground">{formatEntityDate(data.experience)}</p>
 	</header>
 
-	<p class="max-w-3xl leading-7">{data.experience.summary}</p>
+	<MarkdownBlock
+		markdown={data.experience.summaryMarkdown}
+		skills={data.skills}
+		technologies={data.technologies}
+		class="max-w-3xl leading-7"
+	/>
 
 	<section>
 		<h2 class="mb-3 text-2xl font-semibold">Details</h2>
 		<ul class="list-disc space-y-2 pl-5">
-			{#each data.experience.details as detail}
-				<li>{detail}</li>
+			{#each data.experience.details as _, detailIndex}
+				<li>
+					<MarkdownInline
+						markdown={data.experience.detailsMarkdown?.[detailIndex]}
+						skills={data.skills}
+						technologies={data.technologies}
+					/>
+				</li>
 			{/each}
 		</ul>
 	</section>
