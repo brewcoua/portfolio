@@ -13,6 +13,8 @@ const LIGHT_FOREGROUND: Rgb = { r: 17, g: 24, b: 39 };
 const DARK_FOREGROUND: Rgb = { r: 241, g: 245, b: 249 };
 const FALLBACK_CHIP_STYLE =
 	'background-color: color-mix(in oklab, var(--muted) 70%, transparent); border-color: var(--border); color: var(--foreground);';
+const ROLE_CHIP_STYLE =
+	'background-color: color-mix(in oklab, var(--muted) 82%, transparent); border-color: color-mix(in oklab, var(--border) 88%, var(--muted) 12%); color: var(--muted-foreground);';
 
 function clampChannel(value: number): number {
 	return Math.min(255, Math.max(0, Math.round(value)));
@@ -145,8 +147,8 @@ export function getRoleById(id: string, roles: Role[]): Role | undefined {
 }
 
 export function getRoleChipStyle(id: string, roles: Role[]): string {
-	const color = getRoleById(id, roles)?.color;
-	return getEntityChipStyle(color, 'role');
+	// Roles intentionally use a neutral visual style to stay distinct from technology/skill chips.
+	return ROLE_CHIP_STYLE;
 }
 
 /** Brand hues for status badges — contrast is finalized in `getProjectStatusBadgeStyle`. */

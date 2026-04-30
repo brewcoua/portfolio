@@ -38,12 +38,12 @@ describe('presentation color helpers', () => {
 		expect(pickReadableForeground(background, [candidateA, candidateB], 7)).toEqual(candidateB);
 	});
 
-	it('getRoleChipStyle emits contrast tokens when role has valid color', () => {
+	it('getRoleChipStyle always returns neutral role style', () => {
 		const roles: Role[] = [
 			{ id: 'role-x', slug: 'x', label: 'X', color: '#4f46e5', relationships: [] }
 		];
 		const style = getRoleChipStyle('role-x', roles);
-		expect(style).toContain('--chip-bg-light');
-		expect(style).toContain('light-dark');
+		expect(style).toContain('var(--muted-foreground)');
+		expect(style).not.toContain('--chip-bg-light');
 	});
 });

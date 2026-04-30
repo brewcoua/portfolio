@@ -2,6 +2,5 @@ id: role-ai-engineer
 slug: ai-engineer
 label: AI Engineer
 icon: brain-circuit
-color: '#0e7490'
 description: Built model-driven features, experiments, and evaluation flows.
 relationships: []

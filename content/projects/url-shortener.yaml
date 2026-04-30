@@ -6,9 +6,7 @@ abstract: |
   High-performance Rust URL shortener service focused on low-latency redirection and non-blocking request handling.
 status: completed
 role: role-backend-developer
-duration: 2 weeks
 featured: false
-thumbnail: /thumbnails/url-shortener.svg
 date: 2024-01
 summary: High-throughput URL shortener using non-blocking I/O with Actix.
 description: |

@@ -2,6 +2,5 @@ id: role-solo-developer
 slug: solo-developer
 label: Solo Developer
 icon: user
-color: '#c2410c'
 description: Owned design, implementation, and delivery end-to-end.
 relationships: []

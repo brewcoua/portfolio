@@ -58,8 +58,10 @@ This document defines:
 /content
   profile.yaml
   site.yaml
-  education.yaml
-  publications.yaml
+  education/
+    <education-slug>.yaml
+  publications/
+    <publication-slug>.yaml
   technologies.yaml
   projects/
     <project-slug>.yaml
@@ -68,7 +70,7 @@ This document defines:
 ```
 
 Notes:
-- One file per project/experience entry improves diffs and review.
+- One file per project/experience/education/publication entry improves diffs and review.
 - Shared taxonomies in central files (`technologies.yaml`) prevent duplication.
 
 ## 6) YAML Contracts
@@ -198,36 +200,34 @@ linkedProjects:
   - proj-portfolio
 ```
 
-### 6.6 `education.yaml`
+### 6.6 `education/<slug>.yaml`
 
 ```yaml
-education:
-  - id: edu-msc-cs
-    slug: msc-computer-science
-    institution: Example University
-    degree: MSc Computer Science
-    startDate: 2024-09
-    endDate: 2026-07
-    focus:
-      - machine-learning
-      - distributed-systems
-    thesisTitle: Scalable Retrieval-Augmented Systems
+id: edu-msc-cs
+slug: msc-computer-science
+institution: Example University
+degree: MSc Computer Science
+startDate: 2024-09
+endDate: 2026-07
+focus:
+  - machine-learning
+  - distributed-systems
+thesisTitle: Scalable Retrieval-Augmented Systems
 ```
 
-### 6.7 `publications.yaml` (optional but supported)
+### 6.7 `publications/<slug>.yaml` (optional but supported)
 
 ```yaml
-publications:
-  - id: pub-portfolio-method
-    slug: portfolio-method-paper
-    title: Structured Content for Developer Portfolios
-    venue: arXiv
-    year: 2026
-    url: https://arxiv.org/abs/xxxx.xxxxx
-    relatedProjects:
-      - proj-portfolio
-    relatedExperience:
-      - exp-software-intern
+id: pub-portfolio-method
+slug: portfolio-method-paper
+title: Structured Content for Developer Portfolios
+venue: arXiv
+year: 2026
+url: https://arxiv.org/abs/xxxx.xxxxx
+relatedProjects:
+  - proj-portfolio
+relatedExperience:
+  - exp-software-intern
 ```
 
 ## 7) Entity Relationships and Rules
@@ -250,7 +250,7 @@ flowchart LR
 - Every reference ID must resolve to an existing entity.
 - `Project.technologies[]` must exist in `technologies.yaml`.
 - `Project.relatedExperience[]` must exist in `/content/experience`.
-- `Project.relatedPublications[]` must exist in `publications.yaml` if present.
+- `Project.relatedPublications[]` must exist in `/content/publications` if present.
 - `Experience.linkedProjects[]` must exist in `/content/projects`.
 - No duplicate `id` values across same entity collection.
 

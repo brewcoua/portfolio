@@ -6,9 +6,7 @@ abstract: |
   PyTorch framework for texture classification with custom residual architectures and transfer-learning benchmarking.
 status: completed
 role: role-ai-engineer
-duration: 4 weeks
 featured: true
-thumbnail: /thumbnails/texture-classifier.svg
 date: 2024-01
 summary: Deep learning framework benchmarking custom residual models vs transfer baselines.
 description: |

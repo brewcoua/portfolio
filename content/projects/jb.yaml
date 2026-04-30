@@ -6,9 +6,8 @@ abstract: |
   A robust command-line tool for installing, updating, and configuring JetBrains IDEs with concurrent downloads and progress tracking.
 status: completed
 role: role-solo-developer
-duration: 3 weeks
 featured: false
-thumbnail: /thumbnails/jb.svg
+thumbnail: /thumbnails/jb.png
 date: 2024-01
 summary: Command-line tool for installing, syncing, and updating JetBrains IDE setups.
 description: |

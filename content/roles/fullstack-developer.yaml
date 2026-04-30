@@ -2,6 +2,5 @@ id: role-fullstack-developer
 slug: fullstack-developer
 label: Full-stack Developer
 icon: layers
-color: '#7c3aed'
 description: Implemented both frontend and backend product layers.
 relationships: []

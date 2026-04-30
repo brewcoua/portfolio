@@ -334,8 +334,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 		technologies,
 		skills,
 		roles,
-		educationYaml,
-		publicationsYaml,
+		education,
+		publications,
 		projects,
 		experience
 	] =
@@ -345,8 +345,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 			readYamlCollection<Technology>('technologies'),
 			readYamlCollection<Skill>('skills'),
 			readYamlCollection<Role>('roles'),
-			readYaml<{ education: Education[] }>('education.yaml'),
-			readYaml<{ publications: Publication[] }>('publications.yaml'),
+			readYamlCollection<Education>('education'),
+			readYamlCollection<Publication>('publications'),
 			readYamlCollection<Project>('projects'),
 			readYamlCollection<Experience>('experience')
 		]);
@@ -359,8 +359,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 		roles,
 		projects,
 		experience,
-		education: educationYaml.education ?? [],
-		publications: publicationsYaml.publications ?? []
+		education,
+		publications
 	};
 
 	validateCore(content);
