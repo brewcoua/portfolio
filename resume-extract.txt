@@ -1,0 +1,49 @@
+Brewen Couaran
+contact@brewen.dev ❖ +33 6 36 96 40 43 ❖ github.com/brewcoua ❖ linkedin.com/in/brewcoua ❖ Delft, NL
+EDUCATION
+Delft University of Technology (TU Delft)                                                                September 2025 - now
+Master of Computer Science                                                                                    Delft, Netherlands
+  Christiaan Huygens - ComMA Committee Secretary
+University of Bordeaux                                                        September 2022 - July 2025
+Bachelor of Computer Science - International Track (High Honors)                         Bordeaux, France
+  Exchange Year: Hanyang University (한양대학교), South Korea (Sep 2024 - July 2025)
+EXPERIENCE
+Laboratoire Bordelais de Recherche en Informatique (LaBRI)                               May 2024 – July 2024
+Research Intern                                                                                  Bordeaux, France
+  Developed WebWisp, an autonomous web agent, with a React-based client for real-time task dispatching and full
+  browser previews
+  Collaborated with start-ups to innovate web grounding solutions, including a Set-of-Marks script for interactive
+  elements
+  Created a NestJS server-side API for task management, integrating Multimodal LLMs for dynamic web workflows
+Packmind (prev. Promyze)                                                                   June 2023 – August 2023
+Developer Intern                                                                             Bordeaux, France (Hybrid)
+  Engineered a flexible role-management system using TypeScript and React, enabling users to unlock advanced
+  repository integrations across GitHub, GitLab, Bitbucket, and Azure DevOps (supporting both SaaS and self-
+  hosted instances).
+  Built a unified Git diff aggregation engine with a custom heuristic algorithm to weigh code changes, filtering out
+  noise (e.g., whitespace, simple refactors) to prioritize significant modifications.
+  Integrated OpenAI APIs on top of the diff engine, enabling users to perform semantic analysis and automated
+  review requests on specific code segments.
+SKILLS
+     Programming                                                     Data Science
+     Python, C, JS, Java, Rust, Bash                                 ML/Statistics, TensorFlow, PyTorch, AI Engineering
+     Frameworks                                                      Cloud & Tools
+     React, Angular, Next.js, Express, Nest.js, Actix                AWS EC2/S3, Helm, Docker, Serverless, CI/CD
+PROJECTS
+Texture Classifier                                                                  https://github.com/brewcoua/texture_classificator
+
+  Designed a modular Deep Learning framework in PyTorch, benchmarking custom Residual CNNs against
+  transfer learning baselines (EfficientNet, ResNet) to identify optimal architectures.
+  Engineered a custom feature-enhancement classification head and implemented robust data augmentation pipelines
+  (e.g., Gaussian blur, color jitter) to optimize fine-tuning accuracy.
+JB                                                                                                          https://github.com/brewcoua/jb
+
+     Rust-based CLI for managing JetBrains IDE lifecycles, supporting specific version installation, configuration
+     synchronization, and automated updates.
+URL Shortener                                                                       https://github.com/brewcoua/url-shortener
+
+ High-performance URL shortener built in Rust, utilizing Actix for non-blocking I/O handling.
+LANGUAGES
+     French                                                          English
+     Mother Tongue                                                   Fluent in Conversation, Writing and Reading
+
