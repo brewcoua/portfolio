@@ -1,0 +1,19 @@
+id: skill-ai-engineering
+slug: ai-engineering
+label: AI Engineering
+category: ai-ml
+description: Building AI-enabled features and training pipelines.
+color: "#A78BFA"
+relationships:
+  - type: technology
+    targetId: pytorch
+    role: related-technology
+  - type: technology
+    targetId: tensorflow
+    role: related-technology
+  - type: technology
+    targetId: llm
+    role: related-technology
+  - type: technology
+    targetId: python
+    role: related-technology

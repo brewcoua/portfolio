@@ -1,0 +1,23 @@
+id: profile-brewen
+name: Brewen Couaran
+headline: Fullstack developer and graduate computer science student
+location: Delft, Netherlands
+summary: >
+  Developer focused on fullstack systems, AI-enabled workflows, and practical
+  research. Building fast, reliable products with strong software engineering
+  fundamentals.
+roles:
+  - fullstack-developer
+  - graduate-student
+links:
+  - type: github
+    url: https://github.com/brewcoua
+  - type: linkedin
+    url: https://linkedin.com/in/brewcoua
+  - type: email
+    url: mailto:contact@brewen.dev
+skillsHighlight:
+  - react
+  - typescript
+  - rust
+  - pytorch

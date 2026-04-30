@@ -1,0 +1,13 @@
+id: skill-cli-tooling
+slug: cli-tooling
+label: CLI Tooling
+category: tooling
+description: Developer command-line interfaces and automation tools.
+color: "#FB7185"
+relationships:
+  - type: technology
+    targetId: rust
+    role: related-technology
+  - type: technology
+    targetId: bash
+    role: related-technology

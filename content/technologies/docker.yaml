@@ -1,0 +1,11 @@
+id: docker
+slug: docker
+label: Docker
+category: cloud
+icon: container
+color: "#2496ED"
+description: Container runtime for packaging and deployment.
+relationships:
+  - type: skill
+    targetId: skill-cloud-computing
+    role: related-skill

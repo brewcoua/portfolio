@@ -1,0 +1,31 @@
+id: proj-jb
+slug: jb
+title: JetBrains CLI
+subtitle: Rust CLI for JetBrains IDE lifecycle management
+abstract: |
+  A robust command-line tool for installing, updating, and configuring JetBrains IDEs with concurrent downloads and progress tracking.
+status: completed
+role: role-solo-developer
+duration: 3 weeks
+featured: false
+thumbnail: /thumbnails/jb.svg
+date: 2024-01
+summary: Command-line tool for installing, syncing, and updating JetBrains IDE setups.
+description: |
+  JB CLI is a high-performance command-line interface tool for managing JetBrains IDE lifecycle operations on Linux. Built in Rust with asynchronous runtime support, it handles concurrent downloads, archive extraction, background update checks, and system notifications with robust error handling.
+technologies:
+  - rust
+  - actix
+  - bash
+skills:
+  - skill-cli-tooling
+  - skill-concurrent-programming
+  - skill-systems-programming
+links:
+  - type: github
+    url: https://github.com/brewcoua/jb
+relationships: []
+highlights:
+  - Version-targeted JetBrains IDE installation workflow
+  - Configuration synchronization across environments
+  - Automated update handling for IDE lifecycle

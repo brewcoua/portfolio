@@ -1,0 +1,25 @@
+siteName: Brewen Couaran Portfolio
+baseUrl: https://brewen.dev
+defaultSeo:
+  title: Brewen Couaran - Portfolio
+  description: Fullstack, AI, and research portfolio.
+  image: /og-default.png
+cv:
+  cvPdfUrl: https://github.com/brewcoua/cv/releases/latest/download/cv.pdf
+  label: Download CV
+  lastVerified: 2026-04-30
+navigation:
+  - label: Home
+    href: /
+  - label: About
+    href: /about
+  - label: Projects
+    href: /projects
+  - label: Experience
+    href: /experience
+  - label: Education
+    href: /education
+  - label: CV
+    href: /cv
+  - label: Contact
+    href: /contact

@@ -1,0 +1,22 @@
+id: skill-api-development
+slug: api-development
+label: API Development
+category: backend
+description: Designing and implementing robust service interfaces.
+color: "#34D399"
+relationships:
+  - type: technology
+    targetId: nestjs
+    role: related-technology
+  - type: technology
+    targetId: express
+    role: related-technology
+  - type: technology
+    targetId: actix
+    role: related-technology
+  - type: technology
+    targetId: typescript
+    role: related-technology
+  - type: technology
+    targetId: python
+    role: related-technology

@@ -1,0 +1,11 @@
+id: llm
+slug: llm
+label: Multimodal LLMs
+category: ai-ml
+icon: sparkles
+color: "#8B5CF6"
+description: Large language models for multimodal automation features.
+relationships:
+  - type: skill
+    targetId: skill-ai-engineering
+    role: related-skill

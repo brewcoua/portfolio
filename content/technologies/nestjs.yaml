@@ -1,0 +1,11 @@
+id: nestjs
+slug: nestjs
+label: NestJS
+category: backend
+icon: server
+color: "#E0234E"
+description: Structured Node.js framework for scalable backend services.
+relationships:
+  - type: skill
+    targetId: skill-api-development
+    role: related-skill

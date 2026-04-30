@@ -1,0 +1,13 @@
+id: skill-cloud-computing
+slug: cloud-computing
+label: Cloud Computing
+category: infrastructure
+description: Deploying and operating services in cloud environments.
+color: "#FDBA74"
+relationships:
+  - type: technology
+    targetId: aws
+    role: related-technology
+  - type: technology
+    targetId: docker
+    role: related-technology

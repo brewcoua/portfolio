@@ -1,0 +1,13 @@
+id: skill-web-automation
+slug: web-automation
+label: Web Automation
+category: automation
+description: Task automation over browser and web workflows.
+color: "#4ADE80"
+relationships:
+  - type: technology
+    targetId: bash
+    role: related-technology
+  - type: technology
+    targetId: llm
+    role: related-technology

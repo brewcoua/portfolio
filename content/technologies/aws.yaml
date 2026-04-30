@@ -1,0 +1,11 @@
+id: aws
+slug: aws
+label: AWS EC2/S3
+category: cloud
+icon: cloud
+color: "#FF9900"
+description: Cloud infrastructure for compute and storage.
+relationships:
+  - type: skill
+    targetId: skill-cloud-computing
+    role: related-skill

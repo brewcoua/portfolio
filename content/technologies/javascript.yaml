@@ -1,0 +1,11 @@
+id: javascript
+slug: javascript
+label: JavaScript
+category: programming-language
+icon: file-code
+color: "#F7DF1E"
+description: Language for browser and fullstack web development.
+relationships:
+  - type: skill
+    targetId: skill-web-development
+    role: related-skill

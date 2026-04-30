@@ -1,0 +1,22 @@
+id: skill-web-development
+slug: web-development
+label: Web Development
+category: engineering
+description: Building fullstack web applications with modern frameworks.
+color: "#60A5FA"
+relationships:
+  - type: technology
+    targetId: react
+    role: related-technology
+  - type: technology
+    targetId: typescript
+    role: related-technology
+  - type: technology
+    targetId: javascript
+    role: related-technology
+  - type: technology
+    targetId: nextjs
+    role: related-technology
+  - type: technology
+    targetId: angular
+    role: related-technology

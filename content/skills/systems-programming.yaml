@@ -1,0 +1,16 @@
+id: skill-systems-programming
+slug: systems-programming
+label: Systems Programming
+category: systems
+description: Performance-sensitive tooling and low-level software design.
+color: "#F59E0B"
+relationships:
+  - type: technology
+    targetId: rust
+    role: related-technology
+  - type: technology
+    targetId: c
+    role: related-technology
+  - type: technology
+    targetId: java
+    role: related-technology

@@ -1,0 +1,11 @@
+id: tensorflow
+slug: tensorflow
+label: TensorFlow
+category: ai-ml
+icon: chart-no-axes-column
+color: "#FF6F00"
+description: ML framework for training and deployment workflows.
+relationships:
+  - type: skill
+    targetId: skill-ai-engineering
+    role: related-skill

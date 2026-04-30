@@ -1,0 +1,11 @@
+id: pytorch
+slug: pytorch
+label: PyTorch
+category: ai-ml
+icon: brain
+color: "#EE4C2C"
+description: Deep learning framework for model experimentation.
+relationships:
+  - type: skill
+    targetId: skill-ai-engineering
+    role: related-skill

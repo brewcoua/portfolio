@@ -1,0 +1,11 @@
+id: express
+slug: express
+label: Express
+category: backend
+icon: network
+color: "#888888"
+description: Minimal Node.js web framework for APIs.
+relationships:
+  - type: skill
+    targetId: skill-api-development
+    role: related-skill

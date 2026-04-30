@@ -1,0 +1,14 @@
+id: typescript
+slug: typescript
+label: TypeScript
+category: programming-language
+icon: file-json
+color: "#3178C6"
+description: Typed superset of JavaScript for robust applications.
+relationships:
+  - type: skill
+    targetId: skill-web-development
+    role: related-skill
+  - type: skill
+    targetId: skill-api-development
+    role: related-skill

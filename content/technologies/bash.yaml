@@ -1,0 +1,11 @@
+id: bash
+slug: bash
+label: Bash
+category: programming-language
+icon: terminal
+color: "#4EAA25"
+description: Shell scripting language for automation and tooling.
+relationships:
+  - type: skill
+    targetId: skill-web-automation
+    role: related-skill

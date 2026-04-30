@@ -1,0 +1,11 @@
+id: java
+slug: java
+label: Java
+category: programming-language
+icon: coffee
+color: "#ED8B00"
+description: Object-oriented language for enterprise-grade software.
+relationships:
+  - type: skill
+    targetId: skill-systems-programming
+    role: related-skill

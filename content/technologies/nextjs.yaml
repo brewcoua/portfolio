@@ -1,0 +1,11 @@
+id: nextjs
+slug: nextjs
+label: Next.js
+category: frontend
+icon: panel-top
+color: "#111111"
+description: Fullstack React framework for app routing and rendering.
+relationships:
+  - type: skill
+    targetId: skill-web-development
+    role: related-skill

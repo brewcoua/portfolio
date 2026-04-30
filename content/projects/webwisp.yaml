@@ -1,0 +1,37 @@
+id: proj-webwisp
+slug: webwisp
+title: WebWisp
+subtitle: Autonomous web agent with real-time task dispatch
+abstract: Autonomous web agent for real-time task dispatch and browser-grounded workflows.
+status: completed
+role: role-fullstack-developer
+duration: 3 months
+featured: true
+date:
+  - 2024-05
+  - 2024-07
+summary: Autonomous web agent with real-time dispatch and browser-grounded workflows.
+description: Built an autonomous web agent with real-time task dispatch, browser preview workflows, and backend orchestration for grounded execution.
+technologies:
+  - react
+  - nestjs
+  - llm
+skills:
+  - skill-web-automation
+  - skill-ai-engineering
+  - skill-api-development
+links:
+  - type: github
+    url: https://github.com/brewcoua/webwisp
+  - type: custom
+    label: Set-of-Marks
+    icon: circle-dot
+    url: https://github.com/brewcoua/web-som
+relationships:
+  - type: experience
+    targetId: exp-labri-research-intern
+    role: built-at
+highlights:
+  - Built real-time task dispatch and browser preview surfaces
+  - Implemented Set-of-Marks driven grounding interactions
+  - Designed backend orchestration APIs for dynamic web tasks

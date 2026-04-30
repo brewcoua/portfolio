@@ -1,0 +1,30 @@
+id: proj-texture-classifier
+slug: texture-classifier
+title: Texture Classifier
+subtitle: Modular deep learning framework for texture classification
+abstract: |
+  PyTorch framework for texture classification with custom residual architectures and transfer-learning benchmarking.
+status: completed
+role: role-ai-engineer
+duration: 4 weeks
+featured: true
+thumbnail: /thumbnails/texture-classifier.svg
+date: 2024-01
+summary: Deep learning framework benchmarking custom residual models vs transfer baselines.
+description: |
+  Designed and benchmarked custom residual CNN architectures in PyTorch against transfer learning baselines such as EfficientNet and ResNet. Added custom feature-enhancement head and robust augmentation pipelines.
+technologies:
+  - python
+  - pytorch
+  - tensorflow
+skills:
+  - skill-ai-engineering
+  - skill-systems-programming
+links:
+  - type: github
+    url: https://github.com/brewcoua/texture_classificator
+relationships: []
+highlights:
+  - Modular benchmark framework for architecture comparison
+  - Custom feature-enhancement classification head
+  - Augmentation pipeline with blur and color jitter strategies
