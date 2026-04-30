@@ -24,6 +24,12 @@ education:
       - software-engineering
       - international-track
     thesisTitle:
-    highlights:
-      - Exchange Year: Hanyang University (South Korea), Sep 2024 - Jul 2025
+    highlights: []
+    subEducation:
+      - institution: Hanyang University
+        degree: Exchange Year - Computer Science
+        date: [2024-09, 2025-07]
+        location: Seoul, South Korea
+        highlights:
+          - "Placeholder: add coursework and academic outcomes."
     relationships: []

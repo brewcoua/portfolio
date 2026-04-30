@@ -243,6 +243,30 @@ function validateReferences(content: PortfolioContent): void {
 
 	for (const education of content.education) {
 		validateDateConfig(education, `education ${education.id}`);
+		for (const highlight of education.highlights) {
+			if (!isNonEmptyString(highlight)) {
+				throw new Error(`Invalid education highlight in ${education.id}`);
+			}
+		}
+		for (const [index, subEducation] of (education.subEducation ?? []).entries()) {
+			validateDateConfig(subEducation, `education ${education.id} subEducation ${index}`);
+			if (!isNonEmptyString(subEducation.institution)) {
+				throw new Error(`Invalid subEducation institution in ${education.id} at index ${index}`);
+			}
+			if (!isNonEmptyString(subEducation.degree)) {
+				throw new Error(`Invalid subEducation degree in ${education.id} at index ${index}`);
+			}
+			if (!isNonEmptyString(subEducation.location)) {
+				throw new Error(`Invalid subEducation location in ${education.id} at index ${index}`);
+			}
+			for (const highlight of subEducation.highlights) {
+				if (!isNonEmptyString(highlight)) {
+					throw new Error(
+						`Invalid subEducation highlight in ${education.id} at index ${index}`
+					);
+				}
+			}
+		}
 		validateRelationships(`education ${education.id}`, education.relationships, index);
 	}
 

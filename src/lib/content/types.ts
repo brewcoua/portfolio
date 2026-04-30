@@ -142,6 +142,14 @@ export type Education = SlugEntity &
 	focus: string[];
 	thesisTitle?: string;
 	highlights: string[];
+		subEducation?: Array<
+			DateRangeOrSingleDate & {
+				institution: string;
+				degree: string;
+				location: string;
+				highlights: string[];
+			}
+		>;
 };
 
 export type Publication = SlugEntity & {
