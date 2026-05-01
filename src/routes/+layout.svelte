@@ -18,7 +18,7 @@
 	<meta property="og:title" content={data.site.defaultSeo.title} />
 	<meta property="og:description" content={data.site.defaultSeo.description} />
 	<meta property="og:image" content={`${data.site.baseUrl}${data.site.defaultSeo.image}`} />
-	<meta property="og:url" content={page.url.origin} />
+	<meta property="og:url" content={data.site.baseUrl} />
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />
 	<meta property="og:site_name" content={data.site.siteName} />
