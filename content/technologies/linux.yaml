@@ -1,0 +1,15 @@
+id: linux
+slug: linux
+label: Linux
+category: platform
+description: Desktop and server platform for CLI tooling, packaging, and notifications.
+relationships:
+  - type: skill
+    targetId: skill-systems-programming
+    role: related-skill
+  - type: skill
+    targetId: skill-cli-tooling
+    role: related-skill
+links:
+  - type: docs
+    url: https://docs.kernel.org/

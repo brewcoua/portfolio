@@ -1,0 +1,16 @@
+id: flume
+slug: flume
+label: Flume
+category: library
+color: "#DEA584"
+description: Fast multi-producer multi-consumer channels for Rust.
+relationships:
+  - type: skill
+    targetId: skill-concurrent-programming
+    role: related-skill
+  - type: technology
+    targetId: rust
+    role: related-technology
+links:
+  - type: docs
+    url: https://docs.rs/flume/

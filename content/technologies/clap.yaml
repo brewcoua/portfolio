@@ -1,0 +1,16 @@
+id: clap
+slug: clap
+label: Clap
+category: library
+color: "#DEA584"
+description: Command-line argument parser for Rust.
+relationships:
+  - type: skill
+    targetId: skill-cli-tooling
+    role: related-skill
+  - type: technology
+    targetId: rust
+    role: related-technology
+links:
+  - type: docs
+    url: https://docs.rs/clap/
