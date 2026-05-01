@@ -14,7 +14,7 @@ const DARK_FOREGROUND: Rgb = { r: 241, g: 245, b: 249 };
 const FALLBACK_CHIP_STYLE =
 	'background-color: color-mix(in oklab, var(--muted) 70%, transparent); border-color: var(--border); color: var(--foreground);';
 const ROLE_CHIP_STYLE =
-	'background-color: color-mix(in oklab, var(--muted) 82%, transparent); border-color: color-mix(in oklab, var(--border) 88%, var(--muted) 12%); color: var(--muted-foreground);';
+	'background-color: color-mix(in oklab, var(--muted) 88%, transparent); border-color: color-mix(in oklab, var(--border) 92%, var(--muted) 8%); color: var(--foreground);';
 
 function clampChannel(value: number): number {
 	return Math.min(255, Math.max(0, Math.round(value)));
