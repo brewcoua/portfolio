@@ -125,6 +125,7 @@ export type SiteConfig = {
 		title: string;
 		description: string;
 		image: string;
+		keywords: string[];
 	};
 	cv: {
 		cvPdfUrl?: string;

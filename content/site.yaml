@@ -4,6 +4,11 @@ defaultSeo:
   title: Brewen Couaran - Portfolio
   description: Fullstack, AI, and research portfolio.
   image: /og-default.png
+  keywords:
+    - fullstack
+    - ai
+    - research
+    - portfolio
 cv:
   cvPdfUrl: https://github.com/brewcoua/cv/releases/latest/download/cv.pdf
   label: Download CV
