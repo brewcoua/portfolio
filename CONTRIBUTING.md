@@ -32,7 +32,7 @@ All content lives in `content/` as YAML files, loaded at build time. The main fi
 | `content/skills/` | Skill entries |
 | `content/roles/` | Role tags used on the profile |
 
-Relationships between entries (e.g. project ↔ technology ↔ experience) are validated at build time. See [`SPECS.md`](SPECS.md) for the full shape and rules of each content type.
+Relationships between entries (e.g. project ↔ technology ↔ experience) are validated at build time.
 
 Project description fields support Markdown (processed via `src/lib/server/markdown/`).
 
