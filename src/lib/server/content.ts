@@ -38,6 +38,19 @@ let cached: PortfolioContent | null = null;
 const isNonEmptyString = (value: unknown): value is string =>
 	typeof value === 'string' && value.trim().length > 0;
 
+function validateOptionalBranding(
+	logo: string | undefined,
+	website: string | undefined,
+	entityLabel: string
+): void {
+	if (logo !== undefined && !isNonEmptyString(logo)) {
+		throw new Error(`Invalid logo in ${entityLabel}`);
+	}
+	if (website !== undefined && !isNonEmptyString(website)) {
+		throw new Error(`Invalid website in ${entityLabel}`);
+	}
+}
+
 function plainText(value: string | undefined): string {
 	if (!value) return '';
 	return value.replace(/[*_`[\]()>#-]/g, ' ').replace(/\s+/g, ' ').trim();
@@ -398,6 +411,7 @@ function validateReferences(content: PortfolioContent): void {
 
 	for (const experience of content.experience) {
 		validateDateConfig(experience, `experience ${experience.id}`);
+		validateOptionalBranding(experience.logo, experience.website, `experience ${experience.id}`);
 		for (const tech of experience.technologies) {
 			if (!technologyIds.has(tech)) throw new Error(`Unknown technology "${tech}" in experience ${experience.id}`);
 		}
@@ -406,6 +420,7 @@ function validateReferences(content: PortfolioContent): void {
 
 	for (const education of content.education) {
 		validateDateConfig(education, `education ${education.id}`);
+		validateOptionalBranding(education.logo, education.website, `education ${education.id}`);
 		for (const highlight of education.highlights) {
 			if (!isNonEmptyString(highlight)) {
 				throw new Error(`Invalid education highlight in ${education.id}`);
@@ -419,6 +434,11 @@ function validateReferences(content: PortfolioContent): void {
 		}
 		for (const [index, subEducation] of (education.subEducation ?? []).entries()) {
 			validateDateConfig(subEducation, `education ${education.id} subEducation ${index}`);
+			validateOptionalBranding(
+				subEducation.logo,
+				subEducation.website,
+				`education ${education.id} subEducation ${index}`
+			);
 			if (!isNonEmptyString(subEducation.institution)) {
 				throw new Error(`Invalid subEducation institution in ${education.id} at index ${index}`);
 			}

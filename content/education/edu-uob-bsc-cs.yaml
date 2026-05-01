@@ -1,6 +1,8 @@
 id: edu-uob-bsc-cs
 slug: bachelor-computer-science-university-bordeaux
 institution: University of Bordeaux
+website: https://www.u-bordeaux.fr
+logo: /logos/uob.jpg
 degree: Bachelor of Computer Science
 date: [2022-09, 2025-07]
 location: Bordeaux, France
@@ -14,14 +16,14 @@ grade:
   honors: high-honors
 highlights: []
 subEducation:
-  - institution: Hanyang University
+  - institution: Hanyang University (한양대학교)
+    website: https://www.hanyang.ac.kr
+    logo: /logos/hanyang.jpg
     degree: Exchange Year - Computer Science
     date: [2024-09, 2025-07]
     location: Seoul, South Korea
     grade:
       fraction: "92.3/100"
-    highlights:
-      - "Placeholder: add coursework and academic outcomes."
     societies:
       - "MultiCultural People's Club (MCPC)"
       - "Programming Club (HY-CoRA)"

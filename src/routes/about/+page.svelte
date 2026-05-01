@@ -1,5 +1,6 @@
 <script lang="ts">
 	import ExperienceCard from '$lib/components/ExperienceCard.svelte';
+	import OrgBrandMark from '$lib/components/OrgBrandMark.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import { formatEducationGrade, formatEntityDate } from '$lib/content/format';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
@@ -12,6 +13,10 @@
 
 	const mentionedSkills = $derived(data.mentionedSkills ?? []);
 	const mentionedTechnologies = $derived(data.mentionedTechnologies ?? []);
+
+	function isExternalHref(href: string): boolean {
+		return /^(https?:|mailto:)/.test(href);
+	}
 </script>
 
 <section class="space-y-5">
@@ -36,16 +41,32 @@
 			<Card.Root id={`education-${item.id}`}>
 				<Card.Header>
 					<div class="flex flex-wrap items-start justify-between gap-2">
-						<div>
-							<Card.Title class="text-xl">{item.degree}</Card.Title>
-							<Card.Description>{item.institution}</Card.Description>
-							{#if item.track && item.track.length > 0}
-								<div class="mt-1 flex flex-wrap gap-1">
-									{#each item.track as t}
-										<span class="rounded border border-border bg-muted/40 px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground">{t}</span>
-									{/each}
-								</div>
-							{/if}
+						<div class="flex min-w-0 flex-1 items-start gap-3">
+							<OrgBrandMark logo={item.logo} label={item.institution} website={item.website} />
+							<div class="min-w-0 flex-1">
+								<Card.Title class="text-xl">{item.degree}</Card.Title>
+								<Card.Description>
+									{#if item.website}
+										<a
+											class="underline-offset-2 hover:text-foreground hover:underline"
+											href={item.website}
+											target={isExternalHref(item.website) ? '_blank' : undefined}
+											rel={isExternalHref(item.website) ? 'noopener noreferrer' : undefined}
+										>
+											{item.institution}
+										</a>
+									{:else}
+										{item.institution}
+									{/if}
+								</Card.Description>
+								{#if item.track && item.track.length > 0}
+									<div class="mt-1 flex flex-wrap gap-1">
+										{#each item.track as t}
+											<span class="rounded border border-border bg-muted/40 px-1.5 py-0.5 text-[11px] font-medium text-muted-foreground">{t}</span>
+										{/each}
+									</div>
+								{/if}
+							</div>
 						</div>
 						<div class="text-right">
 							{#if item.grade}
@@ -123,16 +144,37 @@
 										></span>
 										<Card.Header class="space-y-0 pl-3 pr-2 py-1">
 											<div class="flex flex-wrap items-start justify-between gap-2">
-												<div>
-													<Card.Title class="text-xs leading-tight">{subItem.degree}</Card.Title>
-													<Card.Description class="text-xs leading-tight">{subItem.institution}</Card.Description>
-													{#if subItem.track && subItem.track.length > 0}
-														<div class="mt-0.5 flex flex-wrap gap-1">
-															{#each subItem.track as t}
-																<span class="rounded border border-border bg-muted/40 px-1 py-px text-[10px] font-medium text-muted-foreground">{t}</span>
-															{/each}
-														</div>
-													{/if}
+												<div class="flex min-w-0 flex-1 items-start gap-2">
+													<OrgBrandMark
+														logo={subItem.logo}
+														label={subItem.institution}
+														website={subItem.website}
+														size="sm"
+													/>
+													<div class="min-w-0 flex-1">
+														<Card.Title class="text-xs leading-tight">{subItem.degree}</Card.Title>
+														<Card.Description class="text-xs leading-tight">
+															{#if subItem.website}
+																<a
+																	class="underline-offset-2 hover:text-foreground hover:underline"
+																	href={subItem.website}
+																	target={isExternalHref(subItem.website) ? '_blank' : undefined}
+																	rel={isExternalHref(subItem.website) ? 'noopener noreferrer' : undefined}
+																>
+																	{subItem.institution}
+																</a>
+															{:else}
+																{subItem.institution}
+															{/if}
+														</Card.Description>
+														{#if subItem.track && subItem.track.length > 0}
+															<div class="mt-0.5 flex flex-wrap gap-1">
+																{#each subItem.track as t}
+																	<span class="rounded border border-border bg-muted/40 px-1 py-px text-[10px] font-medium text-muted-foreground">{t}</span>
+																{/each}
+															</div>
+														{/if}
+													</div>
 												</div>
 												<div class="text-right">
 													{#if subItem.grade}

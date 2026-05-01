@@ -199,6 +199,8 @@ export type Experience = SlugEntity &
 	details: string[];
 	detailsMarkdown?: MarkdownInlineNode[][];
 	technologies: string[];
+	logo?: string;
+	website?: string;
 };
 
 /** YAML: `grade: { fraction: "14/20" }` — numeric / numeric (decimals allowed). */
@@ -242,6 +244,8 @@ export type EducationSubEntry = DateRangeOrSingleDate & {
 	activitiesMarkdown?: MarkdownInlineNode[][];
 	societies: string[];
 	societiesMarkdown?: MarkdownInlineNode[][];
+	logo?: string;
+	website?: string;
 };
 
 export type Education = SlugEntity &
@@ -260,6 +264,8 @@ export type Education = SlugEntity &
 	societies: string[];
 	societiesMarkdown?: MarkdownInlineNode[][];
 	subEducation?: EducationSubEntry[];
+	logo?: string;
+	website?: string;
 };
 
 export type Publication = SlugEntity & {
