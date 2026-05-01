@@ -3,7 +3,7 @@ baseUrl: https://brewen.dev
 defaultSeo:
   title: Brewen Couaran - Portfolio
   description: Fullstack, AI, and research portfolio.
-  image: /og-default.png
+  image: /og.png
   keywords:
     - fullstack
     - ai

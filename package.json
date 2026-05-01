@@ -14,8 +14,10 @@
 	},
 	"devDependencies": {
 		"@fontsource-variable/inter": "^5.2.8",
+		"@fontsource/inter": "^5.2.8",
 		"@internationalized/date": "^3.12.1",
 		"@lucide/svelte": "^1.14.0",
+		"@resvg/resvg-js": "^2.6.2",
 		"@sveltejs/adapter-auto": "latest",
 		"@sveltejs/adapter-static": "^3.0.10",
 		"@sveltejs/kit": "latest",
@@ -27,6 +29,7 @@
 		"@types/sanitize-html": "^2.16.1",
 		"bits-ui": "^2.18.0",
 		"clsx": "^2.1.1",
+		"satori": "^0.26.0",
 		"shadcn-svelte": "^1.2.7",
 		"svelte": "^5.55.2",
 		"svelte-check": "^4.4.6",
