@@ -5,6 +5,8 @@
 	import { page } from '$app/state';
 	import * as NavigationMenu from '$lib/components/ui/navigation-menu';
 	import { Separator } from '$lib/components/ui/separator';
+	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
+	import ThemeDocumentSync from '$lib/components/ThemeDocumentSync.svelte';
 
 	let { children, data } = $props();
 </script>
@@ -24,6 +26,8 @@
 	<meta property="og:site_name" content={data.site.siteName} />
 </svelte:head>
 
+<ThemeDocumentSync />
+
 <div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-8">
 	<header class="mb-7 pb-2">
 		<div class="mb-4 flex flex-wrap items-center justify-between gap-3">
@@ -31,7 +35,10 @@
 				<span class="inline-block shrink-0" style="height:1.2em;aspect-ratio:100/150;" aria-hidden="true">{@html logoRaw}</span>
 				{data.profile.name}
 			</a>
-			<p class="text-sm text-muted-foreground">{data.profile.location}</p>
+			<div class="flex flex-wrap items-center justify-end gap-3">
+				<p class="text-sm text-muted-foreground">{data.profile.location}</p>
+				<ThemeSwitcher />
+			</div>
 		</div>
 		<NavigationMenu.Root viewport={false}>
 			<NavigationMenu.List class="flex flex-wrap gap-x-2 gap-y-2">
