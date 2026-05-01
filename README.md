@@ -2,6 +2,10 @@
 
 Static personal site: fullstack / AI / grad-student work—projects, experience, education, CV link. No backend; content lives in YAML, site is SvelteKit with a static build.
 
+## Repository
+
+Canonical repo: **[Codeberg — brewcoua/portfolio](https://codeberg.org/brewcoua/portfolio)**. A [GitHub mirror](https://github.com/brewcoua/portfolio) exists mainly for GitHub Actions CI.
+
 ## Stack
 
 - **SvelteKit** + **Vite**, **adapter-static** for deployable HTML/CSS/JS.
