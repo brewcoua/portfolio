@@ -201,24 +201,65 @@ export type Experience = SlugEntity &
 	technologies: string[];
 };
 
+/** YAML: `grade: { fraction: "14/20" }` — numeric / numeric (decimals allowed). */
+export type EducationGradeFraction = { kind: 'fraction'; value: string };
+
+/** YAML: `grade: { honors: high-honors }` — see `EDUCATION_HONORS_GRADES`. */
+export type EducationGradeHonors = { kind: 'honors'; honors: EducationHonorsGrade };
+
+/** YAML: `grade: { label: "Mention très bien" }` — freeform when not covered by enums. */
+export type EducationGradeLabel = { kind: 'label'; label: string };
+
+export type EducationGrade = EducationGradeFraction | EducationGradeHonors | EducationGradeLabel;
+
+/** Allowed `grade.honors` keys in YAML (`high-honors`, `summa-cum-laude`, …). */
+export const EDUCATION_HONORS_GRADES = [
+	'honors',
+	'high-honors',
+	'highest-honors',
+	'cum-laude',
+	'magna-cum-laude',
+	'summa-cum-laude',
+	'distinction',
+	'merit',
+	'first-class',
+	'upper-second-class',
+	'lower-second-class',
+	'third-class'
+] as const;
+
+export type EducationHonorsGrade = (typeof EDUCATION_HONORS_GRADES)[number];
+
+export type EducationSubEntry = DateRangeOrSingleDate & {
+	institution: string;
+	degree: string;
+	location: string;
+	track?: string[];
+	grade?: EducationGrade;
+	highlights: string[];
+	highlightsMarkdown?: MarkdownInlineNode[][];
+	activities: string[];
+	activitiesMarkdown?: MarkdownInlineNode[][];
+	societies: string[];
+	societiesMarkdown?: MarkdownInlineNode[][];
+};
+
 export type Education = SlugEntity &
 	DateRangeOrSingleDate & {
 	institution: string;
 	degree: string;
 	location: string;
+	track?: string[];
 	focus: string[];
 	thesisTitle?: string;
+	grade?: EducationGrade;
 	highlights: string[];
 	highlightsMarkdown?: MarkdownInlineNode[][];
-	subEducation?: Array<
-		DateRangeOrSingleDate & {
-			institution: string;
-			degree: string;
-			location: string;
-			highlights: string[];
-			highlightsMarkdown?: MarkdownInlineNode[][];
-		}
-	>;
+	activities: string[];
+	activitiesMarkdown?: MarkdownInlineNode[][];
+	societies: string[];
+	societiesMarkdown?: MarkdownInlineNode[][];
+	subEducation?: EducationSubEntry[];
 };
 
 export type Publication = SlugEntity & {

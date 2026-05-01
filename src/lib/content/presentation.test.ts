@@ -43,7 +43,7 @@ describe('presentation color helpers', () => {
 			{ id: 'role-x', slug: 'x', label: 'X', color: '#4f46e5', relationships: [] }
 		];
 		const style = getRoleChipStyle('role-x', roles);
-		expect(style).toContain('var(--muted-foreground)');
+		expect(style).toContain('var(--foreground)');
 		expect(style).not.toContain('--chip-bg-light');
 	});
 });

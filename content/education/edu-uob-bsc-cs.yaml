@@ -1,20 +1,31 @@
 id: edu-uob-bsc-cs
 slug: bachelor-computer-science-university-bordeaux
 institution: University of Bordeaux
-degree: Bachelor of Computer Science - International Track (High Honors)
+degree: Bachelor of Computer Science
 date: [2022-09, 2025-07]
 location: Bordeaux, France
+track:
+  - International Track
 focus:
   - computer-science
   - software-engineering
-  - international-track
 thesisTitle:
+grade:
+  honors: high-honors
 highlights: []
 subEducation:
   - institution: Hanyang University
     degree: Exchange Year - Computer Science
     date: [2024-09, 2025-07]
     location: Seoul, South Korea
+    grade:
+      fraction: "92.3/100"
     highlights:
       - "Placeholder: add coursework and academic outcomes."
+    societies:
+      - "MultiCultural People's Club (MCPC)"
+      - "Programming Club (HY-CoRA)"
+    activities:
+      - "RC Center Group"
+      - "Exchange/Foreign Students Activities"
 relationships: []

@@ -21,6 +21,22 @@ describe('custom markdown pipeline', () => {
 		expect(markdownInlineToPlainText(inline)).toContain('Bold');
 	});
 
+	it('parses markdown links after trailing newline (paragraph split)', () => {
+		const withNewlines = '[test](https://example.com)\n\n';
+		const inline = renderMarkdownInline(withNewlines);
+		const hasLink = inline.some((node) => node.type === 'link');
+		expect(hasLink).toBe(true);
+	});
+
+	it('parses society-style link plus suffix text', () => {
+		const inline = renderMarkdownInline(
+			"[W.I.S.V. 'Christiaan Huygens'](https://ch.tudelft.nl) — ComMA Committee Secretary"
+		);
+		const linkNode = inline.find((node) => node.type === 'link');
+		expect(linkNode?.type).toBe('link');
+		expect((linkNode as { href?: string })?.href).toBe('https://ch.tudelft.nl');
+	});
+
 	it('resolves @token links and auto mentions', () => {
 		const mentions: MentionDictionaries = {
 			tokenToLink: new Map([['exp-labri-research-intern', { kind: 'experience', href: '/experience/labri' }]]),
@@ -47,5 +63,9 @@ describe('custom markdown pipeline', () => {
 		expect(content.profile.summaryMarkdown?.blocks.length).toBeGreaterThan(0);
 		expect(content.projects[0]?.descriptionMarkdown?.blocks.length).toBeGreaterThan(0);
 		expect(content.experience[0]?.summaryMarkdown?.blocks.length).toBeGreaterThan(0);
+
+		const msc = content.education.find((e) => e.id === 'edu-tud-msc-cs');
+		const societyNodes = msc?.societiesMarkdown?.[0];
+		expect(societyNodes?.some((n) => n.type === 'link')).toBe(true);
 	});
 });

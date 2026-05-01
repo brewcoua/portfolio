@@ -36,6 +36,14 @@ Relationships between entries (e.g. project ↔ technology ↔ experience) are v
 
 Project description fields support Markdown (processed via `src/lib/server/markdown/`).
 
+**Education** (`content/education/`): Optional `grade` — exactly one of:
+
+- `grade: { fraction: "14/20" }` or `"3.9/4.0"` style `N/Nmax`
+- `grade: { honors: high-honors }` — key must match the allowed honors list (`high-honors`, `cum-laude`, `summa-cum-laude`, …)
+- `grade: { label: "Custom honours text" }` if not covered above
+
+Separate from `highlights`: `activities` and `societies` are string lists with the same inline Markdown as bullets elsewhere. Nested `subEducation` entries support `grade`, `activities`, and `societies` too.
+
 ## CV link
 
 `content/site.yaml` → `cv.cvPdfUrl` should point to the latest PDF. The default setup uses a GitHub release asset from a separate CV repo (`brewcoua/cv`) so the PDF can be updated independently of the site.

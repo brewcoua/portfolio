@@ -6,25 +6,29 @@ import {
 	renderMarkdownInline,
 	type MentionDictionaries
 } from '$lib/server/markdown/index';
-import type {
-	DateValue,
-	DateRangeOrSingleDate,
-	Education,
-	Experience,
-	LinkItem,
-	LinkType,
-	PortfolioContent,
-	Profile,
-	Project,
-	ProjectReference,
-	ProjectStatus,
-	Publication,
-	Relationship,
-	RelationshipType,
-	Role,
-	Skill,
-	SiteConfig,
-	Technology
+import {
+	EDUCATION_HONORS_GRADES,
+	type DateValue,
+	type DateRangeOrSingleDate,
+	type Education,
+	type EducationGrade,
+	type EducationHonorsGrade,
+	type EducationSubEntry,
+	type Experience,
+	type LinkItem,
+	type LinkType,
+	type PortfolioContent,
+	type Profile,
+	type Project,
+	type ProjectReference,
+	type ProjectStatus,
+	type Publication,
+	type Relationship,
+	type RelationshipType,
+	type Role,
+	type Skill,
+	type SiteConfig,
+	type Technology,
 } from '$lib/content/types';
 
 const CONTENT_DIR = join(process.cwd(), 'content');
@@ -94,6 +98,126 @@ function validateDateValue(date: DateValue, entityLabel: string): void {
 	if (end !== undefined && (!isNonEmptyString(end) || !isIsoDate(end))) {
 		throw new Error(`Invalid end date in ${entityLabel}: ${String(end)}`);
 	}
+}
+
+const EDUCATION_HONORS_SET = new Set<string>(EDUCATION_HONORS_GRADES);
+
+function isEducationHonorsGrade(value: string): value is EducationHonorsGrade {
+	return EDUCATION_HONORS_SET.has(value as EducationHonorsGrade);
+}
+
+const GRADE_FRACTION_PATTERN = /^\d+(\.\d+)?\s*\/\s*\d+(\.\d+)?$/;
+
+function coerceStringArray(label: string, value: unknown): string[] {
+	if (value === undefined || value === null) return [];
+	if (!Array.isArray(value)) throw new Error(`${label}: expected array of strings`);
+	for (const [index, item] of value.entries()) {
+		if (typeof item !== 'string' || !isNonEmptyString(item)) {
+			throw new Error(`${label}: invalid entry at index ${index}`);
+		}
+	}
+	return value.map((item) => item.trim());
+}
+
+function normalizeGradeFraction(raw: string): string {
+	const trimmed = raw.trim();
+	if (!GRADE_FRACTION_PATTERN.test(trimmed)) {
+		throw new Error(`Invalid grade fraction "${raw}" — use N/Nmax (decimals OK), e.g. 14/20 or 3.9/4.0`);
+	}
+	const [, a, b] = trimmed.match(/^(\d+(?:\.\d+)?)\s*\/\s*(\d+(?:\.\d+)?)$/) ?? [];
+	if (!a || !b) throw new Error(`Invalid grade fraction "${raw}"`);
+	return `${a} / ${b}`;
+}
+
+function parseEducationGrade(raw: unknown, label: string): EducationGrade | undefined {
+	if (raw === undefined || raw === null) return undefined;
+	if (typeof raw !== 'object' || Array.isArray(raw)) {
+		throw new Error(`${label}: grade must be a mapping with one of fraction | honors | label`);
+	}
+	const map = raw as Record<string, unknown>;
+
+	// Support both inline-key form { fraction: '14/20' } and discriminated-union form { kind: 'fraction', value: '14/20' }.
+	const kindRaw = typeof map.kind === 'string' ? map.kind.trim() : undefined;
+
+	const fracRaw = map.fraction ?? (kindRaw === 'fraction' ? map.value : undefined);
+	const honorsRaw = map.honors ?? (kindRaw === 'honors' ? map.honors : undefined);
+	const labelRaw = map.label ?? (kindRaw === 'label' ? map.value : undefined);
+
+	const hasFrac = fracRaw !== undefined && fracRaw !== null && String(fracRaw).trim() !== '';
+	const hasHonors = honorsRaw !== undefined && honorsRaw !== null && String(honorsRaw).trim() !== '';
+	const hasLabel = labelRaw !== undefined && labelRaw !== null && String(labelRaw).trim() !== '';
+
+	const modes = [hasFrac ? 'fraction' : null, hasHonors ? 'honors' : null, hasLabel ? 'label' : null].filter(Boolean);
+
+	if (modes.length === 0) return undefined;
+	if (modes.length > 1) {
+		throw new Error(`${label}: grade must have exactly one of fraction, honors, or label`);
+	}
+
+	if (hasFrac) {
+		if (typeof fracRaw !== 'string') throw new Error(`${label}: grade fraction must be a string`);
+		return { kind: 'fraction', value: normalizeGradeFraction(fracRaw) };
+	}
+	if (hasHonors) {
+		if (typeof honorsRaw !== 'string') throw new Error(`${label}: grade.honors must be a string`);
+		const key = honorsRaw.trim();
+		if (!isEducationHonorsGrade(key)) {
+			throw new Error(
+				`${label}: unknown grade.honors "${key}" — allowed: ${Array.from(EDUCATION_HONORS_GRADES).join(', ')}`
+			);
+		}
+		return { kind: 'honors', honors: key };
+	}
+	if (typeof labelRaw !== 'string' || !isNonEmptyString(labelRaw)) {
+		throw new Error(`${label}: grade.label must be a non-empty string`);
+	}
+	return { kind: 'label', label: labelRaw.trim() };
+}
+
+function hydrateEducationSubEntry(
+	ownerId: string,
+	index: number,
+	sub: DateRangeOrSingleDate & Partial<EducationSubEntry> & { grade?: unknown; track?: unknown }
+): EducationSubEntry {
+	return {
+		...sub,
+		institution: sub.institution ?? '',
+		degree: sub.degree ?? '',
+		location: sub.location ?? '',
+		date: sub.date as EducationSubEntry['date'],
+		track: coerceStringArray(`education ${ownerId} subEducation[${index}] track`, sub.track),
+		highlights: coerceStringArray(
+			`education ${ownerId} subEducation[${index}] highlights`,
+			sub.highlights
+		),
+		activities: coerceStringArray(
+			`education ${ownerId} subEducation[${index}] activities`,
+			sub.activities
+		),
+		societies: coerceStringArray(
+			`education ${ownerId} subEducation[${index}] societies`,
+			sub.societies
+		),
+		grade: parseEducationGrade(sub.grade, `education ${ownerId} subEducation[${index}]`)
+	};
+}
+
+function hydrateEducationEntry(
+	item: Education & { grade?: unknown; activities?: unknown; societies?: unknown; track?: unknown }
+): Education {
+	const subRaw = item.subEducation as
+		| Array<DateRangeOrSingleDate & Partial<EducationSubEntry> & { grade?: unknown; track?: unknown }>
+		| undefined;
+	return {
+		...item,
+		relationships: item.relationships ?? [],
+		track: coerceStringArray(`education ${item.id} track`, item.track),
+		highlights: coerceStringArray(`education ${item.id} highlights`, item.highlights),
+		activities: coerceStringArray(`education ${item.id} activities`, item.activities),
+		societies: coerceStringArray(`education ${item.id} societies`, item.societies),
+		grade: parseEducationGrade(item.grade, `education ${item.id}`),
+		subEducation: subRaw?.map((sub, index) => hydrateEducationSubEntry(item.id, index, sub))
+	};
 }
 
 const KNOWN_LINK_TYPES = new Set<LinkType>([
@@ -287,6 +411,12 @@ function validateReferences(content: PortfolioContent): void {
 				throw new Error(`Invalid education highlight in ${education.id}`);
 			}
 		}
+		for (const line of education.activities) {
+			if (!isNonEmptyString(line)) throw new Error(`Invalid education activity in ${education.id}`);
+		}
+		for (const line of education.societies) {
+			if (!isNonEmptyString(line)) throw new Error(`Invalid education society entry in ${education.id}`);
+		}
 		for (const [index, subEducation] of (education.subEducation ?? []).entries()) {
 			validateDateConfig(subEducation, `education ${education.id} subEducation ${index}`);
 			if (!isNonEmptyString(subEducation.institution)) {
@@ -303,6 +433,16 @@ function validateReferences(content: PortfolioContent): void {
 					throw new Error(
 						`Invalid subEducation highlight in ${education.id} at index ${index}`
 					);
+				}
+			}
+			for (const line of subEducation.activities) {
+				if (!isNonEmptyString(line)) {
+					throw new Error(`Invalid subEducation activity in ${education.id} at index ${index}`);
+				}
+			}
+			for (const line of subEducation.societies) {
+				if (!isNonEmptyString(line)) {
+					throw new Error(`Invalid subEducation society entry in ${education.id} at index ${index}`);
 				}
 			}
 		}
@@ -487,11 +627,19 @@ function enrichMarkdown(content: PortfolioContent, mentions: MentionDictionaries
 	const education = content.education.map((item) => ({
 			...item,
 			highlightsMarkdown: item.highlights.map((highlight) => renderMarkdownInline(highlight, { mentions })),
+			activitiesMarkdown: item.activities.map((line) => renderMarkdownInline(line, { mentions })),
+			societiesMarkdown: item.societies.map((line) => renderMarkdownInline(line, { mentions })),
 			subEducation: item.subEducation
 				? item.subEducation.map((subItem) => ({
 							...subItem,
 							highlightsMarkdown: subItem.highlights.map((highlight) =>
 								renderMarkdownInline(highlight, { mentions })
+							),
+							activitiesMarkdown: subItem.activities.map((line) =>
+								renderMarkdownInline(line, { mentions })
+							),
+							societiesMarkdown: subItem.societies.map((line) =>
+								renderMarkdownInline(line, { mentions })
 							)
 						}))
 				: undefined
@@ -533,7 +681,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 		technologies,
 		skills,
 		roles,
-		education,
+		educationYaml,
 		publications,
 		projects,
 		experience
@@ -549,6 +697,10 @@ export async function loadContent(): Promise<PortfolioContent> {
 			readYamlCollection<Project>('projects'),
 			readYamlCollection<Experience>('experience')
 		]);
+
+	const education = educationYaml.map((entry) =>
+		hydrateEducationEntry(entry as Education & { grade?: unknown; activities?: unknown; societies?: unknown })
+	);
 
 	const content: PortfolioContent = {
 		profile,

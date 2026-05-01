@@ -3,11 +3,10 @@ name: Brewen Couaran
 headline: Full-Stack Engineer Building AI-Driven Systems
 location: Delft, Netherlands
 summary: >
-  Full-stack engineer focused on backend-heavy products, browser automation,
-  and AI-assisted workflows. I build reliable systems end to end, from APIs
-  and orchestration layers to user-facing interfaces. Currently pursuing an
-  MSc in Computer Science at TU Delft after internships in research (LaBRI)
-  and startup engineering.
+  Full-stack engineer focused on backend-heavy products and agentic workflows.
+  I build reliable systems end to end, from APIs and orchestration layers to user-facing interfaces.
+  Currently pursuing an [MSc in Computer Science at TU Delft](@edu-tud-msc-cs) after internships in research ([LaBRI](@exp-labri-research-intern))
+  and startup engineering ([Packmind](@exp-packmind-developer-intern)).
 roles:
   - fullstack-developer
   - graduate-student
