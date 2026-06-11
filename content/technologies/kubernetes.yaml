@@ -1,0 +1,14 @@
+id: kubernetes
+slug: kubernetes
+label: Kubernetes
+category: cloud
+icon: container
+color: "#326CE5"
+description: Container orchestration for deploying and scaling microservices.
+relationships:
+  - type: skill
+    targetId: skill-cloud-computing
+    role: related-skill
+links:
+  - type: docs
+    url: https://kubernetes.io/docs/

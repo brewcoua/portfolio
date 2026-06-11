@@ -11,6 +11,9 @@ relationships:
   - type: technology
     targetId: docker
     role: related-technology
+  - type: technology
+    targetId: kubernetes
+    role: related-technology
 links:
   - type: article
     url: https://en.wikipedia.org/wiki/Cloud_computing

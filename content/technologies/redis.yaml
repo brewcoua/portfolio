@@ -1,0 +1,14 @@
+id: redis
+slug: redis
+label: Redis
+category: backend
+icon: database
+color: "#DC382D"
+description: In-memory data store for caching and async result delivery.
+relationships:
+  - type: skill
+    targetId: skill-api-development
+    role: related-skill
+links:
+  - type: docs
+    url: https://redis.io/docs/
