@@ -48,6 +48,17 @@ function getDateStart(date: DateValue): string {
 	return typeof date === 'string' ? date : (date[0] ?? '');
 }
 
+/** "Authors. Container" line for a bibliographic reference (journal preferred over venue). */
+export function formatReferenceMeta(reference: {
+	authors: string[];
+	journal?: string;
+	venue?: string;
+}): string {
+	const authors = reference.authors.join(', ');
+	const container = reference.journal ?? reference.venue;
+	return [authors, container].filter(Boolean).join('. ');
+}
+
 export function formatYearMonth(value: string): string {
 	const [year, month] = value.split('-');
 	if (!month) return year;

@@ -13,10 +13,12 @@ export async function load({ params }) {
 	if (!project) throw error(404, 'Project not found');
 
 	const relatedExperience = getRelated(project.relationships, content.experience, 'experience');
+	const relatedPublications = getRelated(project.relationships, content.publications, 'publication');
 
 	return {
 		project,
 		relatedExperience,
+		relatedPublications,
 		technologies: content.technologies,
 		skills: content.skills,
 		roles: content.roles

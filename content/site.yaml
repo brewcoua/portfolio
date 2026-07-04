@@ -17,5 +17,7 @@ navigation:
     href: /about
   - label: Projects
     href: /projects
+  - label: Publications
+    href: /publications
   - label: Contact
     href: /contact

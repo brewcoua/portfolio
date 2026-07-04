@@ -211,7 +211,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 			case 'education':
 				return { kind: 'education', href: `/education/${node.slug}` };
 			case 'publication':
-				return { kind: 'publication', href: `/about#publication-${node.slug}` };
+				return { kind: 'publication', href: `/publications/${node.slug}` };
 			case 'role':
 				return { kind: 'role', href: '/projects' };
 			case 'technology':
@@ -473,7 +473,12 @@ export async function loadContent(): Promise<PortfolioContent> {
 		}
 
 		if (type === 'publication') {
+			const tech = resolveRefs(data.tech as string[], path);
+			const skillPaths = resolveRefs(data.skills as string[], path);
 			const related = resolveRefs(data.related as string[], path);
+			const descriptionMarkdown = renderDoc(node.body, path, mentions);
+			linkTargets(path, tech, 'technology');
+			linkTargets(path, skillPaths, 'skill');
 			linkTargets(path, related, 'mention');
 			publications.push({
 				id: path,
@@ -482,10 +487,26 @@ export async function loadContent(): Promise<PortfolioContent> {
 				slug,
 				relationships: [],
 				title: label,
+				subtitle: data.subtitle as string | undefined,
+				authors: (data.authors as string[]) ?? [],
+				abstract: String(data.abstract),
+				abstractMarkdown: renderDoc(String(data.abstract), path, mentions),
 				venue: data.venue as string | undefined,
-				year: data.year as number | undefined,
-				url: data.url as string | undefined
+				kind: data.kind as Publication['kind'],
+				featured: Boolean(data.featured),
+				doi: data.doi as string | undefined,
+				links: (data.links as Publication['links']) ?? [],
+				technologies: tech,
+				skills: skillPaths,
+				references: data.references as Publication['references'],
+				highlights: (data.highlights as string[]) ?? [],
+				highlightsMarkdown: renderInlineList(data.highlights as string[], path, mentions),
+				description: node.body,
+				descriptionMarkdown,
+				searchKeywords: data.searchKeywords as string[] | undefined,
+				date: data.date as Publication['date']
 			});
+			linkTargets(path, [...mentions], 'mention');
 		}
 	}
 
@@ -571,5 +592,6 @@ function graphUrlFor(node: RawNode): string | undefined {
 	if (node.type === 'project') return `/projects/${node.slug}`;
 	if (node.type === 'experience') return `/experience/${node.slug}`;
 	if (node.type === 'education') return `/education/${node.slug}`;
+	if (node.type === 'publication') return `/publications/${node.slug}`;
 	return undefined; // technologies/skills/roles are popover-only
 }
