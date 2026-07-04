@@ -1,5 +1,5 @@
 <script lang="ts">
-	import ZapIcon from '@lucide/svelte/icons/zap';
+	import ColoredEntityBadge from '$lib/components/ColoredEntityBadge.svelte';
 	import { cn } from '$lib/utils';
 	import { Badge } from '$lib/components/ui/badge';
 	import { Button } from '$lib/components/ui/button';
@@ -62,10 +62,7 @@
 		{#if triggerMode === 'text'}
 			<span class={cn('mention-link mention-static mention-popover-trigger', className)}>{label}</span>
 		{:else}
-			<Badge variant="outline" class={cn('cursor-pointer px-2 py-1 text-xs', className)} style={style}>
-				<ZapIcon class="size-3.5 opacity-80" aria-hidden="true" />
-				{label}
-			</Badge>
+			<ColoredEntityBadge {label} {style} icon="sparkles" class={cn('cursor-pointer', className)} />
 		{/if}
 	</Popover.Trigger>
 	<Popover.Content class="space-y-2">

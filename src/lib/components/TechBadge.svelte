@@ -62,7 +62,7 @@
 		{#if triggerMode === 'text'}
 			<span class={cn('mention-link mention-static mention-popover-trigger', className)}>{label}</span>
 		{:else}
-			<ColoredEntityBadge {label} {style} icon={technology?.icon} class={cn('cursor-pointer', className)} />
+			<ColoredEntityBadge {label} {style} brandSlug={techId} icon={technology?.icon} class={cn('cursor-pointer', className)} />
 		{/if}
 	</Popover.Trigger>
 	<Popover.Content class="space-y-2">

@@ -4,6 +4,7 @@
 	import OrgBrandMark from '$lib/components/OrgBrandMark.svelte';
 	import { formatEntityDate } from '$lib/content/format';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
+	import ArrowUpRightIcon from '@lucide/svelte/icons/arrow-up-right';
 	import type { Experience, MarkdownInlineNode, Skill, Technology } from '$lib/content/types';
 
 	let { experience, skills = [], technologies = [] } = $props<{
@@ -33,7 +34,13 @@
 				/>
 				<div class="min-w-0 flex-1">
 					<Card.Title class="text-xl">
-						<a class="hover:text-primary" href={`/experience/${experience.slug}`}>{experience.title}</a>
+						<a class="group inline-flex items-center gap-1.5 hover:text-primary" href={`/experience/${experience.slug}`}>
+							{experience.title}
+							<ArrowUpRightIcon
+								class="size-4 shrink-0 text-muted-foreground transition-transform group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-primary"
+								aria-hidden="true"
+							/>
+						</a>
 					</Card.Title>
 					<Card.Description>
 						{#if experience.website}

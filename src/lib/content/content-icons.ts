@@ -18,11 +18,14 @@ import FileCodeIcon from '@lucide/svelte/icons/file-code';
 import LayersIcon from '@lucide/svelte/icons/layers';
 import NetworkIcon from '@lucide/svelte/icons/network';
 import PanelTopIcon from '@lucide/svelte/icons/panel-top';
+import RabbitIcon from '@lucide/svelte/icons/rabbit';
 import ServerIcon from '@lucide/svelte/icons/server';
 import SparklesIcon from '@lucide/svelte/icons/sparkles';
 import TagIcon from '@lucide/svelte/icons/tag';
 import TerminalIcon from '@lucide/svelte/icons/terminal';
+import TestTubeIcon from '@lucide/svelte/icons/test-tube';
 import UserIcon from '@lucide/svelte/icons/user';
+import ZapIcon from '@lucide/svelte/icons/zap';
 
 /** Kebab-case names from YAML `icon`; values are Lucide Svelte components. */
 export const CONTENT_ICON_MAP: Record<string, Component> = {
@@ -41,10 +44,13 @@ export const CONTENT_ICON_MAP: Record<string, Component> = {
 	database: DatabaseIcon,
 	network: NetworkIcon,
 	'panel-top': PanelTopIcon,
+	rabbit: RabbitIcon,
 	server: ServerIcon,
 	sparkles: SparklesIcon,
 	terminal: TerminalIcon,
+	'test-tube': TestTubeIcon,
 	user: UserIcon,
+	zap: ZapIcon,
 	layers: LayersIcon,
 	'file-braces': FileBracesIcon,
 	'file-code': FileCodeIcon

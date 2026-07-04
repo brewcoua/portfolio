@@ -1,3 +1,7 @@
+import type { NodeType } from './schema';
+
+export type { NodeType } from './schema';
+
 export type RelationshipType =
 	| 'project'
 	| 'experience'
@@ -15,14 +19,26 @@ export type Relationship = {
 	role?: string;
 };
 
+/**
+ * A date is either a single point (`"2026-06"` or `["2026-06"]`), a closed range
+ * (`["2022-09", "2025-07"]`), or an ongoing range (`["2025-09", "present"]`). The
+ * `'present'` sentinel is what distinguishes "ongoing" from a one-off point.
+ */
 export type DateValue = string | [string] | [string, string];
 
 export type DateRangeOrSingleDate = {
 	date: DateValue;
 };
 
+/**
+ * Every content node is identified by its `path` (`type/slug`, derived from the
+ * folder + filename). `id` is kept as an alias of `path` so all id-based lookups
+ * keep working. `relationships` is derived by the loader from `[[wikilinks]]`.
+ */
 export type Entity = {
 	id: string;
+	path: string;
+	type: NodeType;
 	relationships: Relationship[];
 };
 
@@ -32,6 +48,8 @@ export type SlugEntity = Entity & {
 
 export type LinkType =
 	| 'github'
+	| 'codeberg'
+	| 'gitlab'
 	| 'demo'
 	| 'docs'
 	| 'paper'
@@ -127,12 +145,33 @@ export type SiteConfig = {
 		image: string;
 		keywords: string[];
 	};
-	cv: {
-		cvPdfUrl?: string;
-		label?: string;
-		lastVerified?: string;
-	};
+	cvUrl?: string;
 	navigation: Array<{ label: string; href: string }>;
+};
+
+export type GraphNode = {
+	id: string;
+	type: NodeType | 'profile';
+	label: string;
+	url?: string;
+	color?: string;
+	/** Frontmatter icon name (Lucide), used for the per-role/technology glyph. */
+	icon?: string;
+	/** Relative visual weight used to size the node in the graph. */
+	weight: number;
+};
+
+export type GraphLinkKind = 'role' | 'technology' | 'skill' | 'mention';
+
+export type GraphLink = {
+	source: string;
+	target: string;
+	kind: GraphLinkKind;
+};
+
+export type GraphData = {
+	nodes: GraphNode[];
+	links: GraphLink[];
 };
 
 export type Technology = SlugEntity & {
@@ -164,6 +203,17 @@ export type Role = SlugEntity & {
 
 export type ProjectStatus = 'completed' | 'active' | 'paused' | 'archived';
 
+/** Context in which a project was built (mirrors experience's employmentType). */
+export type ProjectKind = 'hackathon' | 'personal' | 'professional' | 'coursework' | 'research';
+
+export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
+	hackathon: 'Hackathon',
+	personal: 'Personal',
+	professional: 'Professional',
+	coursework: 'Coursework',
+	research: 'Research'
+};
+
 export type Project = SlugEntity &
 	DateRangeOrSingleDate & {
 	title: string;
@@ -171,10 +221,11 @@ export type Project = SlugEntity &
 	abstract: string;
 	abstractMarkdown?: MarkdownDoc;
 	status: ProjectStatus;
+	kind?: ProjectKind;
 	role: string;
-	duration: string;
+	duration?: string;
 	featured: boolean;
-	summary: string;
+	summary?: string;
 	summaryMarkdown?: MarkdownDoc;
 	description: string;
 	descriptionMarkdown?: MarkdownDoc;
@@ -253,6 +304,8 @@ export type Education = SlugEntity &
 	institution: string;
 	degree: string;
 	location: string;
+	description?: string;
+	descriptionMarkdown?: MarkdownDoc;
 	track?: string[];
 	focus: string[];
 	thesisTitle?: string;
@@ -285,4 +338,5 @@ export type PortfolioContent = {
 	experience: Experience[];
 	education: Education[];
 	publications: Publication[];
+	graph: GraphData;
 };

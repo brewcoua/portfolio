@@ -20,6 +20,7 @@
 	import { Button } from '$lib/components/ui/button';
 	import { formatEntityDate } from '$lib/content/format';
 	import { resolveLink } from '$lib/content/presentation';
+	import { PROJECT_KIND_LABELS } from '$lib/content/types';
 	import type { Component } from 'svelte';
 
 	let { data } = $props();
@@ -55,15 +56,12 @@
 
 	function formatReference(reference: {
 		authors: string[];
-		year: string;
 		journal?: string;
 		venue?: string;
-		doi?: string;
 	}): string {
 		const authors = reference.authors.join(', ');
 		const container = reference.journal ?? reference.venue;
-		const doi = reference.doi ? `DOI: ${reference.doi}` : '';
-		return [authors, `(${reference.year})`, container, doi].filter(Boolean).join('. ');
+		return [authors, container].filter(Boolean).join('. ');
 	}
 </script>
 
@@ -79,7 +77,12 @@
 	<div class="flex flex-wrap items-center gap-2 text-sm">
 		<RoleBadge roleId={data.project.role} roles={data.roles} />
 		<ProjectStatusBadge status={data.project.status} />
-		<Badge variant="outline">{formatEntityDate(data.project)}</Badge>
+		{#if data.project.kind}
+			<Badge variant="outline">{PROJECT_KIND_LABELS[data.project.kind]}</Badge>
+		{/if}
+		<Badge variant="outline">
+			{formatEntityDate(data.project)}{#if data.project.duration}<span class="ml-1 text-muted-foreground">· {data.project.duration}</span>{/if}
+		</Badge>
 	</div>
 
 	{#if data.project.thumbnail}
@@ -185,40 +188,42 @@
 				/>
 			</div>
 
-			{#if data.project.references?.length}
-				<section>
-					<h2 class="mb-3 text-2xl font-semibold">References</h2>
-					<div class="space-y-3">
-						{#each data.project.references as reference}
-							<div class="border border-border p-3 space-y-2">
-								<p class="font-medium">{reference.title}</p>
-								<p class="text-sm text-muted-foreground">{formatReference(reference)}</p>
-								<div class="flex flex-wrap gap-2">
-									{#if reference.url}
-										<Button href={reference.url} variant="outline" size="sm" target="_blank" rel="noreferrer">
-											Open
-										</Button>
-									{/if}
-									{#if reference.doi}
-										<Button
-											href={`https://doi.org/${reference.doi}`}
-											variant="outline"
-											size="sm"
-											target="_blank"
-											rel="noreferrer"
-										>
-											DOI
-										</Button>
-									{/if}
-								</div>
-							</div>
-						{/each}
-					</div>
-				</section>
-			{/if}
-
 			{#if data.relatedExperience.length > 0}
 				<RelationshipPanel title="Related Experience" items={relatedExperienceItems} />
+			{/if}
+
+			{#if data.project.references?.length}
+				<section>
+					<h2 class="mb-3 text-lg font-semibold">References</h2>
+					<ol class="space-y-2.5 text-sm">
+						{#each data.project.references as reference}
+							<li class="flex gap-2 leading-snug">
+								<span class="mt-px shrink-0 text-muted-foreground">[{reference.year}]</span>
+								<span class="min-w-0">
+									{#if reference.url}
+										<a
+											href={reference.url}
+											target="_blank"
+											rel="noreferrer"
+											class="font-medium underline-offset-2 hover:text-primary hover:underline"
+										>{reference.title}</a>
+									{:else}
+										<span class="font-medium">{reference.title}</span>
+									{/if}
+									<span class="text-muted-foreground"> — {formatReference(reference)}</span>
+									{#if reference.doi}
+										<a
+											href={`https://doi.org/${reference.doi}`}
+											target="_blank"
+											rel="noreferrer"
+											class="ml-1 whitespace-nowrap text-xs text-muted-foreground underline-offset-2 hover:text-primary hover:underline"
+										>DOI ↗</a>
+									{/if}
+								</span>
+							</li>
+						{/each}
+					</ol>
+				</section>
 			{/if}
 		</div>
 	</div>

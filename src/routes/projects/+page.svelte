@@ -1,23 +1,26 @@
 <script lang="ts">
 	import { filterProjects } from '$lib/content/project-discovery';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import ProjectKindFilter from '$lib/components/ProjectKindFilter.svelte';
 	import ProjectStatusFilter from '$lib/components/ProjectStatusFilter.svelte';
 	import RoleFilter from '$lib/components/RoleFilter.svelte';
 	import TechnologyFilter from '$lib/components/TechnologyFilter.svelte';
-	import type { ProjectStatus } from '$lib/content/types';
+	import type { ProjectKind, ProjectStatus } from '$lib/content/types';
 
 	let { data } = $props();
 	let query = $state('');
 	let selectedTech = $state<string>('all');
 	let selectedStatus = $state<ProjectStatus | 'all'>('all');
 	let selectedRole = $state<string>('all');
+	let selectedKind = $state<ProjectKind | 'all'>('all');
 
 	const filteredProjects = $derived(
 		filterProjects(data.projects, {
 			query,
 			technology: selectedTech,
 			status: selectedStatus,
-			role: selectedRole
+			role: selectedRole,
+			kind: selectedKind
 		})
 	);
 </script>
@@ -26,7 +29,7 @@
 	<h1 class="text-4xl font-semibold tracking-tight">Projects</h1>
 	<p class="text-muted-foreground">
 		Search by title, abstract, description, technologies, and skills. Narrow results by technology,
-		status, and role.
+		status, type, and role.
 	</p>
 </section>
 
@@ -64,6 +67,10 @@
 		<TechnologyFilter technologies={data.filterOptions.technologies} bind:selected={selectedTech} />
 
 		<ProjectStatusFilter statuses={data.filterOptions.statuses} bind:selected={selectedStatus} />
+
+		{#if data.filterOptions.kinds.length > 0}
+			<ProjectKindFilter kinds={data.filterOptions.kinds} bind:selected={selectedKind} />
+		{/if}
 
 		<RoleFilter roles={data.filterOptions.roles} bind:selected={selectedRole} />
 	</aside>
