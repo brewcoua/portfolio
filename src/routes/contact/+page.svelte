@@ -9,6 +9,8 @@
 
 	const META: Record<string, { label: string; icon?: Component; brand?: string; handle: (url: string) => string }> = {
 		github: { label: 'GitHub', brand: 'github', handle: (url) => `@${url.replace(/\/$/, '').split('/').pop()}` },
+		codeberg: { label: 'Codeberg', brand: 'codeberg', handle: (url) => `@${url.replace(/\/$/, '').split('/').pop()}` },
+		gitlab: { label: 'GitLab', brand: 'gitlab', handle: (url) => `@${url.replace(/\/$/, '').split('/').pop()}` },
 		linkedin: { label: 'LinkedIn', brand: 'linkedin', handle: (url) => url.replace(/^https?:\/\//, '').replace(/^[^/]*\//, '').replace(/\/$/, '') },
 		email: { label: 'Email', icon: MailIcon, handle: (url) => url.replace(/^mailto:/, '') }
 	};

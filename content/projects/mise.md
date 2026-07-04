@@ -4,6 +4,7 @@ subtitle: AI-powered restaurant analytics platform
 abstract: |
   An AI-powered restaurant analytics platform that helps reduce food waste, optimize ordering, and make data-driven decisions through ML predictions, LLM-powered insights, and interactive dashboards.
 status: completed
+kind: coursework
 featured: false
 date:
   - 2025-09
@@ -62,5 +63,3 @@ mise.ai is a restaurant analytics platform developed as a team project for **CS4
    - Full-stack development across the React/TypeScript frontend and FastAPI backend services
    - Service integration for async prediction and LLM pipelines
    - Kubernetes deployment configuration and microservices orchestration
-
-The project demonstrates end-to-end software architecture design; from domain modeling and API contracts through distributed async processing and cloud-native deployment.

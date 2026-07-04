@@ -1,9 +1,11 @@
+import { PROJECT_KIND_LABELS } from '$lib/content/types';
 import type {
 	MarkdownBlockNode,
 	MarkdownDoc,
 	MarkdownInlineNode,
 	PortfolioContent,
 	Project,
+	ProjectKind,
 	ProjectStatus,
 	Role,
 	Skill,
@@ -15,6 +17,7 @@ export type ProjectFilters = {
 	technology: string;
 	status: ProjectStatus | 'all';
 	role: string;
+	kind: ProjectKind | 'all';
 };
 
 export type ResolvedProject = Project & {
@@ -112,15 +115,23 @@ export function filterProjects(projects: ResolvedProject[], filters: ProjectFilt
 			filters.technology === 'all' || project.technologies.includes(filters.technology);
 		const matchesStatus = filters.status === 'all' || project.status === filters.status;
 		const matchesRole = filters.role === 'all' || project.role === filters.role;
+		const matchesKind = filters.kind === 'all' || project.kind === filters.kind;
 
-		return matchesQuery && matchesTechnology && matchesStatus && matchesRole;
+		return matchesQuery && matchesTechnology && matchesStatus && matchesRole && matchesKind;
 	});
 }
 
 export function getProjectFilterOptions(content: PortfolioContent) {
+	// Only offer kinds that at least one project actually uses, in canonical order.
+	const usedKinds = new Set(content.projects.map((project) => project.kind).filter(Boolean));
+	const kinds = (Object.keys(PROJECT_KIND_LABELS) as ProjectKind[]).filter((kind) =>
+		usedKinds.has(kind)
+	);
+
 	return {
 		technologies: content.technologies,
 		roles: content.roles,
-		statuses: ['completed', 'active', 'paused', 'archived'] as const
+		statuses: ['completed', 'active', 'paused', 'archived'] as const,
+		kinds
 	};
 }

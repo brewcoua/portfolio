@@ -209,7 +209,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 			case 'experience':
 				return { kind: 'experience', href: `/experience/${node.slug}` };
 			case 'education':
-				return { kind: 'education', href: `/about#education-${node.slug}` };
+				return { kind: 'education', href: `/education/${node.slug}` };
 			case 'publication':
 				return { kind: 'publication', href: `/about#publication-${node.slug}` };
 			case 'role':
@@ -313,6 +313,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				abstract: String(data.abstract),
 				abstractMarkdown: renderDoc(String(data.abstract), path, mentions),
 				status: data.status as Project['status'],
+				kind: data.kind as Project['kind'],
 				role,
 				duration: data.duration as string | undefined,
 				featured: Boolean(data.featured),
@@ -538,6 +539,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 			label: node.label,
 			url: graphUrlFor(node),
 			color: node.data.color as string | undefined,
+			icon: node.data.icon as string | undefined,
 			weight: WEIGHTS[node.type]
 		}))
 	];
@@ -566,6 +568,6 @@ export async function loadContent(): Promise<PortfolioContent> {
 function graphUrlFor(node: RawNode): string | undefined {
 	if (node.type === 'project') return `/projects/${node.slug}`;
 	if (node.type === 'experience') return `/experience/${node.slug}`;
-	if (node.type === 'education') return `/about#education-${node.slug}`;
+	if (node.type === 'education') return `/education/${node.slug}`;
 	return undefined; // technologies/skills/roles are popover-only
 }

@@ -1,5 +1,7 @@
 import {
 	siGithub,
+	siCodeberg,
+	siGitlab,
 	siRust,
 	siPython,
 	siReact,
@@ -35,6 +37,8 @@ export type BrandIcon = { title: string; hex: string; path: string };
  */
 const BRAND_BY_SLUG: Record<string, { title: string; hex: string; path: string }> = {
 	github: siGithub,
+	codeberg: siCodeberg,
+	gitlab: siGitlab,
 	rust: siRust,
 	python: siPython,
 	react: siReact,

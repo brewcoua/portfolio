@@ -2,11 +2,11 @@
 title: RevFlōw
 subtitle: Intelligent transaction categorisation and financial coaching for Revolut
 abstract: |
-  A financial intelligence platform built in 24 hours at HackDelft 2026 for the Revolut challenge. It cuts through "The Data Fog" — broken merchant labels and generic categorisation — with a two-stage ML pipeline (rule pre-pass + CalibratedLinearSVC on sentence embeddings), KMeans life-stage personalisation, an Isolation Forest subscription forensic engine, and a Claude Haiku money coach with one-tap action cards.
+  A financial intelligence platform built in 24 hours at HackDelft 2026 for the Revolut challenge. It fixes broken merchant labels and generic categorisation with a two-stage ML pipeline (rule pre-pass plus CalibratedLinearSVC on sentence embeddings), KMeans life-stage personalisation, an Isolation Forest subscription engine, and a Claude Haiku money coach with one-tap action cards.
 status: completed
+kind: hackathon
 featured: true
-date:
-  - 2026-06
+date: 2026-06
 duration: 24 hours
 thumbnail: /thumbnails/revflow.png
 role: "[[roles/fullstack-developer]]"
@@ -237,26 +237,26 @@ highlights:
   - Integrated Claude Haiku as an AI Money Coach generating concise per-insight advice with 1-tap action cards
 ---
 
-RevFlōw is a financial intelligence platform built during the **Revolut challenge at HackDelft 2026** in 24 hours with Team YUBRE. It addresses "The Data Fog" — the trust breakdown caused by generic merchant labels and failed categorisation — with a four-stage intelligence pipeline.
+RevFlōw is a financial intelligence platform built in 24 hours for the **Revolut challenge at HackDelft 2026** with Team YUBRE. It categorises Revolut transactions, personalises the results per user, and surfaces subscription and spending insights through a four-stage pipeline.
 
-1. **Intelligent categorisation**
-   - Keyword pre-pass with 18 Dutch merchant rules (confidence = 1.0 short-circuits the ML stage)
-   - CalibratedLinearSVC trained on MiniLM-L6 384-d sentence embeddings + OHE features (entry method, merchant domain, amount) across 12 spending categories
-   - 75% accuracy on high-confidence predictions (≥0.45); uncertain merchants fall back to "Miscellaneous" rather than producing wrong labels
-   - <50 ms inference latency end-to-end
+1. **Categorisation**
+   - Keyword pre-pass with 18 Dutch merchant rules; a confidence of 1.0 short-circuits the ML stage
+   - CalibratedLinearSVC trained on MiniLM-L6 384-d sentence embeddings plus one-hot features (entry method, merchant domain, amount) across 12 spending categories
+   - 75% accuracy on high-confidence predictions (≥0.45); uncertain merchants fall back to Miscellaneous instead of a wrong label
+   - Under 50 ms end-to-end inference latency
 
 2. **Personalisation**
    - KMeans clustering segments users into four life-stage cohorts: Student, Family, Professional, Senior
-   - Per-category spend share re-weights global model probabilities (`P' ∝ P_global × f_user`) so categorisation fits the user's actual life stage
-   - Each categorised transaction is returned with a human-readable explanation grounded in user history
+   - Per-category spend share re-weights the global model probabilities (`P' ∝ P_global × f_user`) to fit each user's life stage
+   - Every categorised transaction carries a human-readable explanation grounded in the user's history
 
 3. **Subscription insight engine**
-   - Six parallel signal detectors: 4-week z-score anomalies, CV + cadence subscription detection, new merchant bursts, fraud flags (velocity, smurfing), cohort vs. peers comparison, and Isolation Forest user profiling
-   - Detects forgotten, overlapping, or creeping recurring charges before they compound into "subscription drag"
-   - Emits structured insight objects (type · severity · metrics) that drive both the deterministic action cards and the AI coach
+   - Six parallel detectors: 4-week z-score anomalies, CV and cadence subscription detection, new-merchant bursts, fraud flags (velocity, smurfing), cohort-versus-peers comparison, and Isolation Forest user profiling
+   - Flags forgotten, overlapping, or creeping recurring charges before they add up
+   - Emits structured insight objects (type, severity, metrics) that drive both the deterministic action cards and the AI coach
 
-4. **AI Money Coach & Command Centre**
-   - Insights feed Claude Haiku for concise two-sentence advice; supplier-agnostic, self-hosted path available in production
-   - Deterministic action cards for 1-tap interventions: spending limits, recurring charge cancellation, analytics drills
-   - Revolut-styled React Command Centre with transaction timeline, monthly budget ring, live insight cards, and voice query input
+4. **AI money coach and command centre**
+   - Insights feed Claude Haiku for concise two-sentence advice, with a supplier-agnostic self-hosted path in production
+   - Deterministic action cards for one-tap interventions: spending limits, recurring-charge cancellation, analytics drills
+   - Revolut-styled React command centre with a transaction timeline, monthly budget ring, live insight cards, and voice query input
    - Deployed to Railway; live at [revflow.brewen.dev](https://revflow.brewen.dev)

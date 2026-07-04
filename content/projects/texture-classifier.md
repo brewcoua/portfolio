@@ -4,6 +4,7 @@ subtitle: Modular deep learning framework for texture classification
 abstract: |
   PyTorch framework for texture classification with custom residual architectures and transfer-learning benchmarking.
 status: completed
+kind: coursework
 featured: true
 date: 2024-01
 role: "[[roles/ai-engineer]]"

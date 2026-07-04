@@ -38,7 +38,14 @@ const isoDate = z
 	.string()
 	.regex(/^\d{4}-\d{2}(-\d{2})?$/, 'date must be YYYY-MM or YYYY-MM-DD');
 
-export const dateValue = z.union([isoDate, z.tuple([isoDate]), z.tuple([isoDate, isoDate])]);
+/** End of an ongoing range: `["2025-09", "present"]`. Distinguishes ongoing from a one-off point. */
+const isoDateOrPresent = z.union([isoDate, z.literal('present')]);
+
+export const dateValue = z.union([
+	isoDate,
+	z.tuple([isoDate]),
+	z.tuple([isoDate, isoDateOrPresent])
+]);
 
 export const hexColor = z
 	.string()
@@ -51,6 +58,8 @@ export const wikilink = z
 
 export const LINK_TYPES = [
 	'github',
+	'codeberg',
+	'gitlab',
 	'demo',
 	'docs',
 	'paper',
@@ -88,11 +97,15 @@ export const linkItem = z
 		} catch {
 			ctx.addIssue({ code: 'custom', message: `invalid link url: ${link.url}` });
 		}
-		if (link.type === 'github' && host && !host.includes('github.com')) {
-			ctx.addIssue({ code: 'custom', message: 'github link must point to github.com' });
-		}
-		if (link.type === 'linkedin' && host && !host.includes('linkedin.com')) {
-			ctx.addIssue({ code: 'custom', message: 'linkedin link must point to linkedin.com' });
+		const hostRules: Partial<Record<(typeof LINK_TYPES)[number], string>> = {
+			github: 'github.com',
+			codeberg: 'codeberg.org',
+			gitlab: 'gitlab.com',
+			linkedin: 'linkedin.com'
+		};
+		const requiredHost = hostRules[link.type];
+		if (requiredHost && host && !host.includes(requiredHost)) {
+			ctx.addIssue({ code: 'custom', message: `${link.type} link must point to ${requiredHost}` });
 		}
 		if (link.type === 'custom' && (!link.label || !link.icon)) {
 			ctx.addIssue({ code: 'custom', message: 'custom links require a label and icon' });
@@ -123,6 +136,7 @@ export const projectFrontmatter = z.object({
 	subtitle: z.string().optional(),
 	abstract: z.string().min(1),
 	status: z.enum(['completed', 'active', 'paused', 'archived']),
+	kind: z.enum(['hackathon', 'personal', 'professional', 'coursework', 'research']).optional(),
 	featured: z.boolean().default(false),
 	date: dateValue,
 	duration: z.string().optional(),

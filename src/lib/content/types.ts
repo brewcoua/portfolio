@@ -19,6 +19,11 @@ export type Relationship = {
 	role?: string;
 };
 
+/**
+ * A date is either a single point (`"2026-06"` or `["2026-06"]`), a closed range
+ * (`["2022-09", "2025-07"]`), or an ongoing range (`["2025-09", "present"]`). The
+ * `'present'` sentinel is what distinguishes "ongoing" from a one-off point.
+ */
 export type DateValue = string | [string] | [string, string];
 
 export type DateRangeOrSingleDate = {
@@ -43,6 +48,8 @@ export type SlugEntity = Entity & {
 
 export type LinkType =
 	| 'github'
+	| 'codeberg'
+	| 'gitlab'
 	| 'demo'
 	| 'docs'
 	| 'paper'
@@ -148,6 +155,8 @@ export type GraphNode = {
 	label: string;
 	url?: string;
 	color?: string;
+	/** Frontmatter icon name (Lucide), used for the per-role/technology glyph. */
+	icon?: string;
 	/** Relative visual weight used to size the node in the graph. */
 	weight: number;
 };
@@ -194,6 +203,17 @@ export type Role = SlugEntity & {
 
 export type ProjectStatus = 'completed' | 'active' | 'paused' | 'archived';
 
+/** Context in which a project was built (mirrors experience's employmentType). */
+export type ProjectKind = 'hackathon' | 'personal' | 'professional' | 'coursework' | 'research';
+
+export const PROJECT_KIND_LABELS: Record<ProjectKind, string> = {
+	hackathon: 'Hackathon',
+	personal: 'Personal',
+	professional: 'Professional',
+	coursework: 'Coursework',
+	research: 'Research'
+};
+
 export type Project = SlugEntity &
 	DateRangeOrSingleDate & {
 	title: string;
@@ -201,6 +221,7 @@ export type Project = SlugEntity &
 	abstract: string;
 	abstractMarkdown?: MarkdownDoc;
 	status: ProjectStatus;
+	kind?: ProjectKind;
 	role: string;
 	duration?: string;
 	featured: boolean;

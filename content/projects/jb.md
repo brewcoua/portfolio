@@ -4,6 +4,7 @@ subtitle: Rust CLI for JetBrains IDE lifecycle management
 abstract: |
   A robust CLI tool for installing, updating, and configuring JetBrains IDEs from the command line. Built with Rust for high performance, it features concurrent downloads, progress tracking, and background updates with system notifications.
 status: completed
+kind: personal
 featured: true
 date: 2023-03
 duration: 3 weeks
@@ -33,33 +34,20 @@ highlights:
   - Thread-safe channels (Flume) for parallel download and extraction
 ---
 
-JB CLI is a high-performance command-line interface tool that simplifies the management of JetBrains IDEs on Linux systems. Built entirely in Rust, it leverages modern concurrency patterns and efficient resource handling to provide a seamless experience.
+JB CLI is a Rust command-line tool for installing, updating, and configuring JetBrains IDEs on Linux, written to replace the official Toolbox app on my own machines.
 
-1. **Core Features**
-   - Install and uninstall JetBrains IDEs directly from the terminal
-   - Concurrent downloads and extraction of multiple IDEs
-   - Real-time progress bars with download speed indicators
-   - Background update checking with system notifications
-   - Automatic checksum verification for downloaded archives
-   - Configure installation directories and desktop entries
+## Features
 
-2. **Technical Implementation**
-   - Built with Rust for performance, safety, and reliability
-   - Uses clap-rs for robust command-line argument parsing
-   - Implements Tokio for asynchronous operations and concurrency
-   - Leverages Flume for thread-safe communication channels
-   - Employs Flate2 and tar for efficient archive decompression
-   - Utilizes Reqwest with rustls for secure HTTP requests
-   - Implements terminal UI with dynamic progress indicators
+- `install`, `uninstall`, and `list` JetBrains IDEs from the terminal
+- `link`/`unlink` installed IDEs on the PATH and generate `.desktop` entries
+- `auto` mode checks for updates in the background and raises desktop notifications
+- Self-`update` the CLI, and inspect the environment with `info` and `meta` (JSON output)
+- Configure the tools, icons, and binary directories with flags or the `JB_TOOLS_DIR`,
+  `JB_ICONS_DIR`, and `JB_BINARIES_DIR` environment variables
 
-3. **Advanced Capabilities**
-   - Multi-threaded downloads for maximum throughput
-   - Background service for update checking with configurable intervals
-   - Desktop notifications for available updates
-   - Secure TLS implementation with rustls
-   - Graceful error handling with detailed diagnostics
-   - Memory-efficient processing of large archive files
+## Implementation
 
-The tool demonstrates modern systems programming techniques, using Rust's ownership model and zero-cost abstractions to create a lightweight yet powerful utility. It handles concurrent operations efficiently, allowing users to download and install multiple IDEs simultaneously without performance degradation.
-
-This project showcases practical applications of concurrent programming patterns while addressing day-to-day workflows for developers who rely on JetBrains products.
+- Concurrent streaming downloads with progress bars and human-readable sizes
+- SHA-256 checksum verification of each archive before extraction with flate2 and tar
+- Async runtime on Tokio, thread-safe channels via Flume, and concurrent shared state via DashMap
+- HTTP through Reqwest over rustls, argument parsing with clap, notifications via notify-rust

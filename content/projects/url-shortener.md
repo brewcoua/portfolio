@@ -4,6 +4,7 @@ subtitle: High-performance short-link backend in Rust
 abstract: |
   High-performance Rust URL shortener service focused on low-latency redirection and non-blocking request handling.
 status: completed
+kind: personal
 featured: false
 date: 2024-01
 role: "[[roles/backend-developer]]"

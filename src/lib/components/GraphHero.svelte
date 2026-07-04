@@ -19,10 +19,10 @@
 	import BriefcaseIcon from '@lucide/svelte/icons/briefcase';
 	import GraduationCapIcon from '@lucide/svelte/icons/graduation-cap';
 	import SparklesIcon from '@lucide/svelte/icons/sparkles';
-	import BadgeCheckIcon from '@lucide/svelte/icons/badge-check';
 	import CpuIcon from '@lucide/svelte/icons/cpu';
 	import FileTextIcon from '@lucide/svelte/icons/file-text';
 	import { getBrandIcon } from '$lib/content/brand-icons';
+	import { resolveContentIcon } from '$lib/content/content-icons';
 	import type { GraphData, GraphNode, NodeType } from '$lib/content/types';
 
 	let { data }: { data: GraphData } = $props();
@@ -76,26 +76,33 @@
 	/** Node types whose labels are always visible (the "who / what" story). */
 	const ALWAYS_LABEL = new Set<NodeKind>(['profile', 'project', 'experience', 'education']);
 
-	/** Per-type glyph; technologies prefer their brand mark, everything else a type icon. */
+	/** Per-type glyph; technologies use a brand mark, roles their frontmatter icon. */
 	const TYPE_ICON: Record<NodeKind, Component> = {
 		profile: UserIcon,
 		project: FolderGitIcon,
 		experience: BriefcaseIcon,
 		education: GraduationCapIcon,
 		skill: SparklesIcon,
-		role: BadgeCheckIcon,
+		role: UserIcon, // overridden per-role by the frontmatter icon below
 		technology: CpuIcon,
 		publication: FileTextIcon
 	};
 
 	// Resolve each node's glyph once (brand path or a Lucide component) — brand
 	// lookups are static, so keep them out of the per-tick reactive view.
+	// technology -> brand mark; role -> its frontmatter icon; others -> type glyph.
 	type Glyph = { brand?: string; Comp?: Component };
 	const glyphById = new Map<string, Glyph>();
 	// svelte-ignore state_referenced_locally
 	for (const node of data.nodes) {
 		const brand = node.type === 'technology' ? getBrandIcon(node.id) : null;
-		glyphById.set(node.id, brand ? { brand: brand.path } : { Comp: TYPE_ICON[node.type] });
+		if (brand) {
+			glyphById.set(node.id, { brand: brand.path });
+		} else if (node.type === 'role') {
+			glyphById.set(node.id, { Comp: resolveContentIcon(node.icon) });
+		} else {
+			glyphById.set(node.id, { Comp: TYPE_ICON[node.type] });
+		}
 	}
 	const glyphOf = (id: string): Glyph => glyphById.get(id) ?? { Comp: CpuIcon };
 

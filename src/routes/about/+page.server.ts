@@ -76,7 +76,7 @@ function gatherEducationMentions(
 			key: `education:${item.id}`,
 			kind: 'education',
 			label: `${item.degree} at ${item.institution}`,
-			href: `/about#education-${item.slug}`
+			href: `/education/${item.slug}`
 		} as const;
 		for (const focusId of item.focus) {
 			if (skillIds.has(focusId)) addMention(skillMentions, focusId, source);

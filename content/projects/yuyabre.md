@@ -4,9 +4,9 @@ subtitle: AI flatmate agent for shared living
 abstract: |
   An AI-powered "smart roommate" built in 24 hours at the Prosus AI Hackathon 2025. It handles natural-language commands, tracks pantry inventory, coordinates group grocery orders, and logs shared expenses to Splitwise, all through a chat interface backed by a tool-calling LLM agent.
 status: completed
+kind: hackathon
 featured: false
-date:
-  - 2025-11
+date: 2025-11
 duration: 24 hours
 role: "[[roles/fullstack-developer]]"
 tech:

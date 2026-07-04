@@ -28,12 +28,15 @@ export function formatEducationGrade(grade: EducationGrade): string {
 }
 
 export function formatEntityDate(dateInfo: DateRangeOrSingleDate): string {
+	// A bare string or a single-element tuple is a point in time.
 	if (typeof dateInfo.date === 'string') return formatYearMonth(dateInfo.date);
 
 	const [start, end] = dateInfo.date;
 	if (!start) return '';
 	const from = formatYearMonth(start);
-	const to = end ? formatYearMonth(end) : 'Present';
+	if (!end) return from;
+	// The `'present'` sentinel marks an ongoing range; a real end date closes it.
+	const to = end === 'present' ? 'Present' : formatYearMonth(end);
 	return `${from} - ${to}`;
 }
 

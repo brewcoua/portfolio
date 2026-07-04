@@ -3,6 +3,7 @@ title: WebWisp
 subtitle: Autonomous distributed web testing agent
 abstract: An autonomous web agent for end-to-end website testing with distributed workers, task orchestration, and browser-grounded execution.
 status: completed
+kind: research
 featured: true
 date:
   - 2024-05

@@ -19,7 +19,8 @@
 	import { cn } from '$lib/utils';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
-	import type { LinkItem, MarkdownInlineNode, Project, Role, Skill, Technology } from '$lib/content/types';
+	import { PROJECT_KIND_LABELS } from '$lib/content/types';
+	import type { LinkItem, MarkdownInlineNode, Project, ProjectKind, Role, Skill, Technology } from '$lib/content/types';
 	import type { Component } from 'svelte';
 
 	let {
@@ -40,6 +41,9 @@
 		maxVisibleTechnologies?: number;
 	}>();
 
+	const kindLabel = $derived(
+		project.kind ? PROJECT_KIND_LABELS[project.kind as ProjectKind] : null
+	);
 	const resolvedLinks = $derived(project.links.map((link: LinkItem) => resolveLink(link)));
 	const iconByName: Record<string, Component> = {
 		github: LinkIcon,
@@ -92,8 +96,12 @@
 			<RoleBadge roleId={project.role} {roles} />
 			<span class="opacity-40" aria-hidden="true">•</span>
 			<ProjectStatusBadge status={project.status} />
+			{#if kindLabel}
+				<span class="opacity-40" aria-hidden="true">•</span>
+				<Badge variant="outline" class="px-2 py-0.5 text-xs">{kindLabel}</Badge>
+			{/if}
 			<span class="opacity-40" aria-hidden="true">•</span>
-			<span>{formatEntityDate(project)}</span>
+			<span>{formatEntityDate(project)}{#if project.duration} · {project.duration}{/if}</span>
 		</div>
 	</Card.Header>
 

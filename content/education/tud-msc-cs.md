@@ -3,6 +3,7 @@ institution: Delft University of Technology (TU Delft)
 degree: Master of Computer Science
 date:
   - 2025-09
+  - present
 location: Delft, Netherlands
 website: https://www.tudelft.nl
 logo: /logos/tud.jpg

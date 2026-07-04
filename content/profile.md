@@ -13,6 +13,10 @@ skillsHighlight:
 links:
   - type: github
     url: https://github.com/brewcoua
+  - type: codeberg
+    url: https://codeberg.org/brewcoua
+  - type: gitlab
+    url: https://gitlab.com/brewcoua
   - type: linkedin
     url: https://linkedin.com/in/brewcoua
   - type: email
