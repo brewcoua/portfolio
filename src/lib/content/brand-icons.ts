@@ -25,7 +25,12 @@ import {
 	siC,
 	siOpenjdk,
 	siTokio,
-	siActix
+	siActix,
+	siGooglecloud,
+	siGooglebigquery,
+	siJupyter,
+	siPandas,
+	siHuggingface
 } from 'simple-icons';
 
 export type BrandIcon = { title: string; hex: string; path: string };
@@ -62,7 +67,12 @@ const BRAND_BY_SLUG: Record<string, { title: string; hex: string; path: string }
 	c: siC,
 	java: siOpenjdk,
 	tokio: siTokio,
-	actix: siActix
+	actix: siActix,
+	gcp: siGooglecloud,
+	bigquery: siGooglebigquery,
+	jupyter: siJupyter,
+	pandas: siPandas,
+	huggingface: siHuggingface
 };
 
 /** Brands no longer shipped by Simple Icons / Lucide, kept as manual marks. */

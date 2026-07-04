@@ -9,8 +9,6 @@
 	import PaletteIcon from '@lucide/svelte/icons/palette';
 	import RadioIcon from '@lucide/svelte/icons/radio';
 	import VideoIcon from '@lucide/svelte/icons/video';
-	import ProjectStatusBadge from '$lib/components/ProjectStatusBadge.svelte';
-	import RoleBadge from '$lib/components/RoleBadge.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
@@ -20,26 +18,18 @@
 	import { Button } from '$lib/components/ui/button';
 	import { formatEntityDate, formatReferenceMeta } from '$lib/content/format';
 	import { resolveLink } from '$lib/content/presentation';
-	import { PROJECT_KIND_LABELS } from '$lib/content/types';
+	import { PUBLICATION_KIND_LABELS } from '$lib/content/types';
 	import type { Component } from 'svelte';
 
 	let { data } = $props();
 
-	const links = $derived(data.project.links.map((link) => resolveLink(link)));
+	const links = $derived(data.publication.links.map((link) => resolveLink(link)));
 
-	const relatedExperienceItems = $derived(
-		data.relatedExperience.map((item) => ({
-			label: `${item.title} - ${item.organization}`,
-			href: `/experience/${item.slug}`,
-			type: 'experience'
-		}))
-	);
-
-	const relatedPublicationItems = $derived(
-		data.relatedPublications.map((item) => ({
+	const relatedProjectItems = $derived(
+		data.relatedProjects.map((item) => ({
 			label: item.title,
-			href: `/publications/${item.slug}`,
-			type: 'publication'
+			href: `/projects/${item.slug}`,
+			type: 'project'
 		}))
 	);
 
@@ -63,42 +53,46 @@
 	}
 </script>
 
+<svelte:head>
+	<title>{data.publication.title}</title>
+</svelte:head>
+
 <article class="space-y-6">
 	<header class="space-y-2">
-		<p class="text-sm uppercase tracking-[0.2em] text-muted-foreground">Project</p>
-		<h1 class="text-4xl font-semibold tracking-tight">{data.project.title}</h1>
-		{#if data.project.subtitle}
-			<p class="text-muted-foreground">{data.project.subtitle}</p>
+		<p class="text-sm uppercase tracking-[0.2em] text-muted-foreground">Publication</p>
+		<h1 class="text-4xl font-semibold tracking-tight">{data.publication.title}</h1>
+		{#if data.publication.subtitle}
+			<p class="text-muted-foreground">{data.publication.subtitle}</p>
 		{/if}
+		<p class="text-sm text-muted-foreground">{data.publication.authors.join(', ')}</p>
 	</header>
 
 	<div class="flex flex-wrap items-center gap-2 text-sm">
-		<RoleBadge roleId={data.project.role} roles={data.roles} />
-		<ProjectStatusBadge status={data.project.status} />
-		{#if data.project.kind}
-			<Badge variant="outline">{PROJECT_KIND_LABELS[data.project.kind]}</Badge>
+		{#if data.publication.kind}
+			<Badge variant="outline">{PUBLICATION_KIND_LABELS[data.publication.kind]}</Badge>
 		{/if}
-		<Badge variant="outline">
-			{formatEntityDate(data.project)}{#if data.project.duration}<span class="ml-1 text-muted-foreground">· {data.project.duration}</span>{/if}
-		</Badge>
+		{#if data.publication.venue}
+			<Badge variant="outline">{data.publication.venue}</Badge>
+		{/if}
+		<Badge variant="outline">{formatEntityDate(data.publication)}</Badge>
+		{#if data.publication.doi}
+			<a
+				href={`https://doi.org/${data.publication.doi}`}
+				target="_blank"
+				rel="noreferrer"
+				class="text-xs text-muted-foreground underline-offset-2 hover:text-primary hover:underline"
+			>DOI ↗</a>
+		{/if}
 	</div>
 
-	{#if data.project.thumbnail}
-		<img
-			src={data.project.thumbnail}
-			alt={data.project.title}
-			class="max-h-80 w-full border border-border object-cover"
-		/>
-	{/if}
-
 	<MarkdownBlock
-		markdown={data.project.abstractMarkdown}
+		markdown={data.publication.abstractMarkdown}
 		skills={data.skills}
 		technologies={data.technologies}
 		class="max-w-3xl leading-7 lg:hidden"
 	/>
 	<MarkdownBlock
-		markdown={data.project.descriptionMarkdown}
+		markdown={data.publication.descriptionMarkdown}
 		skills={data.skills}
 		technologies={data.technologies}
 		class="max-w-3xl leading-7 lg:hidden"
@@ -106,48 +100,54 @@
 
 	<div class="lg:grid lg:grid-cols-[minmax(0,1fr)_minmax(18rem,22rem)] lg:items-start lg:gap-10">
 		<aside class="space-y-6 lg:order-2 lg:sticky lg:top-24">
-			<section>
-				<h2 class="mb-3 text-2xl font-semibold">Highlights</h2>
-				<ul class="list-disc space-y-2 pl-5">
-					{#each data.project.highlights as highlight, highlightIndex}
-						<li>
-							<MarkdownInline
-								markdown={data.project.highlightsMarkdown?.[highlightIndex]}
+			{#if data.publication.highlights.length > 0}
+				<section>
+					<h2 class="mb-3 text-2xl font-semibold">Highlights</h2>
+					<ul class="list-disc space-y-2 pl-5">
+						{#each data.publication.highlights as highlight, highlightIndex}
+							<li>
+								<MarkdownInline
+									markdown={data.publication.highlightsMarkdown?.[highlightIndex]}
+									skills={data.skills}
+									technologies={data.technologies}
+								/>
+							</li>
+						{/each}
+					</ul>
+				</section>
+			{/if}
+
+			{#if data.publication.technologies.length > 0}
+				<section>
+					<h2 class="mb-3 text-2xl font-semibold">Technologies</h2>
+					<div class="flex flex-wrap gap-2">
+						{#each data.publication.technologies as tech}
+							<TechBadge
+								techId={tech}
+								technologies={data.technologies}
+								skills={data.skills}
+								class="px-3 py-1 text-sm"
+							/>
+						{/each}
+					</div>
+				</section>
+			{/if}
+
+			{#if data.publication.skills.length > 0}
+				<section>
+					<h2 class="mb-3 text-2xl font-semibold">Skills</h2>
+					<div class="flex flex-wrap gap-2">
+						{#each data.publication.skills as skillId}
+							<SkillBadge
+								skillId={skillId}
 								skills={data.skills}
 								technologies={data.technologies}
+								class="px-3 py-1 text-sm"
 							/>
-						</li>
-					{/each}
-				</ul>
-			</section>
-
-			<section>
-				<h2 class="mb-3 text-2xl font-semibold">Technologies</h2>
-				<div class="flex flex-wrap gap-2">
-					{#each data.project.technologies as tech}
-						<TechBadge
-							techId={tech}
-							technologies={data.technologies}
-							skills={data.skills}
-							class="px-3 py-1 text-sm"
-						/>
-					{/each}
-				</div>
-			</section>
-
-			<section>
-				<h2 class="mb-3 text-2xl font-semibold">Skills</h2>
-				<div class="flex flex-wrap gap-2">
-					{#each data.project.skills as skillId}
-						<SkillBadge
-							skillId={skillId}
-							skills={data.skills}
-							technologies={data.technologies}
-							class="px-3 py-1 text-sm"
-						/>
-					{/each}
-				</div>
-			</section>
+						{/each}
+					</div>
+				</section>
+			{/if}
 
 			{#if links.length > 0}
 				<section>
@@ -157,7 +157,7 @@
 							{@const Icon = iconFor(link.icon)}
 							<Button
 								href={link.url}
-								variant={link.type === 'github' ? 'default' : 'outline'}
+								variant={link.type === 'paper' ? 'default' : 'outline'}
 								target={link.external ? '_blank' : undefined}
 								rel={link.external ? 'noreferrer' : undefined}
 							>
@@ -173,32 +173,28 @@
 		<div class="mt-6 space-y-6 lg:order-1 lg:mt-0">
 			<div class="hidden space-y-6 lg:block">
 				<MarkdownBlock
-					markdown={data.project.abstractMarkdown}
+					markdown={data.publication.abstractMarkdown}
 					skills={data.skills}
 					technologies={data.technologies}
 					class="leading-7"
 				/>
 				<MarkdownBlock
-					markdown={data.project.descriptionMarkdown}
+					markdown={data.publication.descriptionMarkdown}
 					skills={data.skills}
 					technologies={data.technologies}
 					class="leading-7"
 				/>
 			</div>
 
-			{#if data.relatedPublications.length > 0}
-				<RelationshipPanel title="Related Publication" items={relatedPublicationItems} />
+			{#if data.relatedProjects.length > 0}
+				<RelationshipPanel title="Companion Project" items={relatedProjectItems} />
 			{/if}
 
-			{#if data.relatedExperience.length > 0}
-				<RelationshipPanel title="Related Experience" items={relatedExperienceItems} />
-			{/if}
-
-			{#if data.project.references?.length}
+			{#if data.publication.references?.length}
 				<section>
 					<h2 class="mb-3 text-lg font-semibold">References</h2>
 					<ol class="space-y-2.5 text-sm">
-						{#each data.project.references as reference}
+						{#each data.publication.references as reference}
 							<li class="flex gap-2 leading-snug">
 								<span class="mt-px shrink-0 text-muted-foreground">[{reference.year}]</span>
 								<span class="min-w-0">
@@ -229,5 +225,4 @@
 			{/if}
 		</div>
 	</div>
-
 </article>

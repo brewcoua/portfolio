@@ -224,10 +224,21 @@ export const roleFrontmatter = z.object({
 
 export const publicationFrontmatter = z.object({
 	title: z.string().min(1),
+	subtitle: z.string().optional(),
+	authors: z.array(z.string().min(1)).min(1),
+	abstract: z.string().min(1),
 	venue: z.string().optional(),
-	year: z.number().optional(),
-	url: z.string().url().optional(),
-	related: z.array(wikilink).default([])
+	kind: z.enum(['coursework', 'research', 'preprint', 'thesis', 'report']).optional(),
+	featured: z.boolean().default(false),
+	date: dateValue,
+	doi: z.string().min(1).optional(),
+	links: z.array(linkItem).default([]),
+	tech: z.array(wikilink).default([]),
+	skills: z.array(wikilink).default([]),
+	related: z.array(wikilink).default([]),
+	references: z.array(projectReference).optional(),
+	highlights: z.array(z.string().min(1)).default([]),
+	searchKeywords: z.array(z.string()).optional()
 });
 
 export const profileFrontmatter = z.object({

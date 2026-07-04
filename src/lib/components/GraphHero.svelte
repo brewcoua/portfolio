@@ -35,6 +35,12 @@
 	type SimNode = GraphNode & { x: number; y: number; fx?: number | null; fy?: number | null };
 	type SimLink = { source: SimNode; target: SimNode; kind: string };
 
+	// Per-type accent hues. Projects ride the theme's primary (blue-violet);
+	// experience and publications get their own hue so the three read apart at a
+	// glance. Mixed with --card/--border below so they adapt to light/dark.
+	const EXPERIENCE_ACCENT = '#14b8a6'; // teal
+	const PUBLICATION_ACCENT = '#f59e0b'; // amber
+
 	const TYPE_META: Record<NodeKind, { label: string; fill: string; stroke: string; dash?: boolean }> = {
 		profile: { label: 'Me', fill: 'var(--primary)', stroke: 'var(--primary)' },
 		project: {
@@ -44,8 +50,8 @@
 		},
 		experience: {
 			label: 'Experience',
-			fill: 'color-mix(in oklab, var(--foreground) 11%, var(--card))',
-			stroke: 'color-mix(in oklab, var(--foreground) 38%, var(--border))'
+			fill: `color-mix(in oklab, ${EXPERIENCE_ACCENT} 16%, var(--card))`,
+			stroke: `color-mix(in oklab, ${EXPERIENCE_ACCENT} 55%, var(--border))`
 		},
 		education: {
 			label: 'Education',
@@ -61,8 +67,8 @@
 		technology: { label: 'Technologies', fill: 'var(--card)', stroke: 'var(--border)' },
 		publication: {
 			label: 'Publications',
-			fill: 'color-mix(in oklab, var(--foreground) 8%, var(--card))',
-			stroke: 'color-mix(in oklab, var(--foreground) 30%, var(--border))'
+			fill: `color-mix(in oklab, ${PUBLICATION_ACCENT} 18%, var(--card))`,
+			stroke: `color-mix(in oklab, ${PUBLICATION_ACCENT} 58%, var(--border))`
 		},
 		role: {
 			label: 'Roles',
@@ -72,9 +78,9 @@
 		}
 	};
 
-	const LEGEND: NodeKind[] = ['profile', 'project', 'experience', 'education', 'skill', 'technology', 'role'];
+	const LEGEND: NodeKind[] = ['profile', 'project', 'publication', 'experience', 'education', 'skill', 'technology', 'role'];
 	/** Node types whose labels are always visible (the "who / what" story). */
-	const ALWAYS_LABEL = new Set<NodeKind>(['profile', 'project', 'experience', 'education']);
+	const ALWAYS_LABEL = new Set<NodeKind>(['profile', 'project', 'publication', 'experience', 'education']);
 
 	/** Per-type glyph; technologies use a brand mark, roles their frontmatter icon. */
 	const TYPE_ICON: Record<NodeKind, Component> = {
@@ -110,7 +116,7 @@
 	const strokeColor = (n: SimNode) => (n.type === 'technology' && n.color ? n.color : TYPE_META[n.type].stroke);
 
 	// Cluster foci: same-type nodes are gently pulled toward a point on a ring.
-	const CLUSTER_TYPES: NodeKind[] = ['project', 'experience', 'education', 'role', 'skill', 'technology'];
+	const CLUSTER_TYPES: NodeKind[] = ['project', 'publication', 'experience', 'education', 'role', 'skill', 'technology'];
 	const foci = new Map<NodeKind, { x: number; y: number }>([['profile', CENTER]]);
 	CLUSTER_TYPES.forEach((type, i) => {
 		const angle = (i / CLUSTER_TYPES.length) * Math.PI * 2 - Math.PI / 2;

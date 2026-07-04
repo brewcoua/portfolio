@@ -321,11 +321,37 @@ export type Education = SlugEntity &
 	website?: string;
 };
 
-export type Publication = SlugEntity & {
+/** Context in which a paper was produced (mirrors project's kind). */
+export type PublicationKind = 'coursework' | 'research' | 'preprint' | 'thesis' | 'report';
+
+export const PUBLICATION_KIND_LABELS: Record<PublicationKind, string> = {
+	coursework: 'Coursework',
+	research: 'Research',
+	preprint: 'Preprint',
+	thesis: 'Thesis',
+	report: 'Report'
+};
+
+export type Publication = SlugEntity &
+	DateRangeOrSingleDate & {
 	title: string;
+	subtitle?: string;
+	authors: string[];
+	abstract: string;
+	abstractMarkdown?: MarkdownDoc;
 	venue?: string;
-	year?: number;
-	url?: string;
+	kind?: PublicationKind;
+	featured: boolean;
+	doi?: string;
+	links: LinkItem[];
+	technologies: string[];
+	skills: string[];
+	references?: ProjectReference[];
+	highlights: string[];
+	highlightsMarkdown?: MarkdownInlineNode[][];
+	description: string;
+	descriptionMarkdown?: MarkdownDoc;
+	searchKeywords?: string[];
 };
 
 export type PortfolioContent = {
