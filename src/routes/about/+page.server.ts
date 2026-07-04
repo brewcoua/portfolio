@@ -76,7 +76,7 @@ function gatherEducationMentions(
 			key: `education:${item.id}`,
 			kind: 'education',
 			label: `${item.degree} at ${item.institution}`,
-			href: `/about#education-${item.id}`
+			href: `/about#education-${item.slug}`
 		} as const;
 		for (const focusId of item.focus) {
 			if (skillIds.has(focusId)) addMention(skillMentions, focusId, source);
@@ -90,7 +90,7 @@ function gatherEducationMentions(
 }
 
 export async function load() {
-	const { profile, projects, experience, education, skills, technologies } = await loadContent();
+	const { profile, projects, experience, education, skills, technologies, site } = await loadContent();
 	const skillIds = new Set(skills.map((item) => item.id));
 	const technologyIds = new Set(technologies.map((item) => item.id));
 	const skillLabelsById = new Map(skills.map((item) => [item.id, item.label] as const));
@@ -104,6 +104,7 @@ export async function load() {
 
 	return {
 		profile,
+		cvUrl: site.cvUrl,
 		skills,
 		technologies,
 		mentionedSkills: mapMentions(skillMentions, skillLabelsById),

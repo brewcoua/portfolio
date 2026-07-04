@@ -7,7 +7,9 @@
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import SkillBadge from '$lib/components/SkillBadge.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
+	import { Button } from '$lib/components/ui/button';
 	import { MapPin } from '@lucide/svelte';
+	import DownloadIcon from '@lucide/svelte/icons/download';
 
 	let { data } = $props();
 
@@ -31,6 +33,14 @@
 		Based in Delft, I focus on building robust full-stack products with strong backend architecture,
 		practical agentic integrations, and research-informed engineering.
 	</p>
+	{#if data.cvUrl}
+		<div class="pt-1">
+			<Button href={data.cvUrl} variant="outline" target="_blank" rel="noreferrer">
+				<DownloadIcon class="size-4" aria-hidden="true" />
+				Download CV
+			</Button>
+		</div>
+	{/if}
 </section>
 
 <section class="mt-12 space-y-4">
@@ -38,7 +48,7 @@
 	<p class="text-muted-foreground">Academic track and research-oriented activities.</p>
 	<div class="space-y-4">
 		{#each data.education as item}
-			<Card.Root id={`education-${item.id}`}>
+			<Card.Root id={`education-${item.slug}`}>
 				<Card.Header>
 					<div class="flex flex-wrap items-start justify-between gap-2">
 						<div class="flex min-w-0 flex-1 items-start gap-3">

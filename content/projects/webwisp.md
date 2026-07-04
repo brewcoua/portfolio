@@ -1,0 +1,103 @@
+---
+title: WebWisp
+subtitle: Autonomous distributed web testing agent
+abstract: An autonomous web agent for end-to-end website testing with distributed workers, task orchestration, and browser-grounded execution.
+status: completed
+featured: true
+date:
+  - 2024-05
+  - 2024-07
+role: "[[roles/fullstack-developer]]"
+tech:
+  - "[[technologies/docker]]"
+  - "[[technologies/nestjs]]"
+  - "[[technologies/typescript]]"
+  - "[[technologies/playwright]]"
+  - "[[technologies/rabbitmq]]"
+  - "[[technologies/mongodb]]"
+  - "[[technologies/react]]"
+  - "[[technologies/llm]]"
+skills:
+  - "[[skills/web-automation]]"
+  - "[[skills/ai-engineering]]"
+  - "[[skills/api-development]]"
+  - "[[skills/authentication-security]]"
+related:
+  - "[[experience/labri]]"
+links:
+  - type: github
+    url: https://github.com/brewcoua/webwisp
+  - type: custom
+    label: Set-of-Marks
+    icon: circle-dot
+    url: https://github.com/brewcoua/web-som
+references:
+  - title: Language Models are Few-Shot Learners
+    authors:
+      - Brown, T. B.
+      - Mann, B.
+      - Ryder, N.
+      - Subbiah, M.
+      - Kaplan, J.
+      - Dhariwal, P.
+      - Neelakantan, A.
+      - Shyam, P.
+      - Sastry, G.
+      - Askell, A.
+      - Agarwal, S.
+      - Herbert-Voss, A.
+      - Krueger, G.
+      - Henighan, T.
+      - Child, R.
+      - Ramesh, A.
+      - Ziegler, D. M.
+      - Wu, J.
+      - Winter, C.
+      - Amodei, D.
+    year: "2020"
+    journal: arXiv preprint arXiv:2005.14165
+    doi: 10.48550/arXiv.2005.14165
+    url: https://arxiv.org/abs/2005.14165
+  - title: Set-of-mark prompting unleashes extraordinary visual grounding in GPT-4V
+    authors:
+      - Yang, J.
+      - Zhang, H.
+      - Li, F.
+      - Zou, X.
+      - Li, C.
+      - Gao, J.
+    year: "2023"
+    journal: arXiv preprint arXiv:2310.11441
+    doi: 10.48550/arXiv.2310.11441
+    url: https://arxiv.org/abs/2310.11441
+highlights:
+  - Designed and implemented a distributed orchestrator-worker architecture
+  - Built Docker-based deployment and configurable worker pools
+  - Integrated RabbitMQ for reliable asynchronous task dispatch
+  - Implemented browser automation and WebSOM-guided element targeting
+  - Added secure JWT authentication and persistent storage integration
+---
+
+WebWisp is an autonomous web agent developed during my [[experience/labri|internship at LaBRI]].
+It uses a distributed architecture for scalable web testing and automation:
+
+1. **Orchestrator**
+   - Dispatches tasks to worker pools
+   - Exposes a monitoring interface for runs and outcomes
+   - Handles authentication and user session control
+
+2. **Workers**
+   - Execute browser tasks reliably at scale
+   - Support horizontal scaling across multiple containers
+   - Use Playwright for deterministic browser automation
+   - Integrate [WebSOM](https://github.com/brewcoua/web-som) for precise element grounding
+
+3. **Message broker (RabbitMQ)**
+   - Guarantees asynchronous communication between services
+   - Decouples orchestration from execution for scalability
+
+The system is containerized with Docker and includes JWT-based auth, persistent storage,
+configurable worker pools, and LLM-assisted testing flows.
+
+This implementation is informed by advances in in-context language modeling and visual
+grounding for web interfaces.

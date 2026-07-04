@@ -1,3 +1,7 @@
+import type { NodeType } from './schema';
+
+export type { NodeType } from './schema';
+
 export type RelationshipType =
 	| 'project'
 	| 'experience'
@@ -21,8 +25,15 @@ export type DateRangeOrSingleDate = {
 	date: DateValue;
 };
 
+/**
+ * Every content node is identified by its `path` (`type/slug`, derived from the
+ * folder + filename). `id` is kept as an alias of `path` so all id-based lookups
+ * keep working. `relationships` is derived by the loader from `[[wikilinks]]`.
+ */
 export type Entity = {
 	id: string;
+	path: string;
+	type: NodeType;
 	relationships: Relationship[];
 };
 
@@ -127,12 +138,31 @@ export type SiteConfig = {
 		image: string;
 		keywords: string[];
 	};
-	cv: {
-		cvPdfUrl?: string;
-		label?: string;
-		lastVerified?: string;
-	};
+	cvUrl?: string;
 	navigation: Array<{ label: string; href: string }>;
+};
+
+export type GraphNode = {
+	id: string;
+	type: NodeType | 'profile';
+	label: string;
+	url?: string;
+	color?: string;
+	/** Relative visual weight used to size the node in the graph. */
+	weight: number;
+};
+
+export type GraphLinkKind = 'role' | 'technology' | 'skill' | 'mention';
+
+export type GraphLink = {
+	source: string;
+	target: string;
+	kind: GraphLinkKind;
+};
+
+export type GraphData = {
+	nodes: GraphNode[];
+	links: GraphLink[];
 };
 
 export type Technology = SlugEntity & {
@@ -172,9 +202,9 @@ export type Project = SlugEntity &
 	abstractMarkdown?: MarkdownDoc;
 	status: ProjectStatus;
 	role: string;
-	duration: string;
+	duration?: string;
 	featured: boolean;
-	summary: string;
+	summary?: string;
 	summaryMarkdown?: MarkdownDoc;
 	description: string;
 	descriptionMarkdown?: MarkdownDoc;
@@ -285,4 +315,5 @@ export type PortfolioContent = {
 	experience: Experience[];
 	education: Education[];
 	publications: Publication[];
+	graph: GraphData;
 };

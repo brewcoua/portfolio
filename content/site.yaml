@@ -9,10 +9,7 @@ defaultSeo:
     - ai
     - research
     - portfolio
-cv:
-  cvPdfUrl: https://github.com/brewcoua/cv/releases/latest/download/cv.pdf
-  label: Download CV
-  lastVerified: 2026-04-30
+cvUrl: https://raw.githubusercontent.com/brewcoua/portfolio/master/static/cv.pdf
 navigation:
   - label: Home
     href: /
@@ -20,7 +17,5 @@ navigation:
     href: /about
   - label: Projects
     href: /projects
-  - label: CV
-    href: /cv
   - label: Contact
     href: /contact
