@@ -37,23 +37,24 @@ describe('custom markdown pipeline', () => {
 		expect((linkNode as { href?: string })?.href).toBe('https://ch.tudelft.nl');
 	});
 
-	it('resolves @token links and auto mentions', () => {
-		const mentions: MentionDictionaries = {
-			tokenToLink: new Map([['exp-labri-research-intern', { kind: 'experience', href: '/experience/labri' }]]),
-			labelToLink: new Map([['webwisp', { kind: 'project', href: '/projects/webwisp' }]]),
-			labelToPopover: new Map([
-				[
-					'docker',
-					{ kind: 'technology', entityId: 'tech-docker', title: 'Docker', body: 'Container platform' }
-				]
-			])
-		};
+	it('resolves [[wikilink]] scheme mentions to links and popovers', () => {
+		const mentions: MentionDictionaries = new Map([
+			['experience/labri', { kind: 'experience', href: '/experience/labri' }],
+			[
+				'technologies/docker',
+				{ kind: 'technology', entityId: 'technologies/docker', title: 'Docker', body: 'Container platform' }
+			]
+		]);
 
-		const doc = renderMarkdownDoc('WebWisp uses Docker and [this experience](@exp-labri-research-intern).', {
-			mentions
-		});
+		const doc = renderMarkdownDoc(
+			'WebWisp uses [Docker](wikilink:technologies/docker) and [this experience](wikilink:experience/labri).',
+			{ mentions }
+		);
+		const mention = doc.blocks[0]?.type === 'paragraph'
+			? doc.blocks[0].children.filter((n) => n.type === 'mention')
+			: [];
+		expect(mention.length).toBe(2);
 		const text = markdownDocToPlainText(doc);
-		expect(text).toContain('WebWisp');
 		expect(text).toContain('Docker');
 		expect(text).toContain('this experience');
 	});
@@ -64,7 +65,7 @@ describe('custom markdown pipeline', () => {
 		expect(content.projects[0]?.descriptionMarkdown?.blocks.length).toBeGreaterThan(0);
 		expect(content.experience[0]?.summaryMarkdown?.blocks.length).toBeGreaterThan(0);
 
-		const msc = content.education.find((e) => e.id === 'edu-tud-msc-cs');
+		const msc = content.education.find((e) => e.id === 'education/tud-msc-cs');
 		const societyNodes = msc?.societiesMarkdown?.[0];
 		expect(societyNodes?.some((n) => n.type === 'link')).toBe(true);
 	});

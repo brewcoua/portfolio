@@ -40,9 +40,9 @@ describe('presentation color helpers', () => {
 
 	it('getRoleChipStyle always returns neutral role style', () => {
 		const roles: Role[] = [
-			{ id: 'role-x', slug: 'x', label: 'X', color: '#4f46e5', relationships: [] }
+			{ id: 'roles/x', path: 'roles/x', type: 'role', slug: 'x', label: 'X', color: '#4f46e5', relationships: [] }
 		];
-		const style = getRoleChipStyle('role-x', roles);
+		const style = getRoleChipStyle('roles/x', roles);
 		expect(style).toContain('var(--foreground)');
 		expect(style).not.toContain('--chip-bg-light');
 	});

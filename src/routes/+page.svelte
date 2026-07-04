@@ -3,6 +3,7 @@
 	import ExperienceCard from '$lib/components/ExperienceCard.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
+	import GraphHero from '$lib/components/GraphHero.svelte';
 
 	let { data } = $props();
 </script>
@@ -19,8 +20,17 @@
 
 	<div class="flex flex-wrap gap-3 pt-2">
 		<Button href="/projects" variant="outline">Explore Projects</Button>
-		<Button href="/cv" variant="outline">Download CV</Button>
+		{#if data.cvUrl}
+			<Button href={data.cvUrl} variant="outline" target="_blank" rel="noreferrer">Download CV</Button>
+		{/if}
 	</div>
+</section>
+
+<section class="mt-12" aria-label="Portfolio graph">
+	<GraphHero data={data.graph} />
+	<p class="mt-3 text-sm text-muted-foreground">
+		A living map of what I build — hover to trace connections, click a project or role to explore.
+	</p>
 </section>
 
 <section class="mt-16">

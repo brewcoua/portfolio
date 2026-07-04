@@ -13,6 +13,8 @@ export async function load() {
 		skills: content.skills,
 		roles: content.roles,
 		featuredProjects,
-		experience: sortedExperience.slice(0, 2)
+		experience: sortedExperience.slice(0, 2),
+		graph: content.graph,
+		cvUrl: content.site.cvUrl
 	};
 }
