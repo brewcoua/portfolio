@@ -1,6 +1,7 @@
 <script lang="ts">
 	import OrgBrandMark from '$lib/components/OrgBrandMark.svelte';
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
+	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import * as Card from '$lib/components/ui/card';
 	import { formatEducationGrade, formatEntityDate } from '$lib/content/format';
@@ -67,6 +68,15 @@
 			</div>
 		</div>
 	</header>
+
+	{#if edu.description?.trim()}
+		<MarkdownBlock
+			markdown={edu.descriptionMarkdown}
+			skills={data.skills}
+			technologies={data.technologies}
+			class="max-w-3xl leading-7"
+		/>
+	{/if}
 
 	{#if edu.highlights.length > 0}
 		<section>

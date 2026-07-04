@@ -304,6 +304,8 @@ export type Education = SlugEntity &
 	institution: string;
 	degree: string;
 	location: string;
+	description?: string;
+	descriptionMarkdown?: MarkdownDoc;
 	track?: string[];
 	focus: string[];
 	thesisTitle?: string;

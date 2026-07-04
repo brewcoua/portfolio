@@ -396,6 +396,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 				institution: String(data.institution),
 				degree: label,
 				location: String(data.location),
+				description: node.body,
+				descriptionMarkdown: renderDoc(node.body, path, mentions),
 				track: (data.track as string[]) ?? undefined,
 				focus: (data.focus as string[]) ?? [],
 				thesisTitle: data.thesisTitle as string | undefined,
