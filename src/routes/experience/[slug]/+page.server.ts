@@ -15,6 +15,7 @@ export async function load({ params }) {
 	const linkedProjects = getRelated(experience.relationships, content.projects, 'project');
 
 	return {
+		title: `${experience.title} at ${experience.organization}`,
 		experience,
 		linkedProjects,
 		technologies: content.technologies,

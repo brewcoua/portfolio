@@ -16,6 +16,7 @@ export async function load({ params }) {
 	const linkedExperience = getRelated(education.relationships, content.experience, 'experience');
 
 	return {
+		title: education.degree,
 		education,
 		linkedProjects,
 		linkedExperience,

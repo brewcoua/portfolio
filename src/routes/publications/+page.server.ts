@@ -5,6 +5,7 @@ export async function load() {
 	const content = await loadContent();
 
 	return {
+		title: 'Publications',
 		publications: [...content.publications].sort((a, b) =>
 			getDateSortKey(b).localeCompare(getDateSortKey(a))
 		),

@@ -21,10 +21,6 @@
 	);
 </script>
 
-<svelte:head>
-	<title>{data.publication.title}</title>
-</svelte:head>
-
 <article class="space-y-6">
 	<header class="space-y-2">
 		<p class="text-sm text-muted-foreground"># publication</p>

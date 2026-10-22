@@ -26,10 +26,6 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Contact</title>
-</svelte:head>
-
 <section class="space-y-2">
 	<h1 class="h-section text-xl">contact</h1>
 	<p class="text-sm text-muted-foreground">
