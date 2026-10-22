@@ -1,5 +1,6 @@
 ---
-institution: Delft University of Technology (TU Delft)
+institution: Delft University of Technology
+institutionShort: TU Delft
 degree: Master of Computer Science
 date:
   - 2025-09

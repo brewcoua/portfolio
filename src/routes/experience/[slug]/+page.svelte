@@ -2,6 +2,7 @@
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
 	import OrgLogo from '$lib/components/OrgLogo.svelte';
+	import OrgName from '$lib/components/OrgName.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import { formatEntityDate } from '$lib/content/format';
@@ -15,10 +16,6 @@
 			type: 'project'
 		}))
 	);
-
-	const orgHrefExternal = $derived(
-		data.experience.website ? /^(https?:|mailto:)/.test(data.experience.website) : false
-	);
 </script>
 
 <article class="space-y-6">
@@ -28,20 +25,9 @@
 			<OrgLogo src={data.experience.logo} size={32} class="mt-1" />
 			<div class="min-w-0 flex-1 space-y-2">
 				<h1 class="text-xl font-bold leading-snug">{data.experience.title}</h1>
-				<p class="text-muted-foreground">
-					{#if data.experience.website}
-						<a
-							class="link"
-							href={data.experience.website}
-							target={orgHrefExternal ? '_blank' : undefined}
-							rel={orgHrefExternal ? 'noopener noreferrer' : undefined}
-						>
-							{data.experience.organization}
-						</a>
-					{:else}
-						{data.experience.organization}
-					{/if}
-					{' '}- {data.experience.location}
+				<p class="flex flex-wrap gap-x-2 text-muted-foreground">
+					<OrgName name={data.experience.organization} short={data.experience.organizationShort} formerly={data.experience.organizationFormerly} href={data.experience.website} />
+					<span>- {data.experience.location}</span>
 				</p>
 				<p class="text-sm text-muted-foreground">{formatEntityDate(data.experience)}</p>
 			</div>

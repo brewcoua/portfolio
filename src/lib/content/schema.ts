@@ -154,6 +154,8 @@ export const projectFrontmatter = z.object({
 export const experienceFrontmatter = z.object({
 	title: z.string().min(1),
 	organization: z.string().min(1),
+	organizationShort: z.string().min(1).optional(),
+	organizationFormerly: z.string().min(1).optional(),
 	website: z.string().url().optional(),
 	logo: z.string().min(1).optional(),
 	location: z.string().min(1),
@@ -167,6 +169,7 @@ export const experienceFrontmatter = z.object({
 
 const educationSubEntry = z.object({
 	institution: z.string().min(1),
+	institutionShort: z.string().min(1).optional(),
 	degree: z.string().min(1),
 	date: dateValue,
 	location: z.string().min(1),
@@ -181,6 +184,7 @@ const educationSubEntry = z.object({
 
 export const educationFrontmatter = z.object({
 	institution: z.string().min(1),
+	institutionShort: z.string().min(1).optional(),
 	degree: z.string().min(1),
 	date: dateValue,
 	location: z.string().min(1),

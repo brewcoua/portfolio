@@ -2,6 +2,7 @@
 	import ExperienceCard from '$lib/components/ExperienceCard.svelte';
 	import { formatEducationGrade, formatEntityDate } from '$lib/content/format';
 	import OrgLogo from '$lib/components/OrgLogo.svelte';
+	import OrgName from '$lib/components/OrgName.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import SkillBadge from '$lib/components/SkillBadge.svelte';
@@ -11,10 +12,6 @@
 
 	const mentionedSkills = $derived(data.mentionedSkills ?? []);
 	const mentionedTechnologies = $derived(data.mentionedTechnologies ?? []);
-
-	function isExternalHref(href: string): boolean {
-		return /^(https?:|mailto:)/.test(href);
-	}
 </script>
 
 <section class="space-y-5">
@@ -51,20 +48,9 @@
 										{item.degree}
 									</a>
 								</h3>
-								<p class="text-sm text-muted-foreground">
+								<p class="flex items-center text-sm text-muted-foreground">
 									<OrgLogo src={item.logo} class="mr-1" />
-									{#if item.website}
-										<a
-											class="link"
-											href={item.website}
-											target={isExternalHref(item.website) ? '_blank' : undefined}
-											rel={isExternalHref(item.website) ? 'noopener noreferrer' : undefined}
-										>
-											{item.institution}
-										</a>
-									{:else}
-										{item.institution}
-									{/if}
+									<OrgName name={item.institution} short={item.institutionShort} href={item.website} />
 								</p>
 								{#if item.track && item.track.length > 0}
 									<div class="mt-1 flex flex-wrap gap-1">
@@ -146,20 +132,9 @@
 												<div class="flex min-w-0 flex-1 items-start gap-2">
 													<div class="min-w-0 flex-1">
 														<h3 class="font-bold">{subItem.degree}</h3>
-														<p class="text-sm text-muted-foreground">
+														<p class="flex items-center text-sm text-muted-foreground">
 															<OrgLogo src={subItem.logo} class="mr-1" />
-															{#if subItem.website}
-																<a
-																	class="link"
-																	href={subItem.website}
-																	target={isExternalHref(subItem.website) ? '_blank' : undefined}
-																	rel={isExternalHref(subItem.website) ? 'noopener noreferrer' : undefined}
-																>
-																	{subItem.institution}
-																</a>
-															{:else}
-																{subItem.institution}
-															{/if}
+															<OrgName name={subItem.institution} short={subItem.institutionShort} href={subItem.website} />
 														</p>
 														{#if subItem.track && subItem.track.length > 0}
 															<div class="mt-0.5 flex flex-wrap gap-1">

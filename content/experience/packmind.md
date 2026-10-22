@@ -1,6 +1,7 @@
 ---
 title: Developer Intern
-organization: Packmind (prev. Promyze)
+organization: Packmind
+organizationFormerly: Promyze
 website: https://packmind.com
 logo: /logos/packmind.jpg
 location: Bordeaux, France (Hybrid)

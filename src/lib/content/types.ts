@@ -244,6 +244,8 @@ export type Experience = SlugEntity &
 	DateRangeOrSingleDate & {
 	title: string;
 	organization: string;
+	organizationShort?: string;
+	organizationFormerly?: string;
 	location: string;
 	employmentType: string;
 	summary: string;
@@ -286,6 +288,7 @@ export type EducationHonorsGrade = (typeof EDUCATION_HONORS_GRADES)[number];
 
 export type EducationSubEntry = DateRangeOrSingleDate & {
 	institution: string;
+	institutionShort?: string;
 	degree: string;
 	location: string;
 	track?: string[];
@@ -303,6 +306,7 @@ export type EducationSubEntry = DateRangeOrSingleDate & {
 export type Education = SlugEntity &
 	DateRangeOrSingleDate & {
 	institution: string;
+	institutionShort?: string;
 	degree: string;
 	location: string;
 	description?: string;

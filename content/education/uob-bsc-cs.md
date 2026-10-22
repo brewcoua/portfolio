@@ -15,7 +15,8 @@ focus:
 grade:
   honors: high-honors
 subEducation:
-  - institution: Hanyang University (한양대학교)
+  - institution: Hanyang University
+    institutionShort: 한양대학교
     website: https://www.hanyang.ac.kr
     logo: /logos/hanyang.jpg
     degree: Exchange Year - Computer Science

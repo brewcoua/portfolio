@@ -53,7 +53,7 @@ function gatherExperienceMentions(
 		const source = {
 			key: `experience:${item.id}`,
 			kind: 'experience',
-			label: `${item.title} at ${item.organization}`,
+			label: `${item.title} at ${item.organizationShort ?? item.organization}`,
 			href: `/experience/${item.slug}`
 		} as const;
 		for (const technologyId of item.technologies) addMention(technologyMentions, technologyId, source);
@@ -75,7 +75,7 @@ function gatherEducationMentions(
 		const source = {
 			key: `education:${item.id}`,
 			kind: 'education',
-			label: `${item.degree} at ${item.institution}`,
+			label: `${item.degree} at ${item.institutionShort ?? item.institution}`,
 			href: `/education/${item.slug}`
 		} as const;
 		for (const focusId of item.focus) {
