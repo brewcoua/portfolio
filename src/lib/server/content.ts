@@ -346,6 +346,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 				relationships: [],
 				title: label,
 				organization: String(data.organization),
+				organizationShort: data.organizationShort as string | undefined,
+				organizationFormerly: data.organizationFormerly as string | undefined,
 				location: String(data.location),
 				employmentType: String(data.employmentType),
 				summary: String(data.summary),
@@ -372,6 +374,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				const subLabel = `${path} subEducation[${index}]`;
 				return {
 					institution: String(sub.institution),
+					institutionShort: sub.institutionShort as string | undefined,
 					degree: String(sub.degree),
 					location: String(sub.location),
 					date: sub.date as EducationSubEntry['date'],
@@ -394,6 +397,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				slug,
 				relationships: [],
 				institution: String(data.institution),
+				institutionShort: data.institutionShort as string | undefined,
 				degree: label,
 				location: String(data.location),
 				description: node.body,

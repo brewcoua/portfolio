@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { formatEntityDate } from '$lib/content/format';
 	import OrgLogo from '$lib/components/OrgLogo.svelte';
+	import OrgName from '$lib/components/OrgName.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import type { Experience, MarkdownInlineNode, Skill, Technology } from '$lib/content/types';
 
@@ -9,10 +10,6 @@
 		skills?: Skill[];
 		technologies?: Technology[];
 	}>();
-
-	const orgHrefExternal = $derived(
-		experience.website ? /^(https?:|mailto:)/.test(experience.website) : false
-	);
 
 	function firstParagraphInline(): MarkdownInlineNode[] {
 		const first = experience.summaryMarkdown?.blocks[0];
@@ -26,18 +23,11 @@
 		<span class="leader" aria-hidden="true"></span>
 		<span class="shrink-0 text-sm text-muted-foreground">{formatEntityDate(experience)}</span>
 	</header>
-	<p class="flex flex-wrap items-baseline gap-x-3 text-sm text-muted-foreground">
-		<OrgLogo src={experience.logo} class="-mr-1.5" />
-		{#if experience.website}
-			<a
-				class="link"
-				href={experience.website}
-				target={orgHrefExternal ? '_blank' : undefined}
-				rel={orgHrefExternal ? 'noopener noreferrer' : undefined}
-			>{experience.organization}</a>
-		{:else}
-			<span>{experience.organization}</span>
-		{/if}
+	<p class="flex flex-wrap items-center gap-x-3 text-sm text-muted-foreground">
+		<span class="flex min-w-0 items-center gap-1.5">
+			<OrgLogo src={experience.logo} />
+			<OrgName name={experience.organization} short={experience.organizationShort} formerly={experience.organizationFormerly} href={experience.website} />
+		</span>
 		<span class="tag lowercase">{experience.employmentType}</span>
 	</p>
 	<MarkdownInline markdown={firstParagraphInline()} {skills} {technologies} class="block text-sm" />

@@ -1,6 +1,7 @@
 ---
 title: Research Intern
-organization: Laboratoire Bordelais de Recherche en Informatique (LaBRI)
+organization: Laboratoire Bordelais de Recherche en Informatique
+organizationShort: LaBRI
 website: https://www.labri.fr
 logo: /logos/labri.jpg
 location: Bordeaux, France

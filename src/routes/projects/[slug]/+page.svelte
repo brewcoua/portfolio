@@ -16,7 +16,7 @@
 
 	const relatedExperienceItems = $derived(
 		data.relatedExperience.map((item) => ({
-			label: `${item.title} - ${item.organization}`,
+			label: `${item.title} - ${item.organizationShort ?? item.organization}`,
 			href: `/experience/${item.slug}`,
 			type: 'experience'
 		}))
