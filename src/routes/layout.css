@@ -65,6 +65,9 @@
 	--faint: color-mix(in oklab, var(--fg) 14%, var(--bg));
 	--surface: color-mix(in oklab, var(--fg) 4%, var(--bg));
 	--accent-fg: var(--bg);
+	/* Entity tints keep their hue but share one lightness/chroma per theme. */
+	--tint-l: 0.55;
+	--tint-c: 0.16;
 
 	/* Names consumed by Tailwind utilities and the graph. */
 	--background: var(--bg);
@@ -192,6 +195,43 @@
 	border: 1px solid var(--faint);
 	background: var(--surface);
 	color: var(--fg);
+}
+
+
+:root.dark {
+	--tint-l: 0.78;
+}
+
+.tint {
+	color: oklch(from var(--c) var(--tint-l) min(c, var(--tint-c)) h);
+}
+
+.tag-skill::before {
+	content: '{';
+}
+.tag-skill::after {
+	content: '}';
+}
+
+/* White-backed logo JPEGs: blend into the page, original colors on hover. */
+.org-logo {
+	display: inline-block;
+	flex-shrink: 0;
+	object-fit: contain;
+	vertical-align: -0.15em;
+	filter: grayscale(1) contrast(1.1);
+	mix-blend-mode: multiply;
+	transition: filter 0.15s;
+}
+.dark .org-logo {
+	filter: grayscale(1) invert(1) contrast(1.1);
+	mix-blend-mode: screen;
+}
+.org-logo:hover,
+a:hover .org-logo,
+.org-logo-trigger:hover .org-logo {
+	filter: none;
+	mix-blend-mode: normal;
 }
 
 .markdown-block {

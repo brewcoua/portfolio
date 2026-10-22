@@ -2,6 +2,7 @@ import type { Component } from 'svelte';
 
 import AppWindowIcon from '@lucide/svelte/icons/app-window';
 import AtomIcon from '@lucide/svelte/icons/atom';
+import BotIcon from '@lucide/svelte/icons/bot';
 import BrainCircuitIcon from '@lucide/svelte/icons/brain-circuit';
 import BrainIcon from '@lucide/svelte/icons/brain';
 import ChartNoAxesColumnIcon from '@lucide/svelte/icons/chart-no-axes-column';
@@ -20,17 +21,21 @@ import NetworkIcon from '@lucide/svelte/icons/network';
 import PanelTopIcon from '@lucide/svelte/icons/panel-top';
 import RabbitIcon from '@lucide/svelte/icons/rabbit';
 import ServerIcon from '@lucide/svelte/icons/server';
+import ShieldCheckIcon from '@lucide/svelte/icons/shield-check';
 import SparklesIcon from '@lucide/svelte/icons/sparkles';
 import TagIcon from '@lucide/svelte/icons/tag';
 import TerminalIcon from '@lucide/svelte/icons/terminal';
 import TestTubeIcon from '@lucide/svelte/icons/test-tube';
 import UserIcon from '@lucide/svelte/icons/user';
+import WebhookIcon from '@lucide/svelte/icons/webhook';
+import WorkflowIcon from '@lucide/svelte/icons/workflow';
 import ZapIcon from '@lucide/svelte/icons/zap';
 
 /** Kebab-case names from YAML `icon`; values are Lucide Svelte components. */
 export const CONTENT_ICON_MAP: Record<string, Component> = {
 	'app-window': AppWindowIcon,
 	atom: AtomIcon,
+	bot: BotIcon,
 	brain: BrainIcon,
 	'brain-circuit': BrainCircuitIcon,
 	'chart-no-axes-column': ChartNoAxesColumnIcon,
@@ -46,10 +51,13 @@ export const CONTENT_ICON_MAP: Record<string, Component> = {
 	'panel-top': PanelTopIcon,
 	rabbit: RabbitIcon,
 	server: ServerIcon,
+	'shield-check': ShieldCheckIcon,
 	sparkles: SparklesIcon,
 	terminal: TerminalIcon,
 	'test-tube': TestTubeIcon,
 	user: UserIcon,
+	webhook: WebhookIcon,
+	workflow: WorkflowIcon,
 	zap: ZapIcon,
 	layers: LayersIcon,
 	'file-braces': FileBracesIcon,

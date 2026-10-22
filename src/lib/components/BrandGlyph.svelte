@@ -7,7 +7,9 @@
 		icon,
 		size = 20,
 		brandColor = false,
-		class: className = ''
+		class: className = '',
+		style
+	
 	}: {
 		/** Content slug or `type/slug` path used to look up a brand mark. */
 		slug?: string;
@@ -17,6 +19,7 @@
 		/** Paint the mark in its brand color instead of currentColor. */
 		brandColor?: boolean;
 		class?: string;
+		style?: string;
 	} = $props();
 
 	const brand = $derived(getBrandIcon(slug));
@@ -29,6 +32,7 @@
 		width={size}
 		height={size}
 		class={className}
+		{style}
 		fill={brandColor ? brand.hex : 'currentColor'}
 		aria-hidden="true"
 	>
@@ -36,5 +40,5 @@
 		<path d={brand.path} />
 	</svg>
 {:else}
-	<ContentLucideIcon name={icon} class={className} />
+	<ContentLucideIcon name={icon} class={className} {style} />
 {/if}

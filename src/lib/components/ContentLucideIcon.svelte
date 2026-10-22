@@ -4,13 +4,15 @@
 
 	let {
 		name,
-		class: className = 'size-3.5 shrink-0 opacity-80'
+		class: className = 'size-3.5 shrink-0 opacity-80',
+		style
 	}: {
 		name?: string;
 		class?: string;
+		style?: string;
 	} = $props();
 
 	const Icon = $derived(resolveContentIcon(name));
 </script>
 
-<Icon class={className} aria-hidden="true" />
+<Icon class={className} {style} aria-hidden="true" />

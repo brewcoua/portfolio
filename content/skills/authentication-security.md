@@ -1,6 +1,7 @@
 ---
 label: Authentication & Security
 category: backend
+icon: shield-check
 color: "#38BDF8"
 tech:
   - "[[technologies/nestjs]]"

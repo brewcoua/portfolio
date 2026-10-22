@@ -211,6 +211,7 @@ export const technologyFrontmatter = z.object({
 export const skillFrontmatter = z.object({
 	label: z.string().min(1),
 	category: z.string().min(1),
+	icon: z.string().min(1).optional(),
 	color: hexColor.optional(),
 	tech: z.array(wikilink).default([]),
 	links: links.default([])

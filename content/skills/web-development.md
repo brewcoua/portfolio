@@ -1,6 +1,7 @@
 ---
 label: Web Development
 category: engineering
+icon: app-window
 color: "#60A5FA"
 tech:
   - "[[technologies/react]]"

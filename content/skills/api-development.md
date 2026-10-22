@@ -1,6 +1,7 @@
 ---
 label: API Development
 category: backend
+icon: webhook
 color: "#34D399"
 tech:
   - "[[technologies/nestjs]]"

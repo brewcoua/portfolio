@@ -47,7 +47,7 @@
 		{#if triggerMode === 'text'}
 			<span class={cn('mention-link mention-static mention-popover-trigger', className)}>{label}</span>
 		{:else}
-			<ColoredEntityBadge label={label.toLowerCase()} icon="sparkles" class={cn('cursor-pointer', className)} />
+			<ColoredEntityBadge label={label.toLowerCase()} icon={skill?.icon} color={skill?.color} kind="skill" class={cn('cursor-pointer', className)} />
 		{/if}
 	</Popover.Trigger>
 	<PopoverContent>
