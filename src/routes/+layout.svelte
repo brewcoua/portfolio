@@ -7,17 +7,21 @@
 
 	let { children, data } = $props();
 
+	const title = $derived(
+		page.data.title ? `${page.data.title} · ${data.profile.name}` : data.site.defaultSeo.title
+	);
+
 	const isCurrent = (href: string) =>
 		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
 </script>
 
 <svelte:head>
 	<link rel="icon" href={favicon} />
-	<title>{data.site.defaultSeo.title}</title>
+	<title>{title}</title>
 	<meta name="description" content={data.site.defaultSeo.description} />
 	<meta name="author" content={data.profile.name} />
 	<meta name="keywords" content={data.site.defaultSeo.keywords.join(', ')} />
-	<meta property="og:title" content={data.site.defaultSeo.title} />
+	<meta property="og:title" content={title} />
 	<meta property="og:description" content={data.site.defaultSeo.description} />
 	<meta property="og:image" content={`${data.site.baseUrl}${data.site.defaultSeo.image}`} />
 	<meta property="og:url" content={data.site.baseUrl} />

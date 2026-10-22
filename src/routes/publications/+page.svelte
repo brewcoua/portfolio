@@ -4,10 +4,6 @@
 	let { data } = $props();
 </script>
 
-<svelte:head>
-	<title>Publications</title>
-</svelte:head>
-
 <section class="space-y-2">
 	<h1 class="h-section text-xl">publications</h1>
 	<p class="text-sm text-muted-foreground">

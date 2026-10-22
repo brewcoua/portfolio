@@ -103,6 +103,7 @@ export async function load() {
 	gatherEducationMentions(education, skillMentions, technologyMentions, skillIds, technologyIds);
 
 	return {
+		title: 'About',
 		profile,
 		cvUrl: site.cvUrl,
 		skills,

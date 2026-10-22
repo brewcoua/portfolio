@@ -23,10 +23,6 @@
 	);
 </script>
 
-<svelte:head>
-	<title>Projects</title>
-</svelte:head>
-
 <section class="space-y-2">
 	<h1 class="h-section text-xl">projects</h1>
 	<p class="text-sm text-muted-foreground">

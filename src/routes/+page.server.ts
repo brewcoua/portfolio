@@ -8,6 +8,7 @@ export async function load() {
 		getDateSortKey(b).localeCompare(getDateSortKey(a))
 	);
 	return {
+		title: 'Portfolio',
 		profile: content.profile,
 		technologies: content.technologies,
 		skills: content.skills,

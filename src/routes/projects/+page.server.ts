@@ -13,6 +13,7 @@ export async function load() {
 	const filterOptions = getProjectFilterOptions(content);
 
 	return {
+		title: 'Projects',
 		projects: [...resolvedProjects].sort((a, b) => getDateSortKey(b).localeCompare(getDateSortKey(a))),
 		technologies: content.technologies,
 		skills: content.skills,

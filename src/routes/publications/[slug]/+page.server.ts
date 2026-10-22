@@ -15,6 +15,7 @@ export async function load({ params }) {
 	const relatedProjects = getRelated(publication.relationships, content.projects, 'project');
 
 	return {
+		title: publication.title,
 		publication,
 		relatedProjects,
 		technologies: content.technologies,
