@@ -47,7 +47,7 @@
 		{#if triggerMode === 'text'}
 			<span class={cn('mention-link mention-static mention-popover-trigger', className)}>{label}</span>
 		{:else}
-			<ColoredEntityBadge label={label.toLowerCase()} brandSlug={techId} icon={technology?.icon} class={cn('cursor-pointer', className)} />
+			<ColoredEntityBadge label={label.toLowerCase()} brandSlug={techId} icon={technology?.icon} color={technology?.color} class={cn('cursor-pointer', className)} />
 		{/if}
 	</Popover.Trigger>
 	<PopoverContent>
@@ -65,7 +65,7 @@
 				<p class="text-muted-foreground"># Related skills</p>
 				<div class="flex flex-wrap gap-1">
 					{#each relatedSkillLabels as relatedSkill}
-						<span class="tag">{relatedSkill}</span>
+						<span class="tag tag-skill">{relatedSkill}</span>
 					{/each}
 				</div>
 			</div>

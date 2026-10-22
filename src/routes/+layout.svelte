@@ -1,7 +1,6 @@
 <script lang="ts">
 	import './layout.css';
 	import favicon from '$lib/assets/favicon.svg';
-	import logoRaw from '$lib/assets/logo.svg?raw';
 	import { page } from '$app/state';
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import ThemeDocumentSync from '$lib/components/ThemeDocumentSync.svelte';
@@ -31,10 +30,7 @@
 
 <div class="mx-auto flex min-h-screen w-full max-w-[78ch] flex-col px-4 py-8 sm:px-6 sm:py-12">
 	<header class="mb-12 space-y-3">
-		<a class="flex w-fit items-center gap-2 font-bold hover:text-primary" href="/">
-			<span class="inline-block shrink-0" style="height:1.1em;aspect-ratio:100/150;" aria-hidden="true">{@html logoRaw}</span>
-			{data.profile.name.toLowerCase()}
-		</a>
+		<a class="block w-fit font-bold hover:text-primary" href="/">{data.profile.name.toLowerCase()}</a>
 		<nav class="flex flex-wrap gap-x-5 gap-y-1 text-sm" aria-label="Main">
 			{#each data.site.navigation as item}
 				{@const current = isCurrent(item.href)}

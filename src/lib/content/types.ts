@@ -187,6 +187,7 @@ export type Technology = SlugEntity & {
 export type Skill = SlugEntity & {
 	label: string;
 	category: string;
+	icon?: string;
 	description?: string;
 	descriptionMarkdown?: MarkdownInlineNode[];
 	color?: string;

@@ -1,6 +1,7 @@
 ---
 label: Cloud Computing
 category: infrastructure
+icon: cloud
 color: "#FDBA74"
 tech:
   - "[[technologies/aws]]"

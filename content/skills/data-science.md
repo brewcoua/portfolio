@@ -1,6 +1,7 @@
 ---
 label: Data Science
 category: data
+icon: chart-no-axes-column
 color: "#38BDF8"
 tech:
   - "[[technologies/python]]"

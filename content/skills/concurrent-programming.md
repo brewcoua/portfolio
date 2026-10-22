@@ -1,6 +1,7 @@
 ---
 label: Concurrent Programming
 category: systems
+icon: workflow
 color: "#22D3EE"
 tech:
   - "[[technologies/rust]]"

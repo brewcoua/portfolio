@@ -1,6 +1,7 @@
 <script lang="ts">
 	import ExperienceCard from '$lib/components/ExperienceCard.svelte';
 	import { formatEducationGrade, formatEntityDate } from '$lib/content/format';
+	import OrgLogo from '$lib/components/OrgLogo.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import SkillBadge from '$lib/components/SkillBadge.svelte';
@@ -51,6 +52,7 @@
 									</a>
 								</h3>
 								<p class="text-sm text-muted-foreground">
+									<OrgLogo src={item.logo} class="mr-1" />
 									{#if item.website}
 										<a
 											class="link"
@@ -145,6 +147,7 @@
 													<div class="min-w-0 flex-1">
 														<h3 class="font-bold">{subItem.degree}</h3>
 														<p class="text-sm text-muted-foreground">
+															<OrgLogo src={subItem.logo} class="mr-1" />
 															{#if subItem.website}
 																<a
 																	class="link"

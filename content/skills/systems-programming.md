@@ -1,6 +1,7 @@
 ---
 label: Systems Programming
 category: systems
+icon: cpu
 color: "#F59E0B"
 tech:
   - "[[technologies/rust]]"

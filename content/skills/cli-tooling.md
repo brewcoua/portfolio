@@ -1,6 +1,7 @@
 ---
 label: CLI Tooling
 category: tooling
+icon: terminal
 color: "#FB7185"
 tech:
   - "[[technologies/rust]]"

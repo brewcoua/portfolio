@@ -59,7 +59,7 @@
 		experience: BriefcaseIcon,
 		education: GraduationCapIcon,
 		skill: SparklesIcon,
-		role: UserIcon, // overridden per-role by the frontmatter icon below
+		role: UserIcon, // roles and skills use their frontmatter icon below
 		technology: CpuIcon,
 		publication: FileTextIcon
 	};
@@ -74,7 +74,7 @@
 		const brand = node.type === 'technology' ? getBrandIcon(node.id) : null;
 		if (brand) {
 			glyphById.set(node.id, { brand: brand.path });
-		} else if (node.type === 'role') {
+		} else if (node.type === 'role' || node.type === 'skill') {
 			glyphById.set(node.id, { Comp: resolveContentIcon(node.icon) });
 		} else {
 			glyphById.set(node.id, { Comp: TYPE_ICON[node.type] });
@@ -140,6 +140,7 @@
 				fill: TYPE_META[n.type].fill,
 				stroke: TYPE_META[n.type].stroke,
 				dash: TYPE_META[n.type].dash,
+				tint: n.type === 'technology' || n.type === 'skill' ? n.color : undefined,
 				solid: n.type === 'profile'
 			})),
 			links: simLinks.map((l) => ({ x1: l.source.x, y1: l.source.y, x2: l.target.x, y2: l.target.y, source: l.source.id, target: l.target.id }))
@@ -294,7 +295,11 @@
 							stroke-width={1.25}
 							stroke-dasharray={node.dash ? '3 3' : undefined}
 						/>
-						<g class="glyph" transform={`translate(${-gs / 2},${-gs / 2})`}>
+						<g
+							class={['glyph', node.tint && 'tint']}
+							style={node.tint ? `--c: ${node.tint}` : undefined}
+							transform={`translate(${-gs / 2},${-gs / 2})`}
+						>
 							{#if glyph.brand}
 								<g transform={`scale(${gs / 24})`}>
 									<path d={glyph.brand} fill="currentColor" />
@@ -412,6 +417,9 @@
 	.graph-node .glyph {
 		pointer-events: none;
 		color: var(--muted);
+	}
+	.graph-node .glyph.tint {
+		color: oklch(from var(--c) var(--tint-l) min(c, var(--tint-c)) h);
 	}
 	.graph-node.is-profile .glyph {
 		color: var(--accent-fg);

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { formatEntityDate } from '$lib/content/format';
+	import OrgLogo from '$lib/components/OrgLogo.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import type { Experience, MarkdownInlineNode, Skill, Technology } from '$lib/content/types';
 
@@ -26,6 +27,7 @@
 		<span class="shrink-0 text-sm text-muted-foreground">{formatEntityDate(experience)}</span>
 	</header>
 	<p class="flex flex-wrap items-baseline gap-x-3 text-sm text-muted-foreground">
+		<OrgLogo src={experience.logo} class="-mr-1.5" />
 		{#if experience.website}
 			<a
 				class="link"

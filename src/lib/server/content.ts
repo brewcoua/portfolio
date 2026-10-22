@@ -448,6 +448,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				relationships: [],
 				label,
 				category: String(data.category),
+				icon: data.icon as string | undefined,
 				color: data.color as string | undefined,
 				description: node.body,
 				descriptionMarkdown: renderInline(node.body, path, mentions),

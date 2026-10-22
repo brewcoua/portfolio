@@ -1,6 +1,7 @@
 <script lang="ts">
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
+	import OrgLogo from '$lib/components/OrgLogo.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import { formatEntityDate } from '$lib/content/format';
@@ -24,6 +25,7 @@
 	<header class="space-y-2">
 		<p class="text-sm text-muted-foreground"># experience</p>
 		<div class="flex flex-wrap items-start gap-4">
+			<OrgLogo src={data.experience.logo} size={32} class="mt-1" />
 			<div class="min-w-0 flex-1 space-y-2">
 				<h1 class="text-xl font-bold leading-snug">{data.experience.title}</h1>
 				<p class="text-muted-foreground">

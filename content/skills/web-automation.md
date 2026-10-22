@@ -1,6 +1,7 @@
 ---
 label: Web Automation
 category: automation
+icon: bot
 color: "#4ADE80"
 tech:
   - "[[technologies/bash]]"

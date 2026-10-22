@@ -1,6 +1,7 @@
 ---
 label: AI Engineering
 category: ai-ml
+icon: brain-circuit
 color: "#A78BFA"
 tech:
   - "[[technologies/pytorch]]"
