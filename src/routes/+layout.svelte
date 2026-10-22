@@ -3,12 +3,13 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import logoRaw from '$lib/assets/logo.svg?raw';
 	import { page } from '$app/state';
-	import * as NavigationMenu from '$lib/components/ui/navigation-menu';
-	import { Separator } from '$lib/components/ui/separator';
 	import ThemeSwitcher from '$lib/components/ThemeSwitcher.svelte';
 	import ThemeDocumentSync from '$lib/components/ThemeDocumentSync.svelte';
 
 	let { children, data } = $props();
+
+	const isCurrent = (href: string) =>
+		href === '/' ? page.url.pathname === '/' : page.url.pathname.startsWith(href);
 </script>
 
 <svelte:head>
@@ -28,39 +29,39 @@
 
 <ThemeDocumentSync />
 
-<div class="mx-auto flex min-h-screen w-full max-w-6xl flex-col px-6 py-8">
-	<header class="mb-7 pb-2">
-		<div class="mb-4 flex flex-wrap items-center justify-between gap-3">
-			<a class="flex items-center gap-2 text-xl font-semibold tracking-tight" href="/">
-				<span class="inline-block shrink-0" style="height:1.2em;aspect-ratio:100/150;" aria-hidden="true">{@html logoRaw}</span>
-				{data.profile.name}
-			</a>
-			<div class="flex flex-wrap items-center justify-end gap-3">
-				<p class="text-sm text-muted-foreground">{data.profile.location}</p>
-				<ThemeSwitcher />
-			</div>
-		</div>
-		<NavigationMenu.Root viewport={false}>
-			<NavigationMenu.List class="flex flex-wrap gap-x-2 gap-y-2">
-				{#each data.site.navigation as item}
-					<NavigationMenu.Item>
-						<NavigationMenu.Link
-							href={item.href}
-							class={`text-sm ${page.url.pathname === item.href ? 'text-primary' : ''}`}
-						>
-							{item.label}
-						</NavigationMenu.Link>
-					</NavigationMenu.Item>
-				{/each}
-			</NavigationMenu.List>
-		</NavigationMenu.Root>
-		<Separator class="mt-4" />
+<div class="mx-auto flex min-h-screen w-full max-w-[78ch] flex-col px-4 py-8 sm:px-6 sm:py-12">
+	<header class="mb-12 space-y-3">
+		<a class="flex w-fit items-center gap-2 font-bold hover:text-primary" href="/">
+			<span class="inline-block shrink-0" style="height:1.1em;aspect-ratio:100/150;" aria-hidden="true">{@html logoRaw}</span>
+			{data.profile.name.toLowerCase()}
+		</a>
+		<nav class="flex flex-wrap gap-x-5 gap-y-1 text-sm" aria-label="Main">
+			{#each data.site.navigation as item}
+				{@const current = isCurrent(item.href)}
+				<a
+					href={item.href}
+					class={current ? 'text-primary' : 'text-muted-foreground hover:text-foreground'}
+					aria-current={current ? 'page' : undefined}
+				>{current ? '>' : '\u00a0'}{item.label.toLowerCase()}</a>
+			{/each}
+		</nav>
 	</header>
 
 	<main class="flex-1">{@render children()}</main>
 
-	<footer class="mt-16 pt-6 text-sm text-muted-foreground">
-		<Separator class="mb-6" />
-		<p>{data.site.siteName}</p>
+	<footer class="mt-20 space-y-4 border-t border-dashed pt-6 text-sm text-muted-foreground">
+		<ul class="flex flex-wrap gap-x-5 gap-y-1">
+			{#each data.profile.links as link}
+				<li>
+					<a class="link" href={link.url} target={link.type === 'email' ? undefined : '_blank'} rel="noreferrer">
+						{link.type === 'email' ? link.url.replace(/^mailto:/, '') : link.type}
+					</a>
+				</li>
+			{/each}
+			{#if data.site.cvUrl}
+				<li><a class="link" href={data.site.cvUrl} target="_blank" rel="noreferrer">cv.pdf</a></li>
+			{/if}
+		</ul>
+		<ThemeSwitcher />
 	</footer>
 </div>

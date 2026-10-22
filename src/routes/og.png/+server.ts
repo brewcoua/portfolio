@@ -39,10 +39,10 @@ export const GET: RequestHandler = async () => {
 	const { profile } = await loadContent();
 
 	const fontData = await readFile(
-		join(process.cwd(), 'node_modules/@fontsource/inter/files/inter-latin-700-normal.woff')
+		join(process.cwd(), 'node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff')
 	);
 
-	const logoUri = toDataUri(colorizeSvg(logoRaw, '#f1f5f9'));
+	const logoUri = toDataUri(colorizeSvg(logoRaw, '#ff6b2c'));
 
 	// Logo viewBox is 100x150 → scale to height 160 → width ≈ 107
 	const LOGO_H = 160;
@@ -55,12 +55,12 @@ export const GET: RequestHandler = async () => {
 				display: 'flex',
 				width: W,
 				height: H,
-				backgroundColor: '#0d1117',
+				backgroundColor: '#151412',
 				alignItems: 'center',
 				justifyContent: 'center',
 				padding: '0 80px',
 				gap: 56,
-				fontFamily: 'Inter',
+				fontFamily: 'JetBrains Mono',
 			}
 		},
 		// Logo
@@ -69,8 +69,8 @@ export const GET: RequestHandler = async () => {
 		h(
 			'div',
 			{ style: { display: 'flex', flexDirection: 'column', gap: 16 } },
-			h('span', { style: { fontSize: 72, fontWeight: 700, color: '#f1f5f9', lineHeight: 1.1, letterSpacing: '-1px' } }, profile.name),
-			h('span', { style: { fontSize: 32, fontWeight: 700, color: '#475569', lineHeight: 1.3 } }, profile.headline)
+			h('span', { style: { fontSize: 64, fontWeight: 700, color: '#e8e4da', lineHeight: 1.1 } }, profile.name.toLowerCase()),
+			h('span', { style: { fontSize: 30, fontWeight: 700, color: '#928d82', lineHeight: 1.3 } }, profile.headline)
 		)
 	);
 
@@ -79,7 +79,7 @@ export const GET: RequestHandler = async () => {
 		height: H,
 		fonts: [
 			{
-				name: 'Inter',
+				name: 'JetBrains Mono',
 				data: fontData,
 				weight: 700,
 				style: 'normal'

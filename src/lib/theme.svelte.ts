@@ -42,3 +42,30 @@ export function setThemePreference(pref: ThemePreference): void {
 		/* ignore */
 	}
 }
+
+export const PALETTES = ['paper', 'riso', 'amber', 'moss'] as const;
+export type Palette = (typeof PALETTES)[number];
+
+const PALETTE_KEY = 'portfolio-palette';
+
+function readStoredPalette(): Palette {
+	if (!browser) return 'paper';
+	try {
+		const raw = localStorage.getItem(PALETTE_KEY);
+		if ((PALETTES as readonly string[]).includes(raw ?? '')) return raw as Palette;
+	} catch {
+		/* private / blocked storage */
+	}
+	return 'paper';
+}
+
+export const palette = $state({ current: readStoredPalette() });
+
+export function setPalette(value: Palette): void {
+	palette.current = value;
+	try {
+		localStorage.setItem(PALETTE_KEY, value);
+	} catch {
+		/* ignore */
+	}
+}

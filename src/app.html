@@ -6,11 +6,15 @@
 		<meta name="text-scale" content="scale" />
 		<script>
 			(function () {
-				var k = 'portfolio-theme';
 				var stored = null;
+				var palette = null;
 				try {
-					stored = localStorage.getItem(k);
+					stored = localStorage.getItem('portfolio-theme');
+					palette = localStorage.getItem('portfolio-palette');
 				} catch (e) {}
+				if (['paper', 'riso', 'amber', 'moss'].indexOf(palette) !== -1) {
+					document.documentElement.dataset.palette = palette;
+				}
 				var pref = stored === 'light' || stored === 'dark' || stored === 'system' ? stored : 'system';
 				var dark =
 					pref === 'dark' ||

@@ -19,15 +19,15 @@ pnpm run test:unit    # Vitest unit tests
 
 ## Content structure
 
-All content lives in `content/` as YAML files, loaded at build time. The main files and directories:
+All content lives in `content/` as Markdown files with YAML frontmatter (plus `site.yaml`), loaded at build time. The main files and directories:
 
 | Path | What it controls |
 |---|---|
-| `content/profile.yaml` | Name, headline, location, summary, links |
+| `content/profile.md` | Name, headline, location, links; body is the summary |
 | `content/site.yaml` | Site name, base URL, SEO defaults, CV PDF URL, nav |
-| `content/projects/` | One `.yaml` per project |
-| `content/experience/` | One `.yaml` per job/internship |
-| `content/education/` | One `.yaml` per degree |
+| `content/projects/` | One `.md` per project |
+| `content/experience/` | One `.md` per job/internship |
+| `content/education/` | One `.md` per degree |
 | `content/technologies/` | Technology entries referenced by projects |
 | `content/skills/` | Skill entries |
 | `content/roles/` | Role tags used on the profile |

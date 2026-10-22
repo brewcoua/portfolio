@@ -25,7 +25,8 @@
 	import { resolveContentIcon } from '$lib/content/content-icons';
 	import type { GraphData, GraphNode, NodeType } from '$lib/content/types';
 
-	let { data }: { data: GraphData } = $props();
+	// `compact`: static thumbnail (precomputed layout, no zoom/drag/legend, profile label only).
+	let { data, compact = false }: { data: GraphData; compact?: boolean } = $props();
 
 	const WIDTH = 960;
 	const HEIGHT = 620;
@@ -35,47 +36,16 @@
 	type SimNode = GraphNode & { x: number; y: number; fx?: number | null; fy?: number | null };
 	type SimLink = { source: SimNode; target: SimNode; kind: string };
 
-	// Per-type accent hues. Projects ride the theme's primary (blue-violet);
-	// experience and publications get their own hue so the three read apart at a
-	// glance. Mixed with --card/--border below so they adapt to light/dark.
-	const EXPERIENCE_ACCENT = '#14b8a6'; // teal
-	const PUBLICATION_ACCENT = '#f59e0b'; // amber
-
+	// Types read apart by glyph, size and stroke style; only the profile uses the accent.
 	const TYPE_META: Record<NodeKind, { label: string; fill: string; stroke: string; dash?: boolean }> = {
-		profile: { label: 'Me', fill: 'var(--primary)', stroke: 'var(--primary)' },
-		project: {
-			label: 'Projects',
-			fill: 'color-mix(in oklab, var(--primary) 16%, var(--card))',
-			stroke: 'color-mix(in oklab, var(--primary) 55%, var(--border))'
-		},
-		experience: {
-			label: 'Experience',
-			fill: `color-mix(in oklab, ${EXPERIENCE_ACCENT} 16%, var(--card))`,
-			stroke: `color-mix(in oklab, ${EXPERIENCE_ACCENT} 55%, var(--border))`
-		},
-		education: {
-			label: 'Education',
-			fill: 'color-mix(in oklab, var(--foreground) 6%, var(--card))',
-			stroke: 'color-mix(in oklab, var(--foreground) 30%, var(--border))',
-			dash: true
-		},
-		skill: {
-			label: 'Skills',
-			fill: 'color-mix(in oklab, var(--muted-foreground) 16%, var(--card))',
-			stroke: 'color-mix(in oklab, var(--muted-foreground) 34%, var(--border))'
-		},
-		technology: { label: 'Technologies', fill: 'var(--card)', stroke: 'var(--border)' },
-		publication: {
-			label: 'Publications',
-			fill: `color-mix(in oklab, ${PUBLICATION_ACCENT} 18%, var(--card))`,
-			stroke: `color-mix(in oklab, ${PUBLICATION_ACCENT} 58%, var(--border))`
-		},
-		role: {
-			label: 'Roles',
-			fill: 'var(--muted)',
-			stroke: 'color-mix(in oklab, var(--foreground) 22%, var(--border))',
-			dash: true
-		}
+		profile: { label: 'Me', fill: 'var(--accent)', stroke: 'var(--accent)' },
+		project: { label: 'Projects', fill: 'var(--bg)', stroke: 'var(--fg)' },
+		publication: { label: 'Publications', fill: 'var(--bg)', stroke: 'var(--fg)', dash: true },
+		experience: { label: 'Experience', fill: 'var(--surface)', stroke: 'var(--muted)' },
+		education: { label: 'Education', fill: 'var(--surface)', stroke: 'var(--muted)', dash: true },
+		skill: { label: 'Skills', fill: 'var(--bg)', stroke: 'var(--faint)' },
+		technology: { label: 'Technologies', fill: 'var(--bg)', stroke: 'var(--faint)' },
+		role: { label: 'Roles', fill: 'var(--bg)', stroke: 'var(--faint)', dash: true }
 	};
 
 	const LEGEND: NodeKind[] = ['profile', 'project', 'publication', 'experience', 'education', 'skill', 'technology', 'role'];
@@ -113,7 +83,6 @@
 	const glyphOf = (id: string): Glyph => glyphById.get(id) ?? { Comp: CpuIcon };
 
 	const radiusOf = (n: GraphNode) => 6.5 * n.weight;
-	const strokeColor = (n: SimNode) => (n.type === 'technology' && n.color ? n.color : TYPE_META[n.type].stroke);
 
 	// Cluster foci: same-type nodes are gently pulled toward a point on a ring.
 	const CLUSTER_TYPES: NodeKind[] = ['project', 'publication', 'experience', 'education', 'role', 'skill', 'technology'];
@@ -137,6 +106,7 @@
 	let hovered = $state<string | null>(null);
 	let selected = $state<string | null>(null);
 	let ready = $state(false);
+	let fitBox = $state(`${CENTER.x - 320} ${CENTER.y - 320} 640 640`);
 
 	// Adjacency for neighbor highlighting.
 	const neighbors = new Map<string, Set<string>>();
@@ -168,7 +138,7 @@
 				y: n.y,
 				r: radiusOf(n),
 				fill: TYPE_META[n.type].fill,
-				stroke: strokeColor(n),
+				stroke: TYPE_META[n.type].stroke,
 				dash: TYPE_META[n.type].dash,
 				solid: n.type === 'profile'
 			})),
@@ -178,7 +148,8 @@
 
 	const isDim = (id: string) => activeSet !== null && !activeSet.has(id);
 	const isLinkActive = (s: string, t: string) => activeSet !== null && activeSet.has(s) && activeSet.has(t);
-	const showLabel = (id: string, type: NodeKind) => ALWAYS_LABEL.has(type) || active === id || (activeSet?.has(id) ?? false);
+	const showLabel = (id: string, type: NodeKind) =>
+		compact ? type === 'profile' : ALWAYS_LABEL.has(type) || active === id || (activeSet?.has(id) ?? false);
 
 	function nodeClick(node: { id: string; url?: string }) {
 		if (node.url) {
@@ -189,6 +160,7 @@
 	}
 
 	function dragAction(el: SVGGElement, node: SimNode) {
+		if (compact) return {};
 		const behavior = drag<SVGGElement, unknown>()
 			.container(() => gEl)
 			.on('start', (event) => {
@@ -239,7 +211,7 @@
 			.force('x', forceX<SimNode>((n) => (foci.get(n.type) ?? CENTER).x).strength(0.08))
 			.force('y', forceY<SimNode>((n) => (foci.get(n.type) ?? CENTER).y).strength(0.08));
 
-		if (reduced) {
+		if (reduced || compact) {
 			simulation.stop();
 			for (let i = 0; i < 400; i++) simulation.tick();
 			tick++;
@@ -247,6 +219,16 @@
 			simulation.on('tick', () => tick++);
 		}
 		ready = true;
+		if (compact) {
+			// Square box around the settled layout's bounding box.
+			const xs = simNodes.map((n) => n.x);
+			const ys = simNodes.map((n) => n.y);
+			const [x0, x1, y0, y1] = [Math.min(...xs), Math.max(...xs), Math.min(...ys), Math.max(...ys)];
+			const half = Math.max(x1 - x0, y1 - y0) / 2 + 24;
+			const [cx, cy] = [(x0 + x1) / 2, (y0 + y1) / 2];
+			fitBox = `${cx - half} ${cy - half} ${half * 2} ${half * 2}`;
+			return () => simulation.stop();
+		}
 
 		// Zoom / pan.
 		const svg = select(container.querySelector('svg') as SVGSVGElement);
@@ -261,12 +243,13 @@
 	});
 </script>
 
-<div class="graph-hero" bind:this={container}>
+<div class="graph-hero" class:compact bind:this={container}>
 	<svg
-		viewBox={`0 0 ${WIDTH} ${HEIGHT}`}
+		viewBox={compact ? fitBox : `0 0 ${WIDTH} ${HEIGHT}`}
 		class="graph-svg"
 		role="img"
-		aria-label="Interactive graph of Brewen Couaran's projects, experience, skills and technologies"
+		aria-label="Graph of Brewen Couaran's projects, experience, skills and technologies"
+		aria-hidden={compact}
 		onpointerleave={() => (hovered = null)}
 	>
 		<g bind:this={gEl} transform={transform}>
@@ -289,10 +272,11 @@
 						class="graph-node"
 						class:is-dim={isDim(node.id)}
 						class:is-profile={node.type === 'profile'}
+						class:is-active={active === node.id}
 						transform={`translate(${node.x},${node.y})`}
 						use:dragAction={simNodes.find((n) => n.id === node.id)!}
 						role="button"
-						tabindex="0"
+						tabindex={compact ? -1 : 0}
 						aria-label={`${TYPE_META[node.type].label}: ${node.label}`}
 						onpointerenter={() => (hovered = node.id)}
 						onclick={() => nodeClick(node)}
@@ -307,7 +291,7 @@
 							r={node.r}
 							fill={node.solid ? node.fill : node.fill}
 							stroke={node.stroke}
-							stroke-width={node.type === 'technology' && node.stroke !== 'var(--border)' ? 2 : 1.5}
+							stroke-width={1.25}
 							stroke-dasharray={node.dash ? '3 3' : undefined}
 						/>
 						<g class="glyph" transform={`translate(${-gs / 2},${-gs / 2})`}>
@@ -334,6 +318,7 @@
 		</g>
 	</svg>
 
+	{#if !compact}
 	<ul class="graph-legend" aria-hidden="true">
 		{#each LEGEND as type}
 			<li>
@@ -347,7 +332,10 @@
 		{/each}
 	</ul>
 
+	{/if}
+
 	<!-- Non-visual fallback / navigation -->
+	{#if !compact}
 	<ul class="sr-only">
 		{#each data.nodes as node}
 			<li>
@@ -355,36 +343,44 @@
 			</li>
 		{/each}
 	</ul>
+	{/if}
 </div>
 
 <style>
 	.graph-hero {
 		position: relative;
 		width: 100%;
-		border: 1px solid var(--border);
-		background:
-			radial-gradient(circle at 50% 40%, color-mix(in oklab, var(--primary) 6%, transparent), transparent 60%),
-			var(--card);
+		height: 100%;
+		display: flex;
+		flex-direction: column;
 		overflow: hidden;
 	}
 	.graph-svg {
 		display: block;
 		width: 100%;
-		height: auto;
-		aspect-ratio: 960 / 620;
+		flex: 1;
+		min-height: 0;
 		touch-action: none;
 		cursor: grab;
+	}
+	.compact .graph-svg {
+		aspect-ratio: 1;
+		pointer-events: none;
+	}
+	.compact .graph-node,
+	.compact .graph-link {
+		transition: none;
 	}
 	.graph-svg:active {
 		cursor: grabbing;
 	}
 	.graph-link {
-		stroke: color-mix(in oklab, var(--foreground) 18%, transparent);
+		stroke: var(--faint);
 		stroke-width: 1;
 		transition: opacity 0.15s ease;
 	}
 	.graph-link.is-active {
-		stroke: color-mix(in oklab, var(--primary) 60%, var(--foreground));
+		stroke: var(--accent);
 		stroke-width: 1.5;
 	}
 	.graph-link.is-dim {
@@ -401,6 +397,12 @@
 		outline: 2px solid var(--primary);
 		outline-offset: 2px;
 	}
+	.graph-node.is-active:not(.is-profile) circle {
+		stroke: var(--accent);
+	}
+	.graph-node.is-active .glyph {
+		color: var(--accent);
+	}
 	.graph-node.is-dim {
 		opacity: 0.22;
 	}
@@ -409,10 +411,10 @@
 	}
 	.graph-node .glyph {
 		pointer-events: none;
-		color: color-mix(in oklab, var(--foreground) 68%, transparent);
+		color: var(--muted);
 	}
 	.graph-node.is-profile .glyph {
-		color: var(--primary-foreground);
+		color: var(--accent-fg);
 	}
 	.graph-label {
 		fill: var(--muted-foreground);
@@ -420,13 +422,16 @@
 		font-weight: 500;
 		pointer-events: none;
 		paint-order: stroke;
-		stroke: var(--card);
+		stroke: var(--bg);
 		stroke-width: 3px;
 	}
 	.graph-label.is-primary {
 		fill: var(--foreground);
 		font-size: 13px;
-		font-weight: 600;
+		font-weight: 700;
+	}
+	.compact .graph-label.is-primary {
+		font-size: 22px;
 	}
 	.graph-legend {
 		display: flex;
