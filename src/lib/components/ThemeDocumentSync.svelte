@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { browser } from '$app/environment';
-	import { computeResolved, theme } from '$lib/theme.svelte';
+	import { computeResolved, palette, theme } from '$lib/theme.svelte';
 
 	/**
 	 * Subscribes to `prefers-color-scheme`, recomputes `theme.resolved`,
@@ -34,5 +34,10 @@
 		const dark = theme.resolved === 'dark';
 		document.documentElement.classList.toggle('dark', dark);
 		document.documentElement.style.colorScheme = dark ? 'dark' : 'light';
+	});
+
+	$effect(() => {
+		if (!browser) return;
+		document.documentElement.dataset.palette = palette.current;
 	});
 </script>

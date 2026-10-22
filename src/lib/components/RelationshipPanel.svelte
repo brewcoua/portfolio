@@ -1,7 +1,4 @@
 <script lang="ts">
-	import { Badge } from '$lib/components/ui/badge';
-	import { Button } from '$lib/components/ui/button';
-
 	type RelationshipItem = {
 		label: string;
 		href: string;
@@ -14,15 +11,15 @@
 	}>();
 </script>
 
-<section class="space-y-3">
-	<h2 class="text-2xl font-semibold">{title}</h2>
-	<ul class="space-y-2">
+<section class="space-y-2">
+	<h2 class="h-section">{title}</h2>
+	<ul class="space-y-1 text-sm">
 		{#each items as item}
-			<li class="flex flex-wrap items-center gap-2">
+			<li class="flex flex-wrap items-baseline gap-2">
 				{#if item.type}
-					<Badge variant="outline" class="text-xs">{item.type}</Badge>
+					<span class="tag">{item.type}</span>
 				{/if}
-				<Button href={item.href} variant="link" size="sm">{item.label}</Button>
+				<a class="link" href={item.href}>{item.label}</a>
 			</li>
 		{/each}
 	</ul>

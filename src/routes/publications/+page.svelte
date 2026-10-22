@@ -8,9 +8,9 @@
 	<title>Publications</title>
 </svelte:head>
 
-<section class="space-y-4">
-	<h1 class="text-4xl font-semibold tracking-tight">Publications</h1>
-	<p class="text-muted-foreground">
+<section class="space-y-2">
+	<h1 class="h-section text-xl">publications</h1>
+	<p class="text-sm text-muted-foreground">
 		Papers, reports, and research write-ups — each linking to its companion project, dataset, and
 		code.
 	</p>
@@ -18,21 +18,19 @@
 
 <section class="mt-8">
 	{#if data.publications.length === 0}
-		<div class="border border-border p-6 text-sm text-muted-foreground">
-			No publications yet.
-		</div>
+		<p class="text-sm text-muted-foreground">no publications yet.</p>
 	{:else}
-		<div class="columns-1 gap-4 md:columns-2">
+		<ul class="space-y-8">
 			{#each data.publications as publication}
-				<div class="mb-4 break-inside-avoid">
+				<li>
 					<PublicationCard
 						{publication}
 						technologies={data.technologies}
 						skills={data.skills}
 						maxVisibleTechnologies={5}
 					/>
-				</div>
+				</li>
 			{/each}
-		</div>
+		</ul>
 	{/if}
 </section>

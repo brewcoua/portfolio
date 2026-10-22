@@ -1,11 +1,10 @@
 <script lang="ts">
+	import { Popover } from 'bits-ui';
+	import PopoverContent from '$lib/components/PopoverContent.svelte';
 	import ColoredEntityBadge from '$lib/components/ColoredEntityBadge.svelte';
 	import { cn } from '$lib/utils';
-	import { Badge } from '$lib/components/ui/badge';
-	import { Button } from '$lib/components/ui/button';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
-	import * as Popover from '$lib/components/ui/popover';
-	import { getSkillById, getSkillChipStyle } from '$lib/content/presentation';
+	import { getSkillById } from '$lib/content/presentation';
 	import type { MentionSource, Skill, Technology } from '$lib/content/types';
 
 	let {
@@ -26,7 +25,6 @@
 
 	const skill = $derived(getSkillById(skillId, skills));
 	const label = $derived(skill?.label ?? skillId);
-	const style = $derived(getSkillChipStyle(skillId, skills));
 	const relatedTechnologyLabels = $derived(
 		(skill?.relationships ?? [])
 			.filter((relationship) => relationship.type === 'technology')
@@ -37,88 +35,60 @@
 			)
 	);
 
-	function fadeOnOverflow(node: HTMLSpanElement) {
-		const update = () => {
-			node.dataset.overflowing = node.scrollWidth > node.clientWidth + 1 ? 'true' : 'false';
-		};
-		const observer = new ResizeObserver(update);
-		observer.observe(node);
-		queueMicrotask(update);
-		return {
-			destroy() {
-				observer.disconnect();
-			}
-		};
-	}
 </script>
 
 <Popover.Root>
 	<Popover.Trigger
 		class={cn(
-			'inline items-baseline border-0 bg-transparent p-0 m-0 text-inherit font-inherit',
+			'm-0 inline cursor-pointer items-baseline border-0 bg-transparent p-0 text-inherit',
 			triggerMode === 'badge' && 'inline-flex items-center'
 		)}
 	>
 		{#if triggerMode === 'text'}
 			<span class={cn('mention-link mention-static mention-popover-trigger', className)}>{label}</span>
 		{:else}
-			<ColoredEntityBadge {label} {style} icon="sparkles" class={cn('cursor-pointer', className)} />
+			<ColoredEntityBadge label={label.toLowerCase()} icon="sparkles" class={cn('cursor-pointer', className)} />
 		{/if}
 	</Popover.Trigger>
-	<Popover.Content class="space-y-2">
-		<p class="text-sm font-medium">{label}</p>
+	<PopoverContent>
+		<p class="text-sm font-bold">{label}</p>
 		{#if skill?.description}
 			<MarkdownInline
 				markdown={skill.descriptionMarkdown}
 				{skills}
 				{technologies}
-				class="text-xs text-muted-foreground"
+				class="text-muted-foreground"
 			/>
 		{/if}
 		{#if relatedTechnologyLabels.length > 0}
 			<div class="space-y-1">
-				<p class="text-[11px] uppercase tracking-wide text-muted-foreground">Related technologies</p>
+				<p class="text-muted-foreground"># Related technologies</p>
 				<div class="flex flex-wrap gap-1">
 					{#each relatedTechnologyLabels as relatedTechnology}
-						<Badge variant="secondary" class="text-[11px]">{relatedTechnology}</Badge>
+						<span class="tag">{relatedTechnology}</span>
 					{/each}
 				</div>
 			</div>
 		{/if}
 		{#if mentionedIn.length > 0}
 			<div class="space-y-1">
-				<p class="text-[11px] uppercase tracking-wide text-muted-foreground">Mentioned in</p>
-				<div class="flex flex-wrap gap-1.5">
+				<p class="text-muted-foreground"># Mentioned in</p>
+				<div class="flex flex-wrap gap-x-3 gap-y-1">
 					{#each mentionedIn as source}
-						<Button
-							href={source.href}
-							variant="outline"
-							size="xs"
-							class="max-w-full min-w-0 justify-start overflow-hidden"
-							title={source.label}
-						>
-							<span
-								use:fadeOnOverflow
-								class="block max-w-full min-w-0 overflow-hidden whitespace-nowrap [mask-image:none] data-[overflowing=true]:[mask-image:linear-gradient(to_right,black_82%,transparent)]"
-							>
-								{source.label}
-							</span>
-						</Button>
+						<a class="link" href={source.href}>{source.label}</a>
 					{/each}
 				</div>
 			</div>
 		{/if}
 		{#if skill?.links.length}
 			<div class="space-y-1">
-				<p class="text-[11px] uppercase tracking-wide text-muted-foreground">Links</p>
-				<div class="flex flex-wrap gap-1.5">
+				<p class="text-muted-foreground"># Links</p>
+				<div class="flex flex-wrap gap-x-3 gap-y-1">
 					{#each skill.links as link}
-						<Button href={link.url} variant="outline" size="xs" target="_blank" rel="noreferrer">
-							{link.label ?? link.type}
-						</Button>
+						<a class="link" href={link.url} target="_blank" rel="noreferrer">{link.label ?? link.type}</a>
 					{/each}
 				</div>
 			</div>
 		{/if}
-	</Popover.Content>
+	</PopoverContent>
 </Popover.Root>
