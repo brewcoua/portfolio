@@ -109,13 +109,16 @@
 	let fitBox = $state(`${CENTER.x - 320} ${CENTER.y - 320} 640 640`);
 
 	// Adjacency for neighbor highlighting.
-	const neighbors = new Map<string, Set<string>>();
-	for (const link of data.links) {
-		if (!neighbors.has(link.source)) neighbors.set(link.source, new Set());
-		if (!neighbors.has(link.target)) neighbors.set(link.target, new Set());
-		neighbors.get(link.source)!.add(link.target);
-		neighbors.get(link.target)!.add(link.source);
-	}
+	const neighbors = $derived.by(() => {
+		const map = new Map<string, Set<string>>();
+		for (const link of data.links) {
+			if (!map.has(link.source)) map.set(link.source, new Set());
+			if (!map.has(link.target)) map.set(link.target, new Set());
+			map.get(link.source)!.add(link.target);
+			map.get(link.target)!.add(link.source);
+		}
+		return map;
+	});
 
 	const active = $derived(hovered ?? selected);
 	const activeSet = $derived.by(() => {
