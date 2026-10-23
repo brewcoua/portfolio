@@ -102,3 +102,5 @@ configurable worker pools, and LLM-assisted testing flows.
 
 This implementation is informed by advances in in-context language modeling and visual
 grounding for web interfaces.
+
+For how it was built (the worker internals, the grounding and prompting choices, and what was left unfinished), see the [[experience/labri|internship write-up]].

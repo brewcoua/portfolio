@@ -31,4 +31,11 @@
 		<span class="meta lowercase" data-sigil="#">{experience.employmentType}</span>
 	</p>
 	<MarkdownInline markdown={firstParagraphInline()} {skills} {technologies} class="block text-sm" />
+	{#if experience.details.length > 0}
+		<ul class="list-disc marker:text-muted-foreground space-y-1 pl-5 text-sm">
+			{#each experience.detailsMarkdown ?? [] as detail}
+				<li><MarkdownInline markdown={detail} {skills} {technologies} /></li>
+			{/each}
+		</ul>
+	{/if}
 </article>

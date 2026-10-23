@@ -54,31 +54,34 @@
 		skills={data.skills}
 		technologies={data.technologies}
 	/>
-	<MarkdownBlock
-		markdown={data.publication.descriptionMarkdown}
-		skills={data.skills}
-		technologies={data.technologies}
-	/>
+	{#if data.publication.highlights.length > 0}
+		<section>
+			<h2 class="h-section mb-3">Highlights</h2>
+			<ul class="list-disc marker:text-muted-foreground space-y-2 pl-5">
+				{#each data.publication.highlights as highlight, highlightIndex}
+					<li>
+						<MarkdownInline
+							markdown={data.publication.highlightsMarkdown?.[highlightIndex]}
+							skills={data.skills}
+							technologies={data.technologies}
+						/>
+					</li>
+				{/each}
+			</ul>
+		</section>
+	{/if}
+
+	{#if data.publication.description.trim()}
+		<hr class="border-t-2 border-dashed border-muted-foreground/40" />
+		<MarkdownBlock
+			markdown={data.publication.descriptionMarkdown}
+			skills={data.skills}
+			technologies={data.technologies}
+		/>
+	{/if}
 
 	<div class="space-y-8">
 		<aside class="space-y-8">
-			{#if data.publication.highlights.length > 0}
-				<section>
-					<h2 class="h-section mb-3">Highlights</h2>
-					<ul class="list-disc marker:text-muted-foreground space-y-2 pl-5">
-						{#each data.publication.highlights as highlight, highlightIndex}
-							<li>
-								<MarkdownInline
-									markdown={data.publication.highlightsMarkdown?.[highlightIndex]}
-									skills={data.skills}
-									technologies={data.technologies}
-								/>
-							</li>
-						{/each}
-					</ul>
-				</section>
-			{/if}
-
 			{#if data.publication.technologies.length > 0}
 				<section>
 					<h2 class="h-section mb-3">Technologies</h2>

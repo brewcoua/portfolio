@@ -17,6 +17,7 @@ import DatabaseIcon from '@lucide/svelte/icons/database';
 import FileBracesIcon from '@lucide/svelte/icons/file-braces';
 import FileCodeIcon from '@lucide/svelte/icons/file-code';
 import LayersIcon from '@lucide/svelte/icons/layers';
+import HexagonIcon from '@lucide/svelte/icons/hexagon';
 import NetworkIcon from '@lucide/svelte/icons/network';
 import PanelTopIcon from '@lucide/svelte/icons/panel-top';
 import RabbitIcon from '@lucide/svelte/icons/rabbit';
@@ -60,6 +61,7 @@ export const CONTENT_ICON_MAP: Record<string, Component> = {
 	workflow: WorkflowIcon,
 	zap: ZapIcon,
 	layers: LayersIcon,
+	hexagon: HexagonIcon,
 	'file-braces': FileBracesIcon,
 	'file-code': FileCodeIcon
 };
