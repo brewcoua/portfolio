@@ -9,13 +9,15 @@ Canonical repo: **[Codeberg — brewcoua/portfolio](https://codeberg.org/brewcou
 ## Dev commands
 
 ```sh
-pnpm install
-pnpm dev              # local dev server
-pnpm build            # static output → build/
-pnpm preview          # serve the production build locally
-pnpm check            # TypeScript + Svelte diagnostics
-pnpm run test:unit    # Vitest unit tests
+just setup            # pnpm install + enable the pre-commit hook (.githooks/)
+just dev              # local dev server
+just build            # static output → build/ (includes the CV PDFs)
+just preview          # serve the production build locally
+just check            # svelte-check + Vitest; what the pre-commit hook runs
+just cv prosus        # build, then copy a CV variant to out/prosus.pdf
 ```
+
+The recipes wrap the `pnpm` scripts in `package.json`; `mise install` provides node, pnpm and just.
 
 ## Content structure
 
@@ -31,6 +33,7 @@ All content lives in `content/` as Markdown files with YAML frontmatter (plus `s
 | `content/technologies/` | Technology entries referenced by projects |
 | `content/skills/` | Skill entries |
 | `content/roles/` | Role tags used on the profile |
+| `content/cv/` | CV variants: entry order, skills groups, overrides |
 
 Relationships between entries (e.g. project ↔ technology ↔ experience) are validated at build time.
 
@@ -44,9 +47,13 @@ Project description fields support Markdown (processed via `src/lib/server/markd
 
 Separate from `highlights`: `activities` and `societies` are string lists with the same inline Markdown as bullets elsewhere. Nested `subEducation` entries support `grade`, `activities`, and `societies` too.
 
-## CV link
+## CV
 
-`content/site.yaml` → `cv.cvPdfUrl` should point to the latest PDF. The default setup uses a GitHub release asset from a separate CV repo (`brewcoua/cv`) so the PDF can be updated independently of the site.
+`content/site.yaml` → `cvUrl` points at `/cv.pdf`, which is built from content (`src/routes/cv.pdf/+server.ts`, prerendered).
+
+- **Per-entry text:** projects, experience and education take an optional `cv:` block. `bullets` use `**bold**` and `[text](url)`; `title`, `org`, `date`, `location`, `context`, `stack`, `link`, `linkNote` override what is derived from the entry. Experience bullets default to its `details` (the short list on the site); the Markdown body is the longer write-up on its page.
+- **Variants:** `content/cv/main.yaml` sets the header, the `[[folder/slug]]` order of `education`, `experience` and `projects`, and the `skills` groups (items are `[[technologies/x]]` or plain strings). Spoken languages come from `profile.md`. Another file, e.g. `content/cv/acme.yaml`, can `extends: main`, replace any of those lists, and add `overrides` keyed by `[[folder/slug]]` with a partial `cv:` block. It is served at `/cv/acme.pdf` (disallowed in `robots.txt`).
+- **Tailoring:** the resume skills in `.agents/skills/` (from Paramchoudhary/ResumeSkills, locked in `skills-lock.json`) help with that: run `job-description-analyzer` on the posting, then `resume-tailor` / `resume-bullet-writer` to draft the variant, and `just cv acme` to review the PDF (keep it to one page).
 
 ## Deployment notes
 
