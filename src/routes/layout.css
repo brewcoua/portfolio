@@ -173,6 +173,20 @@
 	}
 }
 
+/* Attribute with a code-like sigil (@role, #kind, ~duration); brackets stay for entities. */
+@utility meta {
+	display: inline-flex;
+	align-items: center;
+	font-size: 0.8rem;
+	color: var(--muted);
+	white-space: nowrap;
+	&::before {
+		content: attr(data-sigil);
+		margin-right: 0.15em;
+		opacity: 0.6;
+	}
+}
+
 @utility link {
 	text-decoration: underline;
 	text-decoration-color: var(--faint);

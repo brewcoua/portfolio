@@ -58,7 +58,7 @@
 		<p class="text-sm text-muted-foreground">{publication.subtitle}</p>
 	{/if}
 	<p class="text-sm text-muted-foreground">
-		{authorLine}{#if publication.venue}<span> — {publication.venue}</span>{/if}
+		{authorLine}{#if publication.venue}<span>{' — '}{publication.venue}</span>{/if}
 	</p>
 	<MarkdownInline markdown={abstractInline()} {skills} {technologies} class="block text-sm" />
 	{#if visibleTechnologies.length > 0}
@@ -73,7 +73,7 @@
 	{/if}
 	<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
 		{#if kindLabel}
-			<span class="tag lowercase">{kindLabel}</span>
+			<span class="meta lowercase" data-sigil="#">{kindLabel}</span>
 		{/if}
 		{#each resolvedLinks.slice(0, 2) as link}
 			<a

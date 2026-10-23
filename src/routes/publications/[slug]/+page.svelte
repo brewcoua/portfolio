@@ -33,12 +33,12 @@
 
 	<div class="flex flex-wrap items-center gap-2 text-sm">
 		{#if data.publication.kind}
-			<span class="tag">{PUBLICATION_KIND_LABELS[data.publication.kind]}</span>
+			<span class="meta lowercase" data-sigil="#">{PUBLICATION_KIND_LABELS[data.publication.kind]}</span>
 		{/if}
 		{#if data.publication.venue}
-			<span class="tag">{data.publication.venue}</span>
+			<span class="meta">{data.publication.venue}</span>
 		{/if}
-		<span class="tag">{formatEntityDate(data.publication)}</span>
+		<span class="meta">{formatEntityDate(data.publication)}</span>
 		{#if data.publication.doi}
 			<a
 				href={`https://doi.org/${data.publication.doi}`}

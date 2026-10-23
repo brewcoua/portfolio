@@ -28,7 +28,7 @@
 			<OrgLogo src={experience.logo} />
 			<OrgName name={experience.organization} short={experience.organizationShort} formerly={experience.organizationFormerly} href={experience.website} />
 		</span>
-		<span class="tag lowercase">{experience.employmentType}</span>
+		<span class="meta lowercase" data-sigil="#">{experience.employmentType}</span>
 	</p>
 	<MarkdownInline markdown={firstParagraphInline()} {skills} {technologies} class="block text-sm" />
 </article>

@@ -17,7 +17,7 @@
 		{#each items as item}
 			<li class="flex flex-wrap items-baseline gap-2">
 				{#if item.type}
-					<span class="tag">{item.type}</span>
+					<span class="meta" data-sigil="#">{item.type}</span>
 				{/if}
 				<a class="link" href={item.href}>{item.label}</a>
 			</li>

@@ -44,11 +44,12 @@
 		<RoleBadge roleId={data.project.role} roles={data.roles} />
 		<ProjectStatusBadge status={data.project.status} />
 		{#if data.project.kind}
-			<span class="tag">{PROJECT_KIND_LABELS[data.project.kind]}</span>
+			<span class="meta lowercase" data-sigil="#">{PROJECT_KIND_LABELS[data.project.kind]}</span>
 		{/if}
-		<span class="tag">
-			{formatEntityDate(data.project)}{#if data.project.duration}<span class="ml-1 text-muted-foreground">· {data.project.duration}</span>{/if}
-		</span>
+		<span class="meta">{formatEntityDate(data.project)}</span>
+		{#if data.project.duration}
+			<span class="meta" data-sigil="~">{data.project.duration}</span>
+		{/if}
 	</div>
 
 	{#if data.project.thumbnail}

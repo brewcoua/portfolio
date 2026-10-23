@@ -1,6 +1,5 @@
 <script lang="ts">
 	import { Popover } from 'bits-ui';
-	import ColoredEntityBadge from '$lib/components/ColoredEntityBadge.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import PopoverContent from '$lib/components/PopoverContent.svelte';
 	import { cn } from '$lib/utils';
@@ -19,7 +18,7 @@
 
 <Popover.Root>
 	<Popover.Trigger class="cursor-pointer">
-		<ColoredEntityBadge label={label.toLowerCase()} icon={role?.icon} class={cn('cursor-pointer', className)} />
+		<span class={cn('meta lowercase hover:text-foreground', className)} data-sigil="@">{label}</span>
 	</Popover.Trigger>
 	<PopoverContent>
 		<p class="text-sm font-bold">{label}</p>
