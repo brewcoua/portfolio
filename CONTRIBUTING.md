@@ -33,6 +33,7 @@ All content lives in `content/` as Markdown files with YAML frontmatter (plus `s
 | `content/technologies/` | Technology entries referenced by projects |
 | `content/skills/` | Skill entries |
 | `content/roles/` | Role tags used on the profile |
+| `content/blog/` | One `.md` per blog post (`title`, `summary`, `date`); body supports `[[wikilinks]]` |
 | `content/cv/` | CV variants: entry order, skills groups, overrides |
 
 Relationships between entries (e.g. project ↔ technology ↔ experience) are validated at build time.

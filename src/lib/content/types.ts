@@ -366,6 +366,14 @@ export type Publication = SlugEntity &
 	searchKeywords?: string[];
 };
 
+export type Post = {
+	slug: string;
+	title: string;
+	summary: string;
+	date: string;
+	body: MarkdownDoc;
+};
+
 export type PortfolioContent = {
 	profile: Profile;
 	site: SiteConfig;
@@ -376,5 +384,6 @@ export type PortfolioContent = {
 	experience: Experience[];
 	education: Education[];
 	publications: Publication[];
+	posts: Post[];
 	graph: GraphData;
 };

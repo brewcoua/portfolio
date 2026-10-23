@@ -266,6 +266,13 @@ export const publicationFrontmatter = z.object({
 	searchKeywords: z.array(z.string()).optional()
 });
 
+/** `content/blog/<slug>.md`. Standalone: not a graph node, but the body may use `[[wikilinks]]`. */
+export const postFrontmatter = z.object({
+	title: z.string().min(1),
+	summary: z.string().min(1),
+	date: isoDate
+});
+
 export const profileFrontmatter = z.object({
 	name: z.string().min(1),
 	headline: z.string().min(1),

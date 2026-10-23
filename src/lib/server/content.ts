@@ -12,6 +12,7 @@ import { WIKILINK_SCHEME, type MentionTarget } from '$lib/server/markdown/mentio
 import {
 	COLLECTION_TYPES,
 	FRONTMATTER_SCHEMAS,
+	postFrontmatter,
 	profileFrontmatter,
 	siteConfig,
 	parseWikilink,
@@ -33,6 +34,7 @@ import {
 	type MarkdownInlineNode,
 	type NodeType,
 	type PortfolioContent,
+	type Post,
 	type Profile,
 	type Project,
 	type Publication,
@@ -101,6 +103,23 @@ async function readCollection(dir: CollectionDir): Promise<RawNode[]> {
 			const { data, body } = splitFrontmatter(raw, path);
 			const validated = validate(FRONTMATTER_SCHEMAS[dir], data, path) as Record<string, unknown>;
 			return { dir, type, slug, path, data: validated, body, label: labelFor(type, validated) };
+		})
+	);
+}
+
+async function readPosts() {
+	let files: string[] = [];
+	try {
+		files = (await readdir(join(CONTENT_DIR, 'blog'))).filter((file) => file.endsWith('.md'));
+	} catch {
+		return [];
+	}
+	return Promise.all(
+		files.map(async (file) => {
+			const slug = file.replace(/\.md$/, '');
+			const raw = await readFile(join(CONTENT_DIR, 'blog', file), 'utf-8');
+			const { data, body } = splitFrontmatter(raw, `blog/${slug}`);
+			return { slug, data: validate(postFrontmatter, data, `blog/${slug}`) as z.infer<typeof postFrontmatter>, body };
 		})
 	);
 }
@@ -245,6 +264,11 @@ export async function loadContent(): Promise<PortfolioContent> {
 		renderMarkdownInline(preprocess(src ?? '', label, collect), { mentions: mentionDict });
 	const renderInlineList = (arr: string[] | undefined, label: string, collect: Set<string>) =>
 		(arr ?? []).map((item) => renderInline(item, label, collect));
+
+	// Blog posts render mentions but stay out of the graph (throwaway edge set).
+	const posts: Post[] = (await readPosts())
+		.map(({ slug, data, body }) => ({ slug, ...data, body: renderDoc(body, `blog/${slug}`, new Set()) }))
+		.sort((a, b) => b.date.localeCompare(a.date));
 
 	// --- Graph edges + derived relationships ---------------------------------
 
@@ -598,6 +622,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 		experience,
 		education,
 		publications,
+		posts,
 		graph
 	};
 	return cached;
