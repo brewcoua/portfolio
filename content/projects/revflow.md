@@ -13,6 +13,7 @@ role: "[[roles/fullstack-developer]]"
 tech:
   - "[[technologies/python]]"
   - "[[technologies/fastapi]]"
+  - "[[technologies/scikit-learn]]"
   - "[[technologies/react]]"
   - "[[technologies/typescript]]"
   - "[[technologies/docker]]"
@@ -235,6 +236,13 @@ highlights:
   - Implemented KMeans life-stage personalisation (Student, Family, Professional, Senior) with Bayesian re-weighting
   - Built a subscription forensic engine using Isolation Forest and cohort comparison to surface hidden recurring costs
   - Integrated Claude Haiku as an AI Money Coach generating concise per-insight advice with 1-tap action cards
+cv:
+  title: "RevFlow"
+  context: "HackDelft 2026, Revolut challenge (24 h)"
+  stack: ["Python", "FastAPI", "React", "scikit-learn"]
+  bullets:
+    - "Built a two-stage transaction categoriser (merchant rules, then a calibrated linear SVM on MiniLM sentence embeddings) reaching **75% accuracy on high-confidence predictions** with **under 50 ms** end-to-end inference."
+    - "Added KMeans life-stage personalisation, six insight detectors (incl. Isolation Forest), and a Claude Haiku money coach."
 ---
 
 RevFlōw is a financial intelligence platform built in 24 hours for the **Revolut challenge at HackDelft 2026** with Team YUBRE. It categorises Revolut transactions, personalises the results per user, and surfaces subscription and spending insights through a four-stage pipeline.

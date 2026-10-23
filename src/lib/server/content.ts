@@ -15,6 +15,7 @@ import {
 	profileFrontmatter,
 	siteConfig,
 	parseWikilink,
+	type CvBlock,
 	type CollectionDir,
 	type ProfileFrontmatter
 } from '$lib/content/schema';
@@ -327,7 +328,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 				highlights: (data.highlights as string[]) ?? [],
 				highlightsMarkdown: renderInlineList(data.highlights as string[], path, mentions),
 				searchKeywords: data.searchKeywords as string[] | undefined,
-				date: data.date as Project['date']
+				date: data.date as Project['date'],
+				cv: data.cv as CvBlock | undefined
 			});
 			linkTargets(path, [...mentions], 'mention');
 			continue;
@@ -335,7 +337,9 @@ export async function loadContent(): Promise<PortfolioContent> {
 
 		if (type === 'experience') {
 			const tech = resolveRefs(data.tech as string[], path);
+			const skillPaths = resolveRefs(data.skills as string[], path);
 			const related = resolveRefs(data.related as string[], path);
+			linkTargets(path, skillPaths, 'skill');
 			linkTargets(path, tech, 'technology');
 			linkTargets(path, related, 'mention');
 			experience.push({
@@ -354,10 +358,14 @@ export async function loadContent(): Promise<PortfolioContent> {
 				summaryMarkdown: renderDoc(String(data.summary), path, mentions),
 				details: (data.details as string[]) ?? [],
 				detailsMarkdown: renderInlineList(data.details as string[], path, mentions),
+				description: node.body,
+				descriptionMarkdown: renderDoc(node.body, path, mentions),
 				technologies: tech,
+				skills: skillPaths,
 				logo: data.logo as string | undefined,
 				website: data.website as string | undefined,
-				date: data.date as Experience['date']
+				date: data.date as Experience['date'],
+				cv: data.cv as CvBlock | undefined
 			});
 			linkTargets(path, [...mentions], 'mention');
 			continue;
@@ -415,7 +423,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 				subEducation,
 				logo: data.logo as string | undefined,
 				website: data.website as string | undefined,
-				date: data.date as Education['date']
+				date: data.date as Education['date'],
+				cv: data.cv as CvBlock | undefined
 			});
 			linkTargets(path, [...mentions], 'mention');
 			continue;
@@ -532,7 +541,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 		summaryMarkdown: renderDoc(profileSplit.body, 'profile', profileMentions),
 		roles: profileData.roles,
 		links: profileData.links,
-		skillsHighlight
+		skillsHighlight,
+		languages: profileData.languages
 	};
 	linkTargets('profile', [...profileMentions], 'mention');
 

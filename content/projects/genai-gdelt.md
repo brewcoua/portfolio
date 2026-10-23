@@ -37,6 +37,11 @@ highlights:
   - Two-stage matcher — multilingual keywords validated by LaBSE sentence embeddings
   - Published dataset of scored articles (with frame flags & embeddings) on Hugging Face
   - Interactive companion site presenting the frame trends and event study
+cv:
+  context: "TU Delft research report"
+  stack: ["Python", "BigQuery", "Hugging Face"]
+  bullets:
+    - "Built a pipeline mining GDELT 2.0 via BigQuery, scoring **1.1M articles in 100+ languages** across six governance frames with a keyword + LaBSE embedding matcher; released as a Hugging Face dataset."
 ---
 
 The engineering side of the [[publications/genai-gdelt]] study: a reproducible

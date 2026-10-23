@@ -32,4 +32,8 @@ subEducation:
     activities:
       - RC Center Group
       - Exchange/Foreign Students Activities
+cv:
+  title: "B.Sc. Computer Science (High Honors), International Track"
+  bullets:
+    - "Exchange year at Hanyang University, Seoul, South Korea (Sep 2024 -- Jul 2025), GPA: **92.3/100**."
 ---

@@ -1,0 +1,43 @@
+# Tailored for Prosus, AI Engineer - 0 to 1 Products.
+extends: main
+projects:
+  - "[[projects/yuyabre]]"
+  - "[[projects/revflow]]"
+  - "[[projects/mise]]"
+  - "[[projects/genai-gdelt]]"
+  - "[[projects/futhark]]"
+skills:
+  - label: Programming Languages
+    items: ["[[technologies/python]]", "[[technologies/rust]]", "[[technologies/typescript]]", "[[technologies/javascript]]", "[[technologies/java]]", "[[technologies/c]]", "[[technologies/bash]]", SQL]
+  - label: AI Dev Tools
+    items: [Claude Code, OpenCode, Pi, Ollama (local and cloud Qwen models)]
+  - label: Machine Learning & AI
+    items: ["[[technologies/pytorch]]", "[[technologies/tensorflow]]", "[[technologies/scikit-learn]]", "[[technologies/huggingface]]", "[[technologies/pandas]]", LLM agents and tool calling, RAG]
+  - label: Frameworks & Testing
+    items: ["[[technologies/react]]", "[[technologies/nextjs]]", Node.js, "[[technologies/nestjs]]", "[[technologies/fastapi]]", "[[technologies/express]]", "[[technologies/actix]]", "[[technologies/tokio]]", "[[technologies/playwright]]", pytest, Jest]
+  - label: Backend & Data
+    items: [REST APIs, microservices, "[[technologies/postgresql]]", "[[technologies/mongodb]]", "[[technologies/redis]]", "[[technologies/rabbitmq]]", BigQuery]
+  - label: Cloud & DevOps
+    items: [AWS (EC2, S3), GCP (GCS), "[[technologies/docker]]", Kubernetes (k3s, KEDA), Helm, "[[technologies/linux]]", Git, GitHub Actions]
+  - label: IaC & GitOps
+    items: ["[[technologies/ansible]]", OpenTofu (Terraform), "[[technologies/flux]]", Talos Linux, "[[technologies/sops]]", "[[technologies/trivy]]"]
+overrides:
+  "[[projects/yuyabre]]":
+    stack: [Python, FastAPI, React]
+    context: Prosus AI Hackathon 2025 (24 h, team of 2)
+    bullets:
+      - "Prototyped a full-stack **agentic AI flatmate** in 24 h: **tool-calling LLM agent with ~15 domain-specific tools**, streamed over WebSocket to a React chat UI."
+      - "Wired Splitwise OAuth, Discord webhooks and Twilio WhatsApp so the agent acts on real services; shipped with Docker Compose."
+  "[[projects/revflow]]":
+    link: https://revflow.brewen.dev
+    linkNote: (live demo)
+    bullets:
+      - "Prototyped and deployed a full-stack financial-coaching app in 24 h: two-stage transaction categoriser (rules + calibrated SVM on MiniLM embeddings) reaching **75% accuracy on high-confidence predictions** with **under 50 ms** inference."
+      - "Added KMeans life-stage personalisation, six insight detectors, and a **Claude Haiku money coach** with one-tap actions."
+  "[[projects/mise]]":
+    bullets:
+      - "Built an AI restaurant-analytics platform as **microservices** (React, FastAPI, PostgreSQL) with ML and **LLM insight workers** fed by RabbitMQ and autoscaled 0--10 replicas by KEDA on Kubernetes."
+  "[[projects/futhark]]":
+    context: Personal homelab, solo, ongoing
+    bullets:
+      - "Run a self-built **GitOps homelab** where I self-host and deploy my own services, with SSO, backups, monitoring and CI security scanning."

@@ -127,6 +127,22 @@ export const projectReference = z.object({
 /** Grade is normalized/validated by the loader (honors enum + fraction format). */
 const gradeInput = z.record(z.string(), z.unknown());
 
+/**
+ * CV rendering of an entity: short, quantified bullets plus optional overrides
+ * for any heading text. Bullets accept **bold** and [text](url).
+ */
+export const cvBlock = z.object({
+	title: z.string().min(1).optional(),
+	org: z.string().min(1).optional(),
+	date: z.string().min(1).optional(),
+	location: z.string().min(1).optional(),
+	context: z.string().min(1).optional(),
+	stack: z.array(z.string().min(1)).optional(),
+	link: z.string().url().optional(),
+	linkNote: z.string().min(1).optional(),
+	bullets: z.array(z.string().min(1)).default([])
+});
+
 // --- Per-type frontmatter schemas -------------------------------------------
 
 const links = z.array(linkItem).optional();
@@ -148,7 +164,8 @@ export const projectFrontmatter = z.object({
 	links: z.array(linkItem).default([]),
 	references: z.array(projectReference).optional(),
 	highlights: z.array(z.string().min(1)).default([]),
-	searchKeywords: z.array(z.string()).optional()
+	searchKeywords: z.array(z.string()).optional(),
+	cv: cvBlock.optional()
 });
 
 export const experienceFrontmatter = z.object({
@@ -163,8 +180,10 @@ export const experienceFrontmatter = z.object({
 	date: dateValue,
 	summary: z.string().min(1),
 	tech: z.array(wikilink).default([]),
+	skills: z.array(wikilink).default([]),
 	related: z.array(wikilink).default([]),
-	details: z.array(z.string().min(1)).default([])
+	details: z.array(z.string().min(1)).default([]),
+	cv: cvBlock.optional()
 });
 
 const educationSubEntry = z.object({
@@ -200,7 +219,8 @@ export const educationFrontmatter = z.object({
 	subEducation: z.array(educationSubEntry).optional(),
 	related: z.array(wikilink).default([]),
 	tech: z.array(wikilink).default([]),
-	skills: z.array(wikilink).default([])
+	skills: z.array(wikilink).default([]),
+	cv: cvBlock.optional()
 });
 
 export const technologyFrontmatter = z.object({
@@ -252,7 +272,8 @@ export const profileFrontmatter = z.object({
 	location: z.string().min(1),
 	roles: z.array(z.string()).default([]),
 	skillsHighlight: z.array(wikilink).default([]),
-	links: z.array(linkItem).default([])
+	links: z.array(linkItem).default([]),
+	languages: z.array(z.object({ name: z.string().min(1), level: z.string().min(1) })).default([])
 });
 
 export const siteConfig = z.object({
@@ -264,8 +285,24 @@ export const siteConfig = z.object({
 		image: z.string().min(1),
 		keywords: z.array(z.string()).default([])
 	}),
-	cvUrl: z.string().url().optional(),
+	cvUrl: z.string().min(1).optional(),
 	navigation: z.array(z.object({ label: z.string().min(1), href: z.string().min(1) }))
+});
+
+/**
+ * `content/cv/<variant>.yaml`. `main` is the base; other variants `extend` it,
+ * may replace any section list, and patch entities' `cv` blocks via `overrides`.
+ */
+const cvSkillGroup = z.object({ label: z.string().min(1), items: z.array(z.string().min(1)).min(1) });
+
+export const cvVariant = z.object({
+	extends: z.string().min(1).optional(),
+	header: z.object({ location: z.string().min(1), phone: z.string().min(1).optional() }).optional(),
+	education: z.array(wikilink).optional(),
+	experience: z.array(wikilink).optional(),
+	projects: z.array(wikilink).optional(),
+	skills: z.array(cvSkillGroup).optional(),
+	overrides: z.record(wikilink, cvBlock.partial()).default({})
 });
 
 export const FRONTMATTER_SCHEMAS = {
@@ -287,6 +324,8 @@ export type RoleFrontmatter = z.infer<typeof roleFrontmatter>;
 export type PublicationFrontmatter = z.infer<typeof publicationFrontmatter>;
 export type ProfileFrontmatter = z.infer<typeof profileFrontmatter>;
 export type SiteConfigInput = z.infer<typeof siteConfig>;
+export type CvBlock = z.infer<typeof cvBlock>;
+export type CvVariant = z.infer<typeof cvVariant>;
 
 /** Parse a `[[type/slug]]` / `[[type/slug|display]]` reference into its parts. */
 export function parseWikilink(raw: string): { target: string; alias?: string } | null {
