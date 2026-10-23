@@ -65,29 +65,32 @@
 		skills={data.skills}
 		technologies={data.technologies}
 	/>
-	<MarkdownBlock
-		markdown={data.project.descriptionMarkdown}
-		skills={data.skills}
-		technologies={data.technologies}
-	/>
+	<section>
+		<h2 class="h-section mb-3">Highlights</h2>
+		<ul class="list-disc marker:text-muted-foreground space-y-2 pl-5">
+			{#each data.project.highlights as highlight, highlightIndex}
+				<li>
+					<MarkdownInline
+						markdown={data.project.highlightsMarkdown?.[highlightIndex]}
+						skills={data.skills}
+						technologies={data.technologies}
+					/>
+				</li>
+			{/each}
+		</ul>
+	</section>
+
+	{#if data.project.description.trim()}
+		<hr class="border-t-2 border-dashed border-muted-foreground/40" />
+		<MarkdownBlock
+			markdown={data.project.descriptionMarkdown}
+			skills={data.skills}
+			technologies={data.technologies}
+		/>
+	{/if}
 
 	<div class="space-y-8">
 		<aside class="space-y-8">
-			<section>
-				<h2 class="h-section mb-3">Highlights</h2>
-				<ul class="list-disc marker:text-muted-foreground space-y-2 pl-5">
-					{#each data.project.highlights as highlight, highlightIndex}
-						<li>
-							<MarkdownInline
-								markdown={data.project.highlightsMarkdown?.[highlightIndex]}
-								skills={data.skills}
-								technologies={data.technologies}
-							/>
-						</li>
-					{/each}
-				</ul>
-			</section>
-
 			<section>
 				<h2 class="h-section mb-3">Technologies</h2>
 				<div class="flex flex-wrap gap-x-2 gap-y-1">
