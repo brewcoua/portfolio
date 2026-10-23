@@ -99,7 +99,8 @@ export type MarkdownBlockNode =
 	| { type: 'heading'; level: 1 | 2 | 3 | 4 | 5 | 6; children: MarkdownInlineNode[] }
 	| { type: 'blockquote'; children: MarkdownBlockNode[] }
 	| { type: 'list'; ordered: boolean; items: MarkdownBlockNode[][] }
-	| { type: 'code'; language?: string; value: string };
+	| { type: 'code'; language?: string; value: string }
+	| { type: 'figure'; src: string; caption: string; svg?: string };
 
 export type MarkdownDoc = {
 	blocks: MarkdownBlockNode[];

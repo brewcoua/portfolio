@@ -31,6 +31,7 @@ import {
 	type GraphLink,
 	type GraphLinkKind,
 	type GraphNode,
+	type MarkdownDoc,
 	type MarkdownInlineNode,
 	type NodeType,
 	type PortfolioContent,
@@ -122,6 +123,20 @@ async function readPosts() {
 			return { slug, data: validate(postFrontmatter, data, `blog/${slug}`) as z.infer<typeof postFrontmatter>, body };
 		})
 	);
+}
+
+/** Figures live next to the post (`content/blog/<slug>/<name>.svg`) and are inlined so they inherit theme vars. */
+async function inlineFigures(doc: MarkdownDoc, slug: string): Promise<MarkdownDoc> {
+	const blocks = await Promise.all(
+		doc.blocks.map(async (block) => {
+			if (block.type !== 'figure') return block;
+			if (!/^[\w-]+\.svg$/.test(block.src)) {
+				throw new Error(`blog/${slug}: figure "${block.src}" must be a bare name.svg next to the post`);
+			}
+			return { ...block, svg: await readFile(join(CONTENT_DIR, 'blog', slug, block.src), 'utf-8') };
+		})
+	);
+	return { blocks };
 }
 
 // --- Education grade normalization (ported, honors enum + fraction format) ----
@@ -266,9 +281,15 @@ export async function loadContent(): Promise<PortfolioContent> {
 		(arr ?? []).map((item) => renderInline(item, label, collect));
 
 	// Blog posts render mentions but stay out of the graph (throwaway edge set).
-	const posts: Post[] = (await readPosts())
-		.map(({ slug, data, body }) => ({ slug, ...data, body: renderDoc(body, `blog/${slug}`, new Set()) }))
-		.sort((a, b) => b.date.localeCompare(a.date));
+	const posts: Post[] = (
+		await Promise.all(
+			(await readPosts()).map(async ({ slug, data, body }) => ({
+				slug,
+				...data,
+				body: await inlineFigures(renderDoc(body, `blog/${slug}`, new Set()), slug)
+			}))
+		)
+	).sort((a, b) => b.date.localeCompare(a.date));
 
 	// --- Graph edges + derived relationships ---------------------------------
 

@@ -15,6 +15,12 @@ describe('custom markdown pipeline', () => {
 		expect(doc.blocks[1]?.type).toBe('list');
 	});
 
+	it('turns an image-only paragraph into a figure', () => {
+		const doc = renderMarkdownDoc('![what to notice](loop.svg)\n\ntext ![inline](x.svg) stays');
+		expect(doc.blocks[0]).toEqual({ type: 'figure', src: 'loop.svg', caption: 'what to notice' });
+		expect(doc.blocks[1]?.type).toBe('paragraph');
+	});
+
 	it('supports inline markdown rendering', () => {
 		const inline = renderMarkdownInline('**Bold** and [link](https://example.com)');
 		expect(inline.length).toBeGreaterThan(0);

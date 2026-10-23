@@ -75,4 +75,9 @@
 	{/if}
 {:else if node.type === 'code'}
 	<MarkdownCode value={node.value} language={node.language} />
+{:else if node.type === 'figure' && node.svg}
+	<figure class="figure">
+		{@html node.svg}
+		<figcaption>{node.caption}</figcaption>
+	</figure>
 {/if}

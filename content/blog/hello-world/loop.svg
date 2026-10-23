@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 210" role="img" aria-label="Writing loop: idea, draft, publish, questions, and back to idea">
+  <defs>
+    <marker id="hello-world-loop-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g class="wobble">
+    <path class="ink" d="M22 62 L132 60 L134 118 L20 120 Z" />
+    <path class="ink" d="M182 61 L292 63 L290 119 L180 117 Z" />
+    <path class="ink fill-ink" d="M342 60 L452 62 L454 120 L340 118 Z" />
+    <path class="hl fill-hl" d="M502 62 L614 60 L612 118 L500 120 Z" />
+
+    <path class="ink" d="M138 90 L174 90" marker-end="url(#hello-world-loop-tip)" />
+    <path class="ink" d="M298 90 L334 90" marker-end="url(#hello-world-loop-tip)" />
+    <path class="ink" d="M458 90 L494 90" marker-end="url(#hello-world-loop-tip)" />
+    <path class="dim" d="M556 124 C 540 190, 120 196, 78 128" marker-end="url(#hello-world-loop-tip)" stroke-dasharray="5 6" />
+  </g>
+
+  <text x="77" y="96" text-anchor="middle" font-size="16">idea</text>
+  <text x="236" y="96" text-anchor="middle" font-size="16">draft</text>
+  <text x="397" y="96" text-anchor="middle" font-size="16">publish</text>
+  <text x="557" y="96" text-anchor="middle" font-size="16" class="hl">questions</text>
+  <text x="320" y="200" text-anchor="middle" class="dim">which become the next idea</text>
+  <text x="397" y="44" text-anchor="middle" class="dim">you are here</text>
+</svg>

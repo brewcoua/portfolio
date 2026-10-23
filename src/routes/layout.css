@@ -291,6 +291,55 @@ a:hover .org-logo,
 	font-weight: 400;
 }
 
+/* Blog figures: inline SVGs style themselves with these classes, never hardcoded colours. */
+.figure svg {
+	width: 100%;
+	height: auto;
+	font-size: 13px;
+	fill: none;
+	stroke-width: 1.75;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+.figure text {
+	font-family: inherit;
+	fill: var(--fg);
+	stroke: none;
+}
+.figure text.dim {
+	fill: var(--muted);
+	stroke: none;
+}
+.figure text.hl {
+	fill: var(--accent);
+	stroke: none;
+}
+.figure .ink {
+	stroke: var(--fg);
+}
+.figure .dim {
+	stroke: var(--muted);
+}
+.figure .hl {
+	stroke: var(--accent);
+}
+.figure .paper {
+	fill: var(--bg);
+}
+.figure .fill-ink {
+	fill: color-mix(in oklab, var(--fg) 12%, transparent);
+}
+.figure .fill-hl {
+	fill: color-mix(in oklab, var(--accent) 18%, transparent);
+}
+.figure .wobble {
+	filter: url(#scribble);
+}
+.figure figcaption {
+	color: var(--muted);
+	text-align: center;
+}
+
 .markdown-block code::before,
 .markdown-block code::after {
 	content: none;

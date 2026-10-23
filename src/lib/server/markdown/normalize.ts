@@ -31,8 +31,13 @@ function normalizeInlineNodes(nodes: MdastNode[]): MarkdownInlineNode[] {
 
 function normalizeBlock(node: MdastNode): MarkdownBlockNode[] {
 	switch (node.type) {
-		case 'paragraph':
+		case 'paragraph': {
+			const [only] = node.children ?? [];
+			if (node.children?.length === 1 && only.type === 'image') {
+				return [{ type: 'figure', src: only.url ?? '', caption: only.alt ?? '' }];
+			}
 			return [{ type: 'paragraph', children: normalizeInlineNodes(node.children ?? []) }];
+		}
 		case 'heading': {
 			const depth = node.depth ?? 2;
 			const level = Math.max(1, Math.min(6, depth)) as 1 | 2 | 3 | 4 | 5 | 6;

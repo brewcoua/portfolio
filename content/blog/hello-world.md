@@ -4,7 +4,9 @@ summary: Placeholder post while the blog gets set up.
 date: 2026-10-23
 ---
 
-This is a placeholder post. Real write-ups are coming — likely starting with notes from [[projects/futhark]].
+This is a placeholder post. Real write-ups are coming, likely starting with notes from [[projects/futhark]].
+
+![Every post should end somewhere that starts the next one.](loop.svg)
 
 ## What to expect
 

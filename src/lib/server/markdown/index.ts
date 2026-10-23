@@ -71,6 +71,9 @@ export function markdownDocToPlainText(doc: MarkdownDoc): string {
 		if (block.type === 'code') {
 			chunks.push(block.value);
 		}
+		if (block.type === 'figure') {
+			chunks.push(block.caption);
+		}
 	}
 	return chunks.join(' ').replace(/\s+/g, ' ').trim();
 }

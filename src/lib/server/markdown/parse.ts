@@ -5,6 +5,7 @@ export type MdastNode = {
 	type: string;
 	value?: string;
 	url?: string;
+	alt?: string;
 	depth?: number;
 	lang?: string;
 	ordered?: boolean;
