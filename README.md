@@ -43,9 +43,11 @@ Posts live in `content/blog/<slug>.md` with a `title`, `summary`, and `date`. A 
 
 Figures are hand-written SVG files next to the post, in `content/blog/<slug>/`, embedded with `![caption](name.svg)`. The build inlines them into the page, so they follow the reader's palette and dark mode instead of carrying their own colours.
 
-Two agent skills in `.agents/skills/` (linked from `.claude/skills/`) describe how I want posts written and drawn:
+Two agent skills in `.agents/skills/` (linked from `.claude/skills/`) describe how I want posts written and drawn.
 
-- `blog-writing`: voice, narrative shape, callbacks to earlier posts, ending on open questions, and an anti-slop pass adapted from [stop-slop](https://github.com/hardikpandya/stop-slop).
+The writing skill does **not** write posts. I write them. The skill makes an agent act as an editor: it reviews what a draft is worth first (is there a real insight, is it mine or something any docs page says, does the story earn the conclusion, what can go) and only then the prose. It may suggest sentence-level fixes but never adds ideas, anecdotes, or conclusions of its own.
+
+- `blog-writing`: substance review, then voice, narrative shape, callbacks to earlier posts, ending on open questions, and an anti-slop pass adapted from [stop-slop](https://github.com/hardikpandya/stop-slop).
 - `blog-figures`: the SVG conventions, class names, and how to check a figure in every theme.
 
 ## CV

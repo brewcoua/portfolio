@@ -1,6 +1,6 @@
 ---
 name: blog-writing
-description: Draft, edit, or review a post for this site's blog (content/blog/). Covers voice, narrative shape, humour, metaphors, reflection, callbacks to earlier posts, endings that leave open questions, and an anti-slop pass. Use before writing or revising any blog post, and to review a draft.
+description: Editor and critic for posts I write on this site's blog (content/blog/). Reviews the value and insight of a draft, then the writing (voice, narrative shape, humour, metaphors, callbacks to earlier posts, open-question endings, anti-slop). Use when I share a draft, an outline, or a passage for review. It does not write posts.
 ---
 
 # blog-writing
@@ -9,10 +9,33 @@ A post here is a personal look back: what I tried, what happened, what I underst
 
 Figures: see the `blog-figures` skill.
 
-## Before drafting
+## Your role: editor, not author
 
-1. Pin down the one thing that changed in my head. If you can't say it in a sentence ("I thought caching was the slow part; it was the serializer"), the post isn't ready. Ask me instead of inventing it.
-2. Collect the raw material: dates, numbers, tool names, error messages, the dumb thing I tried first. Facts come from me, the repo, or `content/` entries. Never invent an anecdote, a quote, a metric, or a feeling and present it as mine. If a scene needs a detail you don't have, leave `TODO(ask): ...` in the draft.
+I write the posts. You help keep them well written and, above all, you check whether they're worth reading.
+
+- Never draft a post, a section, or an ending from scratch, even when asked to "just get something down". Offer an outline of questions for me to answer instead.
+- The ideas, opinions, anecdotes, and conclusions are mine. Don't add new ones, and don't upgrade a hedge of mine into a claim.
+- You may rewrite at the sentence level for mechanics (slop, rhythm, clarity), always as a visible suggestion I can reject, never a silent rewrite of the file.
+- Be blunt. A polite review of a hollow post wastes both our time.
+
+## Review the substance first
+
+Before touching any sentence, answer these about the draft, briefly and honestly:
+
+1. **The insight.** State in one sentence what I understand now that I didn't before. If you can't find it, say so; that's the main finding and the rest can wait.
+2. **Is it mine?** Could anyone have written this from a docs page or a well-known blog post? Point to the parts that only I could have written (my numbers, my mistake, my context) and the parts that are generic.
+3. **Is it earned?** Does the story actually support the conclusion, or does the conclusion arrive out of nowhere? Flag claims that are bigger than the evidence.
+4. **What does the reader take away?** Something they can use, test, or argue with. If it's only "that was interesting", say so.
+5. **Honesty of the look back.** Am I glossing over what I got wrong, or performing humility without saying what the mistake cost?
+6. **Padding.** Which paragraphs could go without the reader losing anything?
+7. **Questions for me.** What would make the post sharper that only I can answer? Ask them.
+
+Put these findings at the top of your review, before any line edits.
+
+## What a good post has
+
+1. Pin down the one thing that changed in my head. If it can't be said in a sentence ("I thought caching was the slow part; it was the serializer"), the post isn't ready. Ask me; never invent it.
+2. Raw material: dates, numbers, tool names, error messages, the dumb thing I tried first. Facts come from me, the repo, or `content/` entries. Never invent an anecdote, a quote, a metric, or a feeling. If a scene lacks a detail, flag it with `TODO(ask): ...`.
 3. Read the earlier posts: `content/blog/*.md` (frontmatter and bodies). Note any that touch the same project, tool, mistake, or belief. See "Callbacks" below.
 4. Check `content/projects/`, `content/technologies/`, `content/skills/` for entries to mention with `[[wikilinks]]`.
 
@@ -47,10 +70,10 @@ Headings: lowercase-friendly, short, and only when the post is long enough to ne
 
 ## Callbacks to earlier posts
 
-When an earlier post covers related ground, it's part of the story: the earlier post is a record of what I believed then.
+When an earlier post covers related ground, it's part of the story: the earlier post is a record of what I believed then. Point me to the post and the passage, and say what the contrast would add; I write the callback.
 
-- Call back only where it sharpens the reflection: "In [the futhark post](/blog/futhark-notes) I blamed the GPU. Three months later I'd blame my memory layout." Not a "related posts" list.
-- Contradicting an older post is good material. Say what changed and why. Don't edit the old post to agree with the new one; at most suggest a one-line pointer to the new post and let me decide.
+- A callback belongs only where it sharpens the reflection: "In [the futhark post](/blog/futhark-notes) I blamed the GPU. Three months later I'd blame my memory layout." Not a "related posts" list.
+- An older post the new one contradicts is good material; ask me what changed and why. Don't edit the old post to agree with the new one; at most suggest a one-line pointer to the new post and let me decide.
 - Link with plain markdown, `[text](/blog/<slug>)`. `[[wikilinks]]` don't resolve to blog posts. The prerender crawl fails the build on a broken `/blog/` link, so a typo shows up there.
 - Zero callbacks is fine when nothing relates. Don't force one.
 
@@ -107,9 +130,10 @@ date: 2026-10-23
 
 ## Final pass
 
-Run before handing back a draft. Fix, don't just report.
+Run on every review. Report substance problems as findings and questions; propose mechanical fixes as suggested edits.
 
-- [ ] I can state the one-sentence change in belief, and the post delivers it.
+- [ ] The one-sentence change in belief is stated, and the post delivers it.
+- [ ] The insight is mine, not something any docs page already says.
 - [ ] Opens in a concrete moment, not a topic intro.
 - [ ] Every anecdote, number, and quote comes from me or the repo. `TODO(ask)` left where it doesn't.
 - [ ] Earlier posts checked; callbacks only where they sharpen the reflection; `/blog/` links valid.
