@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 290" role="img" aria-label="Path from compose through Komodo, k3s and a short k0s detour to Talos, with a dashed shortcut from compose straight to k3s">
+  <defs>
+    <marker id="from-compose-to-talos-path-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="from-compose-to-talos-path-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M30 92 L150 90 L152 140 L28 142 Z" />
+    <path class="ink" d="M250 90 L370 92 L368 142 L252 140 Z" />
+    <path class="ink" d="M470 92 L590 90 L592 140 L468 142 Z" />
+    <path class="dim" d="M470 202 L590 200 L592 250 L468 252 Z" stroke-dasharray="5 6" />
+    <path class="ink fill-ink" d="M250 202 L370 200 L372 250 L248 252 Z" />
+
+    <path class="ink" d="M156 116 L244 116" marker-end="url(#from-compose-to-talos-path-tip)" />
+    <path class="ink" d="M376 116 L462 116" marker-end="url(#from-compose-to-talos-path-tip)" />
+    <path class="dim" d="M530 148 L530 194" stroke-dasharray="5 6" marker-end="url(#from-compose-to-talos-path-tip)" />
+    <path class="ink" d="M462 226 L378 226" marker-end="url(#from-compose-to-talos-path-tip)" />
+
+    <path class="hl" stroke-width="2.5" d="M92 84 C 150 20, 470 20, 528 82" stroke-dasharray="7 6" marker-end="url(#from-compose-to-talos-path-hltip)" />
+  </g>
+
+  <text x="310" y="26" text-anchor="middle" font-size="16" class="hl">in hindsight</text>
+
+  <text x="90" y="121" text-anchor="middle" font-size="16">compose</text>
+  <text x="310" y="121" text-anchor="middle" font-size="16">komodo</text>
+  <text x="530" y="121" text-anchor="middle" font-size="16">k3s</text>
+  <text x="530" y="231" text-anchor="middle" font-size="16" class="dim">k0s</text>
+  <text x="310" y="231" text-anchor="middle" font-size="16">talos</text>
+
+  <text x="90" y="164" text-anchor="middle" class="dim">feb</text>
+  <text x="490" y="164" text-anchor="middle" class="dim">may</text>
+  <text x="540" y="176" class="dim">a few days</text>
+  <text x="310" y="274" text-anchor="middle" class="dim">jul, still here</text>
+</svg>

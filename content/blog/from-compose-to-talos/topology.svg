@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 310" role="img" aria-label="A Hetzner VPS entrypoint joined over KubeSpan to laptops and a Raspberry Pi at home; NetBird peers reach local-only services">
+  <defs>
+    <marker id="from-compose-to-talos-topology-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="from-compose-to-talos-topology-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M92 52 L91 98" marker-end="url(#from-compose-to-talos-topology-tip)" />
+    <path class="ink" d="M30 108 L152 106 L154 172 L28 174 Z" />
+
+    <path class="dim" d="M266 40 L614 42 L616 252 L264 254 Z" stroke-dasharray="5 6" />
+    <path class="ink fill-ink" d="M290 110 L430 108 L432 168 L288 170 Z" />
+    <path class="ink fill-ink" d="M460 108 L590 110 L588 170 L462 168 Z" />
+
+    <path class="hl" stroke-width="2.5" d="M160 140 L280 140" marker-start="url(#from-compose-to-talos-topology-hltip)" marker-end="url(#from-compose-to-talos-topology-hltip)" />
+
+    <path class="dim" d="M150 270 C 260 296, 420 282, 446 204" stroke-dasharray="5 6" marker-end="url(#from-compose-to-talos-topology-tip)" />
+  </g>
+
+  <text x="92" y="40" text-anchor="middle" class="dim">internet</text>
+  <text x="91" y="138" text-anchor="middle" font-size="16">hetzner vps</text>
+  <text x="91" y="160" text-anchor="middle" class="dim">entrypoint</text>
+  <text x="220" y="126" text-anchor="middle" font-size="16" class="hl">kubespan</text>
+
+  <text x="598" y="68" text-anchor="end" font-size="16" class="dim">home</text>
+  <text x="360" y="144" text-anchor="middle" font-size="16">laptops</text>
+  <text x="525" y="144" text-anchor="middle" font-size="16">pi</text>
+
+  <text x="90" y="274" text-anchor="middle" font-size="16">netbird peers</text>
+</svg>
