@@ -40,13 +40,12 @@ Draw only when the picture shows what prose can't: the shape of a system, a chan
 | `paper` | fill = page background (to mask lines behind a label) | |
 | `fill-ink` | 12% foreground tint | |
 | `fill-hl` | 18% accent tint | |
-| `wobble` | hand-drawn jitter via the page's `#scribble` filter | never on text |
 
-Combine: `class="hl fill-hl"`. Put `wobble` on a `<g>` around the strokes, keep `<text>` outside it.
+Combine: `class="hl fill-hl"`.
 
 ## Style: clean but scribbly
 
-- Draw paths yourself rather than using `<rect>`: let corners miss by 1–3 units and edges tilt slightly (`M22 62 L132 60 L134 118 L20 120 Z`). Combined with `wobble`, that reads as pen on paper without looking broken.
+- Draw paths yourself rather than using `<rect>`: let corners miss by 1–3 units and edges tilt slightly (`M22 62 L132 60 L134 118 L20 120 Z`). That reads as pen on paper without looking broken. No SVG filters for jitter: `feDisplacementMap` leaves 1px stair-steps on straight edges.
 - Arrows: open chevron markers, not filled triangles. Curved arrows (`C` curves) for "goes back to" or annotations; straight for flow.
 - Dashed `dim` strokes (`stroke-dasharray="5 6"`) for implied, optional, or "later" paths.
 - Hatching for "this region matters" or "unknown": a `<pattern>` of diagonal `dim` lines.
@@ -75,7 +74,7 @@ Arrow marker (put in `<defs>`, reference with `marker-end`):
 Hand-drawn box with label:
 
 ```svg
-<g class="wobble">
+<g>
   <path class="ink" d="M182 61 L292 63 L290 119 L180 117 Z" />
 </g>
 <text x="236" y="95" text-anchor="middle" font-size="16">draft</text>
@@ -84,7 +83,7 @@ Hand-drawn box with label:
 Annotation with curved leader:
 
 ```svg
-<g class="wobble">
+<g>
   <path class="dim" d="M420 30 C 440 40, 450 50, 446 58" marker-end="url(#SLUG-NAME-tip)" />
 </g>
 <text x="410" y="26" text-anchor="end" class="dim">you are here</text>
@@ -102,7 +101,7 @@ Hatch pattern:
 Line chart (axes in `dim`, the series that matters in `hl`, others `ink`):
 
 ```svg
-<g class="wobble">
+<g>
   <path class="dim" d="M60 20 L60 220 L620 220" />
   <path class="ink" d="M60 200 C 200 190, 320 120, 620 110" />
   <path class="hl" stroke-width="2.5" d="M60 205 C 220 200, 300 60, 620 40" />
@@ -121,4 +120,4 @@ Plot real data by computing coordinates (a short script is fine), never by eyeba
 
 1. `pnpm build`. A missing or misnamed figure fails here.
 2. Screenshot the post in light and dark mode and one other palette, at desktop width and at 360px (headless chromium against the built site; theme and palette come from the `portfolio-theme` and `portfolio-palette` localStorage keys).
-3. Check: colours follow the palette, nothing invisible in dark mode, text not wobbled, labels readable at 360px, no overlap.
+3. Check: colours follow the palette, nothing invisible in dark mode, labels readable at 360px, no overlap.

@@ -5,7 +5,7 @@
     </marker>
   </defs>
 
-  <g class="wobble">
+  <g>
     <path class="ink" d="M22 62 L132 60 L134 118 L20 120 Z" />
     <path class="ink" d="M182 61 L292 63 L290 119 L180 117 Z" />
     <path class="ink fill-ink" d="M342 60 L452 62 L454 120 L340 118 Z" />

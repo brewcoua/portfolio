@@ -332,9 +332,6 @@ a:hover .org-logo,
 .figure .fill-hl {
 	fill: color-mix(in oklab, var(--accent) 18%, transparent);
 }
-.figure .wobble {
-	filter: url(#scribble);
-}
 .figure figcaption {
 	color: var(--muted);
 	text-align: center;
