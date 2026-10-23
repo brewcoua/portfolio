@@ -62,10 +62,10 @@
 		<RoleBadge roleId={project.role} {roles} />
 		<ProjectStatusBadge status={project.status} />
 		{#if kindLabel}
-			<span class="tag lowercase">{kindLabel}</span>
+			<span class="meta lowercase" data-sigil="#">{kindLabel}</span>
 		{/if}
 		{#if project.duration}
-			<span class="tag">{project.duration}</span>
+			<span class="meta" data-sigil="~">{project.duration}</span>
 		{/if}
 		{#each resolvedLinks.slice(0, 2) as link}
 			<a

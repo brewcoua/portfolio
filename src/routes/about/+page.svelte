@@ -55,7 +55,7 @@
 								{#if item.track && item.track.length > 0}
 									<div class="mt-1 flex flex-wrap gap-1">
 										{#each item.track as t}
-											<span class="tag">{t}</span>
+											<span class="meta lowercase" data-sigil="#">{t}</span>
 										{/each}
 									</div>
 								{/if}
@@ -139,7 +139,7 @@
 														{#if subItem.track && subItem.track.length > 0}
 															<div class="mt-0.5 flex flex-wrap gap-1">
 																{#each subItem.track as t}
-																	<span class="tag">{t}</span>
+																	<span class="meta lowercase" data-sigil="#">{t}</span>
 																{/each}
 															</div>
 														{/if}
