@@ -21,6 +21,13 @@ links:
     url: https://linkedin.com/in/brewcoua
   - type: email
     url: mailto:contact@brewen.dev
+languages:
+  - name: French
+    level: native
+  - name: English
+    level: fluent
+  - name: Korean
+    level: intermediate
 ---
 
 Full-stack engineer focused on backend-heavy products and agentic workflows. I build reliable systems end to end, from APIs and orchestration layers to user-facing interfaces. Currently pursuing an [[education/tud-msc-cs|MSc in Computer Science at TU Delft]] after internships in research ([[experience/labri|LaBRI]]) and startup engineering ([[experience/packmind|Packmind]]).

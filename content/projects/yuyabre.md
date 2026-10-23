@@ -31,6 +31,11 @@ highlights:
   - Integrated Splitwise OAuth, Discord webhooks, and Twilio WhatsApp for household coordination
   - Built shared and per-user inventory with async caching and MongoDB persistence
   - Shipped Docker Compose deployment and a standalone Rich CLI demo mode
+cv:
+  context: "Prosus AI Hackathon 2025 (24 h)"
+  stack: ["Python", "FastAPI", "React", "MongoDB"]
+  bullets:
+    - "Built an AI flatmate agent: **tool-calling LLM architecture with ~15 domain-specific tools**, streamed over WebSocket to a React chat UI, plus Splitwise, Discord and WhatsApp integrations."
 ---
 
 Yuyabre is a prototype AI roommate for shared flats, built with a friend during the **Prosus AI Hackathon 2025** in 24 hours. Users interact with a chat interface to manage household life through natural language.

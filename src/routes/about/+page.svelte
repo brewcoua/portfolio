@@ -26,6 +26,12 @@
 		Based in Delft, I focus on building robust full-stack products with strong backend architecture,
 		practical agentic integrations, and research-informed engineering.
 	</p>
+	{#if data.profile.languages.length > 0}
+		<p class="text-sm">
+			<span class="text-muted-foreground"># languages</span>
+			{data.profile.languages.map((l) => `${l.name} (${l.level})`).join(', ')}
+		</p>
+	{/if}
 	{#if data.cvUrl}
 		<div class="pt-1">
 			<a class="btn btn-primary" href={data.cvUrl} target="_blank" rel="noreferrer">download cv ↓</a>

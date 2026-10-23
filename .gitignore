@@ -23,3 +23,5 @@ vite.config.js.timestamp-*
 vite.config.ts.timestamp-*
 *.typ
 .pnpm-store/
+!/src/lib/server/cv/cv.typ
+/out

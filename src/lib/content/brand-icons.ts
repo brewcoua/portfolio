@@ -30,7 +30,12 @@ import {
 	siGooglebigquery,
 	siJupyter,
 	siPandas,
-	siHuggingface
+	siHuggingface,
+	siAnsible,
+	siOpentofu,
+	siFlux,
+	siTrivy,
+	siScikitlearn
 } from 'simple-icons';
 
 export type BrandIcon = { title: string; hex: string; path: string };
@@ -72,7 +77,12 @@ const BRAND_BY_SLUG: Record<string, { title: string; hex: string; path: string }
 	bigquery: siGooglebigquery,
 	jupyter: siJupyter,
 	pandas: siPandas,
-	huggingface: siHuggingface
+	huggingface: siHuggingface,
+	ansible: siAnsible,
+	opentofu: siOpentofu,
+	flux: siFlux,
+	trivy: siTrivy,
+	'scikit-learn': siScikitlearn
 };
 
 /** Brands no longer shipped by Simple Icons / Lucide, kept as manual marks. */

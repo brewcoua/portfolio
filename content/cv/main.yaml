@@ -1,0 +1,32 @@
+# General CV, served at /cv.pdf. Sections list entities in display order; each
+# entity's `cv:` frontmatter block holds its bullets and heading overrides.
+header:
+  location: Delft, Netherlands (open to relocation)
+  phone: +33 6 36 96 40 43
+education:
+  - "[[education/tud-msc-cs]]"
+  - "[[education/uob-bsc-cs]]"
+experience:
+  - "[[experience/labri]]"
+  - "[[experience/packmind]]"
+projects:
+  - "[[projects/futhark]]"
+  - "[[projects/mise]]"
+  - "[[projects/revflow]]"
+  - "[[projects/yuyabre]]"
+  - "[[projects/genai-gdelt]]"
+skills:
+  - label: Programming Languages
+    items: ["[[technologies/python]]", "[[technologies/rust]]", "[[technologies/typescript]]", "[[technologies/javascript]]", "[[technologies/java]]", "[[technologies/c]]", "[[technologies/bash]]", SQL]
+  - label: Machine Learning & AI
+    items: ["[[technologies/pytorch]]", "[[technologies/tensorflow]]", "[[technologies/scikit-learn]]", "[[technologies/huggingface]]", "[[technologies/pandas]]", LLM/agent engineering, RAG]
+  - label: Frameworks & Testing
+    items: ["[[technologies/react]]", "[[technologies/nextjs]]", Node.js, "[[technologies/nestjs]]", "[[technologies/fastapi]]", "[[technologies/express]]", "[[technologies/actix]]", "[[technologies/tokio]]", "[[technologies/playwright]]", pytest, Jest]
+  - label: Backend & Data
+    items: [REST APIs, microservices, "[[technologies/postgresql]]", "[[technologies/mongodb]]", "[[technologies/redis]]", "[[technologies/rabbitmq]]", BigQuery]
+  - label: Cloud & DevOps
+    items: [AWS (EC2, S3), GCP (GCS), "[[technologies/docker]]", Kubernetes (k3s, KEDA), Helm, "[[technologies/linux]]", Git, GitHub Actions]
+  - label: IaC & GitOps
+    items: ["[[technologies/ansible]]", OpenTofu (Terraform), "[[technologies/flux]]", Talos Linux, "[[technologies/sops]]", "[[technologies/trivy]]"]
+  - label: AI Dev Tools
+    items: [Claude Code, OpenCode, Pi, Ollama (local and cloud Qwen models)]

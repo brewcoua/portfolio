@@ -1,0 +1,35 @@
+# Tailored for Bending Spoons, Graduate AI Software Engineer.
+extends: main
+projects:
+  - "[[projects/mise]]"
+  - "[[projects/revflow]]"
+  - "[[projects/yuyabre]]"
+  - "[[projects/futhark]]"
+  - "[[projects/genai-gdelt]]"
+skills:
+  - label: Programming Languages
+    items: ["[[technologies/python]]", "[[technologies/rust]]", "[[technologies/typescript]]", "[[technologies/javascript]]", "[[technologies/java]]", "[[technologies/c]]", "[[technologies/bash]]", SQL]
+  - label: AI Dev Tools
+    items: [Claude Code, OpenCode, Pi, Ollama (local and cloud Qwen models)]
+  - label: Machine Learning & AI
+    items: ["[[technologies/pytorch]]", "[[technologies/tensorflow]]", "[[technologies/scikit-learn]]", "[[technologies/huggingface]]", "[[technologies/pandas]]", LLM/agent engineering, RAG]
+  - label: Backend & Data
+    items: [REST APIs, microservices, "[[technologies/postgresql]]", "[[technologies/mongodb]]", "[[technologies/redis]]", "[[technologies/rabbitmq]]", BigQuery]
+  - label: Cloud & DevOps
+    items: [AWS (EC2, S3), GCP (GCS), "[[technologies/docker]]", Kubernetes (k3s, KEDA), Helm, "[[technologies/linux]]", Git, GitHub Actions]
+  - label: Frameworks & Testing
+    items: ["[[technologies/react]]", "[[technologies/nextjs]]", Node.js, "[[technologies/nestjs]]", "[[technologies/fastapi]]", "[[technologies/express]]", "[[technologies/actix]]", "[[technologies/tokio]]", "[[technologies/playwright]]", pytest, Jest]
+  - label: IaC & GitOps
+    items: ["[[technologies/ansible]]", OpenTofu (Terraform), "[[technologies/flux]]", Talos Linux, "[[technologies/sops]]", "[[technologies/trivy]]"]
+overrides:
+  "[[experience/packmind]]":
+    bullets:
+      - "Reduced false-positive review requests by building a **Git diff aggregation engine** with a custom heuristic-weighting algorithm that filters whitespace and trivial refactors to surface high-signal code changes."
+      - "Integrated OpenAI APIs on top of the diff engine to ship **one-click semantic code review** of any code segment."
+      - "Designed and shipped a **role-management system** (TypeScript + React) across four VCS platforms (GitHub, GitLab, Bitbucket, Azure DevOps), SaaS and self-hosted, unlocking enterprise integration tiers requested by customers."
+  "[[projects/revflow]]":
+    link: https://revflow.brewen.dev
+    linkNote: (live demo)
+    bullets:
+      - "Took a financial-coaching app from idea to **deployed live demo in 24 h**: transaction categoriser (merchant rules, then calibrated SVM on MiniLM embeddings) reaching **75% accuracy on high-confidence predictions** with **under 50 ms** end-to-end inference."
+      - "Added KMeans life-stage personalisation, six insight detectors (incl. Isolation Forest), and a Claude Haiku money coach."

@@ -9,7 +9,7 @@ defaultSeo:
     - ai
     - research
     - portfolio
-cvUrl: https://raw.githubusercontent.com/brewcoua/portfolio/master/static/cv.pdf
+cvUrl: /cv.pdf
 navigation:
   - label: Home
     href: /

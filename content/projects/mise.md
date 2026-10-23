@@ -41,6 +41,12 @@ highlights:
   - Implemented Random Forest models for wastage and per-item order recommendations
   - Integrated dual-provider LLM stack (OpenAI primary, Vertex AI regional fallback)
   - Delivered interactive dashboards with drag-and-drop data ingestion (CSV/Excel/OCR)
+cv:
+  context: "TU Delft team project"
+  stack: ["Python", "FastAPI", "React", "Kubernetes"]
+  bullets:
+    - "Built an AI restaurant-analytics platform as **microservices**: React frontend, FastAPI core over REST with PostgreSQL, and a separate ML/LLM server fed by **RabbitMQ** task queues with Redis result passing."
+    - "Wrote the **Kubernetes** deployment with **KEDA autoscaling ML and LLM workers from 0 to 10 replicas** on queue depth; integrated the async prediction and LLM insight pipelines."
 ---
 
 mise.ai is a restaurant analytics platform developed as a team project for **CS4505 Software Architecture** during my [[education/tud-msc-cs|M.Sc. in Computer Science at TU Delft]]. The system helps restaurants reduce food waste, optimize ordering, and make data-driven decisions.

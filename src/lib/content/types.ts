@@ -1,4 +1,4 @@
-import type { NodeType } from './schema';
+import type { CvBlock, NodeType } from './schema';
 
 export type { NodeType } from './schema';
 
@@ -134,6 +134,7 @@ export type Profile = {
 	roles: string[];
 	links: LinkItem[];
 	skillsHighlight: string[];
+	languages: { name: string; level: string }[];
 };
 
 export type SiteConfig = {
@@ -238,6 +239,7 @@ export type Project = SlugEntity &
 	highlights: string[];
 	highlightsMarkdown?: MarkdownInlineNode[][];
 	searchKeywords?: string[];
+	cv?: CvBlock;
 };
 
 export type Experience = SlugEntity &
@@ -252,9 +254,13 @@ export type Experience = SlugEntity &
 	summaryMarkdown?: MarkdownDoc;
 	details: string[];
 	detailsMarkdown?: MarkdownInlineNode[][];
+	description: string;
+	descriptionMarkdown?: MarkdownDoc;
 	technologies: string[];
+	skills: string[];
 	logo?: string;
 	website?: string;
+	cv?: CvBlock;
 };
 
 /** YAML: `grade: { fraction: "14/20" }` — numeric / numeric (decimals allowed). */
@@ -324,6 +330,7 @@ export type Education = SlugEntity &
 	subEducation?: EducationSubEntry[];
 	logo?: string;
 	website?: string;
+	cv?: CvBlock;
 };
 
 /** Context in which a paper was produced (mirrors project's kind). */
