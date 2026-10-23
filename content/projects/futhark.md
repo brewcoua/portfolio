@@ -6,7 +6,7 @@ abstract: |
 status: active
 kind: personal
 date:
-  - 2026-07
+  - 2026-02
   - present
 role: "[[roles/solo-developer]]"
 tech:
