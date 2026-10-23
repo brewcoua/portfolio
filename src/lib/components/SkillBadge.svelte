@@ -49,8 +49,7 @@
 		{:else}
 			<ColoredEntityBadge label={label.toLowerCase()} icon={skill?.icon} color={skill?.color} kind="skill" class={cn('cursor-pointer', className)} />
 		{/if}
-	</Popover.Trigger>
-	<PopoverContent>
+	</Popover.Trigger><PopoverContent>
 		<p class="text-sm font-bold">{label}</p>
 		{#if skill?.description}
 			<MarkdownInline

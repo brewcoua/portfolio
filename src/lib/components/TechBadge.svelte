@@ -49,8 +49,7 @@
 		{:else}
 			<ColoredEntityBadge label={label.toLowerCase()} brandSlug={techId} icon={technology?.icon} color={technology?.color} class={cn('cursor-pointer', className)} />
 		{/if}
-	</Popover.Trigger>
-	<PopoverContent>
+	</Popover.Trigger><PopoverContent>
 		<p class="text-sm font-bold">{label}</p>
 		{#if technology?.description}
 			<MarkdownInline
