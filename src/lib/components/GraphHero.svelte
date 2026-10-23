@@ -529,10 +529,10 @@
 
 		simulation = forceSimulation<SimNode, SimLink>(simNodes)
 			.randomSource(random)
-			.force('charge', forceManyBody().strength(-60))
+			.force('charge', forceManyBody().strength(-90))
 			.force('link', forceLink<SimNode, SimLink>(simLinks).distance(58).strength(0.45))
 			// The profile's collide radius covers its name, so tags settle clear of it.
-			.force('collide', forceCollide<SimNode>().radius((n) => radiusOf(n) + (n.type === 'profile' ? 24 : 4)))
+			.force('collide', forceCollide<SimNode>().radius((n) => radiusOf(n) + (n.type === 'profile' ? 24 : 7)))
 			.force('keepOut', forceKeepOut(INNER_CLEAR));
 
 		// Settle up front so the view opens on a finished, fitted layout; ticks after that only follow drags.
