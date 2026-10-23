@@ -1,40 +1,56 @@
 # brewcoua/portfolio
 
-Personal portfolio site — live at **[brewen.dev](https://brewen.dev)**.
+My portfolio and blog, live at **[brewen.dev](https://brewen.dev)**.
 
-Built with SvelteKit (static output), Tailwind CSS, and bits-ui. All content — projects, experience, education, skills — lives in Markdown files with YAML frontmatter under `content/`. No backend, no CMS, no database.
+Everything on the site starts as a Markdown file in `content/`: projects, experience, education, publications, blog posts, and the skills and technologies that tie them together. SvelteKit reads those files at build time, checks every `[[wikilink]]` between them, and writes out static HTML. The relationship graph and the CV PDF come from the same files, so when I fix a date in one place it changes everywhere.
 
-> Want to use this as a template? See [**Fork & Deploy**](#fork--deploy) below.
+> Want to use this as a template? See [Fork and deploy](#fork-and-deploy).
 
-## Tech stack
+## Stack
 
 | Layer | Choice |
 |---|---|
-| Framework | SvelteKit + Vite (`adapter-static`) |
-| Styling | Tailwind CSS + bits-ui primitives, JetBrains Mono, switchable palettes (`src/routes/layout.css`) |
-| Content | Markdown + YAML frontmatter, loaded at build time |
-| Hosting | Any static host (GitHub Pages, Netlify, Vercel, S3…) |
+| Framework | SvelteKit + Vite, `adapter-static` |
+| Styling | Tailwind CSS, bits-ui, JetBrains Mono, four palettes with light and dark modes (`src/routes/layout.css`) |
+| Content | Markdown + YAML frontmatter, validated with zod (`src/lib/content/schema.ts`) |
+| CV | Typst, compiled in-process at build time |
+| Hosting | Any static host |
 
-## Fork & Deploy
+## Fork and deploy
 
-1. **Fork** this repo and clone it locally.
-2. **Edit content** — all your data lives in `content/`:
-   - `content/profile.md` — name, headline, links, summary
-   - `content/site.yaml` — site name, base URL, CV link
-   - `content/projects/`, `content/experience/`, `content/education/` — one Markdown file per entry
-   - `content/cv/` — which entries the CV shows, in what order, plus tailored variants
-3. **Install and build:**
+1. Fork the repo and clone it.
+2. Replace my content with yours in `content/`:
+   - `content/profile.md`: name, headline, links; the body becomes the About summary
+   - `content/site.yaml`: site name, base URL, SEO defaults, navigation
+   - `content/projects/`, `content/experience/`, `content/education/`, `content/publications/`: one file per entry
+   - `content/blog/`: one file per post
+   - `content/cv/`: which entries the CV shows and in what order, plus tailored variants
+3. Install and build:
+
    ```sh
    pnpm install
-   pnpm build        # outputs to build/
+   pnpm build
    ```
-4. **Deploy** the `build/` folder to any static host.
 
-That's it. With [just](https://just.systems) (pinned in `mise.toml`), `just setup` installs deps and the pre-commit hook; `just --list` shows the rest. For deeper customisation (adding fields, changing layouts, running tests), see [CONTRIBUTING.md](CONTRIBUTING.md).
+   The site lands in `build/`. A broken wikilink or a frontmatter typo fails the build and names the file.
+4. Upload `build/` to any static host.
+
+With [just](https://just.systems) (pinned in `mise.toml`), `just setup` installs dependencies and the pre-commit hook, and `just --list` shows the other recipes. [CONTRIBUTING.md](CONTRIBUTING.md) covers the content format in detail, adding fields, and running tests.
+
+## Blog
+
+Posts live in `content/blog/<slug>.md` with a `title`, `summary`, and `date`. A post can mention projects and technologies with `[[wikilinks]]`, but posts stay out of the graph.
+
+Figures are hand-written SVG files next to the post, in `content/blog/<slug>/`, embedded with `![caption](name.svg)`. The build inlines them into the page, so they follow the reader's palette and dark mode instead of carrying their own colours.
+
+Two agent skills in `.agents/skills/` (linked from `.claude/skills/`) describe how I want posts written and drawn:
+
+- `blog-writing`: voice, narrative shape, callbacks to earlier posts, ending on open questions, and an anti-slop pass adapted from [stop-slop](https://github.com/hardikpandya/stop-slop).
+- `blog-figures`: the SVG conventions, class names, and how to check a figure in every theme.
 
 ## CV
 
-The CV is generated from the same content, so it never drifts from the site. At build time a [Typst](https://typst.app) template (`src/lib/server/cv/cv.typ`, compiled in-process via `@myriaddreamin/typst-ts-node-compiler`, no system install) renders `content/cv/main.yaml` to `/cv.pdf`. Tailored variants (`content/cv/<name>.yaml`) render to `/cv/<name>.pdf`; they are not linked from the site. `just cv <name>` copies one to `out/`.
+A [Typst](https://typst.app) template (`src/lib/server/cv/cv.typ`) renders `content/cv/main.yaml` to `/cv.pdf`. It compiles in-process through `@myriaddreamin/typst-ts-node-compiler`, so you don't need Typst installed. Tailored variants in `content/cv/<name>.yaml` render to `/cv/<name>.pdf` and aren't linked from the site. `just cv <name>` copies one to `out/`.
 
 ## License
 
