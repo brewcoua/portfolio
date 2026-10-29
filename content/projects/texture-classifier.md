@@ -8,7 +8,6 @@ kind: coursework
 complexity: 2
 value: 2
 date: 2024-01
-commit: 5e01fdfeb28f0371d379a3b43b0cc1b583ba1950
 cover: cover.svg
 role: "[[roles/ai-engineer]]"
 tech:

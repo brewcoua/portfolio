@@ -10,7 +10,6 @@ value: 4
 date:
   - 2026-08
   - present
-commit: 2410dd456f25aaba872137c3c4956fe15b7d2c96
 cover: cover.svg
 role: "[[roles/solo-developer]]"
 tech:

@@ -1,5 +1,4 @@
 <script lang="ts">
-	import OutdatedIcon from '$lib/components/OutdatedIcon.svelte';
 	import ProjectStatusBadge from '$lib/components/ProjectStatusBadge.svelte';
 	import RoleBadge from '$lib/components/RoleBadge.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
@@ -50,9 +49,6 @@
 		<span class="meta">{formatEntityDate(data.project)}</span>
 		{#if data.project.duration}
 			<span class="meta" data-sigil="~">{data.project.duration}</span>
-		{/if}
-		{#if data.project.source}
-			<OutdatedIcon slug={data.project.slug} source={data.project.source} />
 		{/if}
 	</div>
 

@@ -65,18 +65,10 @@ type RawNode = {
 	label: string;
 };
 
-export function splitFrontmatter(raw: string, label: string): { data: unknown; body: string } {
+function splitFrontmatter(raw: string, label: string): { data: unknown; body: string } {
 	const match = raw.match(/^---\r?\n([\s\S]*?)\r?\n---\r?\n?([\s\S]*)$/);
 	if (!match) throw new Error(`${label}: missing frontmatter block`);
 	return { data: parse(match[1]) ?? {}, body: match[2] ?? '' };
-}
-
-export function projectSource(data: Record<string, unknown>, label: string): Project['source'] {
-	if (!data.commit) return undefined;
-	const github = (data.links as Project['links'] | undefined)?.find((link) => link.type === 'github');
-	if (!github) throw new Error(`${label}: commit needs a github link`);
-	const repo = new URL(github.url).pathname.split('/').slice(1, 3).join('/');
-	return { repo, commit: String(data.commit) };
 }
 
 function validate(schema: z.ZodTypeAny, data: unknown, label: string): unknown {
@@ -408,7 +400,6 @@ export async function loadContent(): Promise<PortfolioContent> {
 				value: Number(data.value),
 				thumbnail: data.thumbnail as string | undefined,
 				cover: data.cover ? await readFigure(path, String(data.cover)) : undefined,
-				source: projectSource(data, path),
 				description: node.body,
 				descriptionMarkdown,
 				technologies: tech,

@@ -10,7 +10,6 @@ kind: research
 complexity: 4
 value: 5
 date: 2026-06
-commit: 0e76801f4242cf71501449a762d8b9bee7742dbe
 cover: cover.svg
 role: "[[roles/ai-engineer]]"
 tech:

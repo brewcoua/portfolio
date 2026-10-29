@@ -9,7 +9,6 @@ value: 4
 date:
   - 2024-05
   - 2024-07
-commit: e6f19f56381bcce4be8c2c11245fa4538ce309e1
 cover: cover.svg
 role: "[[roles/fullstack-developer]]"
 tech:

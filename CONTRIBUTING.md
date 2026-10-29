@@ -40,7 +40,7 @@ Relationships between entries (e.g. project ↔ technology ↔ experience) are v
 
 Project description fields support Markdown (processed via `src/lib/server/markdown/`).
 
-**Projects** (`content/projects/`): optional `commit: <sha>` records which commit of the project's `github` link the description was written against (required with it). When the default branch has moved past it, project cards and pages show an out-of-date icon linking to the diff. Bump it when you update the description. Required `complexity` and `value` (integers 1–5) drive sorting on `/projects`; the home page features the six with the highest sum, newest first on ties.
+**Projects** (`content/projects/`): required `complexity` and `value` (integers 1–5) drive sorting on `/projects`; the home page features the six with the highest sum, newest first on ties.
 
 **Education** (`content/education/`): Optional `grade` — exactly one of:
 
@@ -60,6 +60,6 @@ Separate from `highlights`: `activities` and `societies` are string lists with t
 
 ## Deployment notes
 
-`pnpm build` produces a Node server in `build/`; run it with `node build` (`PORT`, `HOST` and the other [adapter-node variables](https://svelte.dev/docs/kit/adapter-node#Environment-variables) apply). Every page is prerendered; the one live route is `/api/repos`, which counts commits since each project's `commit`. It checks one repo every 90 seconds, round-robin, and keeps the counts in memory, so after a restart a repo shows as current until it comes round. Set `GITHUB_TOKEN` to lift GitHub's unauthenticated limit of 60 requests an hour per IP; the default pace stays under it.
+`pnpm build` produces a fully static site in `build/`. Any host that serves static files works: GitHub Pages, Netlify, Vercel, Cloudflare Pages, S3 + CloudFront, etc.
 
 Set `baseUrl` in `content/site.yaml` to match your production domain — this is used for canonical URLs and Open Graph tags.

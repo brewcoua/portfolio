@@ -10,11 +10,11 @@ Everything on the site starts as a Markdown file in `content/`: projects, experi
 
 | Layer | Choice |
 |---|---|
-| Framework | SvelteKit + Vite, `adapter-node` (pages prerendered, `/api/repos` live) |
+| Framework | SvelteKit + Vite, `adapter-static` |
 | Styling | Tailwind CSS, bits-ui, JetBrains Mono, four palettes with light and dark modes (`src/routes/layout.css`) |
 | Content | Markdown + YAML frontmatter, validated with zod (`src/lib/content/schema.ts`) |
 | CV | Typst, compiled in-process at build time |
-| Hosting | Node server (`node build`) |
+| Hosting | Any static host |
 
 ## Fork and deploy
 
@@ -33,7 +33,7 @@ Everything on the site starts as a Markdown file in `content/`: projects, experi
    ```
 
    The site lands in `build/`. A broken wikilink or a frontmatter typo fails the build and names the file.
-4. Run `node build` on any host with Node (set `PORT`, and optionally `GITHUB_TOKEN`; see [CONTRIBUTING.md](CONTRIBUTING.md#deployment-notes)).
+4. Upload `build/` to any static host.
 
 With [just](https://just.systems) (pinned in `mise.toml`), `just setup` installs dependencies and the pre-commit hook, and `just --list` shows the other recipes. [CONTRIBUTING.md](CONTRIBUTING.md) covers the content format in detail, adding fields, and running tests.
 

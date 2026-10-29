@@ -9,7 +9,6 @@ complexity: 3
 value: 2
 date: 2025-11
 duration: 24 hours
-commit: 6c30ea4c39ae338284b4c5e5c0ae732d81c35f85
 cover: cover.svg
 role: "[[roles/fullstack-developer]]"
 tech:

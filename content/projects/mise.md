@@ -11,7 +11,6 @@ date:
   - 2025-09
   - 2025-11
 duration: 2 months
-commit: 6e463986e04b508301895af2513ef57fe5669b74
 cover: cover.svg
 role: "[[roles/fullstack-developer]]"
 tech:
