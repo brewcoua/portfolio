@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 316" role="img" aria-label="A page with numbered boxes on every interactive element; asked to search for shoes, the model answers with the search button's label, 5">
+  <defs>
+    <marker id="labri-marks-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="dim" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <pattern id="labri-marks-hatch" width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
+      <path class="dim" d="M0 0 L0 8" stroke-width="1" />
+    </pattern>
+  </defs>
+
+  <g>
+    <path class="ink" d="M40 30 L600 32 L598 262 L42 260 Z" />
+    <path class="ink" d="M41 60 L599 62" />
+    <circle class="dim" cx="58" cy="46" r="4" />
+    <circle class="dim" cx="72" cy="46" r="4" />
+    <circle class="dim" cx="86" cy="46" r="4" />
+
+    <path class="dim" d="M70 84 L140 82 L142 110 L68 112 Z" />
+    <path class="ink" d="M330 84 L398 85 L397 109 L331 108 Z" />
+    <path class="ink" d="M420 85 L488 84 L489 108 L421 109 Z" />
+    <path class="ink" d="M510 84 L578 85 L577 109 L511 108 Z" />
+
+    <path class="ink" fill="url(#labri-marks-hatch)" d="M70 140 L400 142 L398 178 L72 176 Z" />
+    <path class="hl" stroke-width="2.5" d="M420 141 L520 140 L521 178 L419 177 Z" />
+
+    <path class="ink" d="M70 200 L300 202 L298 246 L72 244 Z" />
+    <path class="ink" d="M330 201 L560 200 L561 245 L329 246 Z" />
+
+    <path class="ink paper" d="M322 74 L344 75 L343 96 L321 95 Z" />
+    <path class="ink paper" d="M412 75 L434 74 L435 95 L413 96 Z" />
+    <path class="ink paper" d="M502 74 L524 75 L523 96 L501 95 Z" />
+    <path class="ink paper" d="M62 130 L84 131 L83 152 L61 151 Z" />
+    <path class="hl paper" stroke-width="2.5" d="M410 130 L432 131 L431 152 L409 151 Z" />
+    <path class="ink paper" d="M62 190 L84 191 L83 212 L61 211 Z" />
+    <path class="ink paper" d="M320 191 L342 190 L343 211 L321 212 Z" />
+
+    <path class="dim" d="M372 288 C 430 288, 470 250, 470 186" marker-end="url(#labri-marks-tip)" />
+  </g>
+
+  <text x="105" y="101" text-anchor="middle" class="dim" font-size="13">logo</text>
+  <text x="333" y="90" text-anchor="middle" font-size="14">1</text>
+  <text x="423" y="90" text-anchor="middle" font-size="14">2</text>
+  <text x="513" y="90" text-anchor="middle" font-size="14">3</text>
+  <text x="73" y="146" text-anchor="middle" font-size="14">4</text>
+  <text x="421" y="146" text-anchor="middle" font-size="14" class="hl">5</text>
+  <text x="73" y="206" text-anchor="middle" font-size="14">6</text>
+  <text x="331" y="206" text-anchor="middle" font-size="14">7</text>
+  <text x="470" y="165" text-anchor="middle" font-size="16">search</text>
+  <text x="236" y="294" text-anchor="end" class="dim" font-size="16">“search for shoes”</text>
+  <text x="250" y="294" class="hl" font-size="16">answer: 5</text>
+</svg>

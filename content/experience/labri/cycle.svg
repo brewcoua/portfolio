@@ -1,0 +1,34 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Worker cycle: observe the page, ask the Mind, act in the browser, and repeat inside the execution limits; finished tasks go to evaluation">
+  <defs>
+    <marker id="labri-cycle-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="dim" stroke-dasharray="5 6" d="M14 46 L626 48 L624 236 L16 234 Z" />
+
+    <path class="ink" d="M30 72 L180 70 L182 138 L28 140 Z" />
+    <path class="hl fill-hl" d="M244 70 L396 72 L394 140 L246 138 Z" />
+    <path class="ink" d="M460 72 L610 70 L612 140 L458 138 Z" />
+
+    <path class="ink" d="M186 104 L238 104" marker-end="url(#labri-cycle-tip)" />
+    <path class="ink" d="M400 104 L452 104" marker-end="url(#labri-cycle-tip)" />
+    <path class="ink" d="M535 146 C 520 215, 120 215, 105 146" marker-end="url(#labri-cycle-tip)" />
+
+    <path class="dim" stroke-dasharray="5 6" d="M320 240 L320 266" marker-end="url(#labri-cycle-tip)" />
+    <path class="ink" d="M240 272 L400 274 L398 324 L242 322 Z" />
+  </g>
+
+  <text x="18" y="34" class="dim" font-size="13">execution: caps cycles, catches loops</text>
+  <text x="105" y="102" text-anchor="middle" font-size="16">observe</text>
+  <text x="105" y="124" text-anchor="middle" class="dim" font-size="13">screenshot + marks</text>
+  <text x="320" y="102" text-anchor="middle" font-size="16" class="hl">mind</text>
+  <text x="320" y="124" text-anchor="middle" class="dim" font-size="13">gpt-4o reasons</text>
+  <text x="535" y="102" text-anchor="middle" font-size="16">act</text>
+  <text x="535" y="124" text-anchor="middle" class="dim" font-size="13">playwright</text>
+  <text x="320" y="182" text-anchor="middle" class="dim" font-size="13">next cycle</text>
+  <text x="330" y="258" class="dim" font-size="13">when done</text>
+  <text x="320" y="297" text-anchor="middle" font-size="16">evaluation</text>
+  <text x="320" y="315" text-anchor="middle" class="dim" font-size="13">url + html matchers</text>
+</svg>

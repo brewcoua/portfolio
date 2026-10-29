@@ -39,6 +39,8 @@ Tech leads and other team leaders need to keep up with what their teams change, 
 
 On top of that, OpenAI models add insight on a reviewed change and help turn it into a new best practice in one step.
 
+![The relevance score sorts changes first and sinks whitespace and refactors; the model adds insight on top of that ranking, not instead of it.](review.svg)
+
 ## How we worked
 
 The codebase followed a hexagonal (ports and adapters) architecture, and work was test-driven, with unit tests and automated test suites around each change.

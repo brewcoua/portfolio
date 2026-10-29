@@ -1,0 +1,47 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 316" role="img" aria-label="Changes are scored for relevance, low-signal ones such as whitespace and refactors sink to the bottom, and the model adds insight on a reviewed change, which can become a new best practice">
+  <defs>
+    <marker id="packmind-review-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M30 130 L170 131 L169 158 L31 157 Z" />
+    <path class="dim" d="M31 170 L170 169 L171 197 L30 198 Z" />
+    <path class="ink" d="M30 211 L171 210 L170 238 L31 237 Z" />
+    <path class="dim" d="M31 250 L169 251 L170 278 L30 277 Z" />
+
+    <path class="ink" d="M176 204 L214 204" marker-end="url(#packmind-review-tip)" />
+    <path class="ink" d="M222 160 L382 162 L380 248 L224 246 Z" />
+    <path class="ink" d="M388 204 L426 204" marker-end="url(#packmind-review-tip)" />
+
+    <path class="hl fill-hl" stroke-width="2.5" d="M434 130 L610 131 L609 158 L435 157 Z" />
+    <path class="ink" d="M435 170 L610 169 L611 197 L434 198 Z" />
+    <path class="dim" d="M434 211 L611 210 L610 238 L435 237 Z" />
+    <path class="dim" d="M435 250 L609 251 L610 278 L434 277 Z" />
+
+    <path class="ink" stroke-dasharray="5 6" d="M522 126 L522 98" marker-end="url(#packmind-review-tip)" />
+    <path class="ink fill-ink" d="M444 40 L604 42 L602 90 L446 88 Z" />
+    <path class="ink" d="M438 65 L380 65" marker-end="url(#packmind-review-tip)" />
+    <path class="ink" d="M240 44 L372 42 L374 88 L238 86 Z" />
+  </g>
+
+  <text x="100" y="149" text-anchor="middle" font-size="14">change</text>
+  <text x="100" y="189" text-anchor="middle" class="dim" font-size="14">whitespace</text>
+  <text x="100" y="229" text-anchor="middle" font-size="14">change</text>
+  <text x="100" y="269" text-anchor="middle" class="dim" font-size="14">refactor</text>
+  <text x="100" y="304" text-anchor="middle" class="dim" font-size="13">commits</text>
+
+  <text x="302" y="196" text-anchor="middle" font-size="16">relevance</text>
+  <text x="302" y="218" text-anchor="middle" class="dim" font-size="13">weighted ratios,</text>
+  <text x="302" y="234" text-anchor="middle" class="dim" font-size="13">outliers trimmed</text>
+
+  <text x="522" y="149" text-anchor="middle" font-size="14" class="hl">change</text>
+  <text x="522" y="189" text-anchor="middle" font-size="14">change</text>
+  <text x="522" y="229" text-anchor="middle" class="dim" font-size="14">whitespace</text>
+  <text x="522" y="269" text-anchor="middle" class="dim" font-size="14">refactor</text>
+  <text x="522" y="304" text-anchor="middle" class="dim" font-size="13">review, by relevance</text>
+
+  <text x="524" y="70" text-anchor="middle" font-size="16">openai insight</text>
+  <text x="306" y="70" text-anchor="middle" font-size="16">new practice</text>
+</svg>

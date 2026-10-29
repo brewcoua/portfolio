@@ -166,10 +166,10 @@ function withSectionIds(doc: MarkdownDoc, minutes: number): { body: MarkdownDoc;
 	return { body: { blocks }, toc: toc.length >= 3 && minutes >= 6 ? toc : [] };
 }
 
-async function inlineFigures(doc: MarkdownDoc, slug: string): Promise<MarkdownDoc> {
+async function inlineFigures(doc: MarkdownDoc, dir: string): Promise<MarkdownDoc> {
 	const blocks = await Promise.all(
 		doc.blocks.map(async (block) =>
-			block.type === 'figure' ? { ...block, svg: await readFigure(`blog/${slug}`, block.src) } : block
+			block.type === 'figure' ? { ...block, svg: await readFigure(dir, block.src) } : block
 		)
 	);
 	return { blocks };
@@ -321,7 +321,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 		await Promise.all(
 			(await readPosts()).map(async ({ slug, data, body }) => {
 				const minutes = readMinutes(body);
-				const doc = await highlightDoc(await inlineFigures(renderDoc(body, `blog/${slug}`, new Set()), slug));
+				const doc = await highlightDoc(await inlineFigures(renderDoc(body, `blog/${slug}`, new Set()), `blog/${slug}`));
 				return {
 					slug,
 					...data,
@@ -449,7 +449,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				details: (data.details as string[]) ?? [],
 				detailsMarkdown: renderInlineList(data.details as string[], path, mentions),
 				description: node.body,
-				descriptionMarkdown: renderDoc(node.body, path, mentions),
+				descriptionMarkdown: await inlineFigures(renderDoc(node.body, path, mentions), path),
 				technologies: tech,
 				skills: skillPaths,
 				logo: data.logo as string | undefined,

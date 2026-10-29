@@ -42,9 +42,13 @@ Each worker has four parts:
 - **Execution** runs the cycle (observe, ask the Mind, act), caps the number of cycles, and catches obvious loops and hallucinations such as endless scrolling.
 - **Evaluation** scores finished tasks with URL and HTML matchers (include, exclude, and a fuzzy match judged by a second model).
 
+![Each worker loops observe, think, act until the task ends or Execution stops it; only then does Evaluation score the run.](cycle.svg)
+
 ## Grounding
 
 Grounding (getting from "click the search button" to one specific element) was the main obstacle. I compared five approaches from the literature: element attributes, ranked textual choices (which needs a pretrained ranker such as DeBERTa), image annotation, pixel coordinates, and the raw HTML or accessibility tree. I settled on image annotation with Set-of-Marks: every interactive element gets a coloured box and a label on the screenshot, and the model answers with a label.
+
+![The model never names a selector: it reads the numbered boxes on the screenshot and answers with one. The striped box is an editable field.](marks.svg)
 
 [web-som](https://github.com/brewcoua/web-som) is the script that draws those marks, injected before each screenshot:
 
