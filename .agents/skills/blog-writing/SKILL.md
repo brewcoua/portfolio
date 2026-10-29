@@ -121,12 +121,18 @@ Adapted from [stop-slop](https://github.com/hardikpandya/stop-slop) by Hardik Pa
 title: Short, concrete title
 summary: One sentence for the /blog list. Says what happened, not "thoughts on X".
 date: 2026-10-23
+cover: cover.svg # optional, see blog-figures
 ---
 ```
 
+- Read time is computed from the body (265 wpm plus image time); don't write it by hand.
+
 - File: `content/blog/<slug>.md`, slug in kebab-case. Figures in `content/blog/<slug>/`.
 - `[[projects/x]]`, `[[technologies/x]]`, `[[skills/x]]` render as mentions with popovers.
-- Code fences need a language tag.
+- Code fences need a language tag. Add `title=path/to/file` (or `title="git log"`) when the snippet comes from somewhere; it shows in the block header.
+- Callouts use GitHub alert syntax (`> [!WARNING]`, also NOTE, TIP, IMPORTANT, CAUTION). One or two per post at most, for something the reader must not miss; the fact still belongs in the prose around it.
+- Footnotes (`[^name]`) render as sidenotes: in the margin on wide screens, inline in parentheses on narrow ones. Use them for optional asides a reader can skip, not for anything the argument needs, and not inside or right next to code.
+- Posts with three or more `##` sections and at least six minutes of reading get a contents list automatically.
 
 ## Final pass
 

@@ -23,6 +23,14 @@ Draw only when the picture shows what prose can't: the shape of a system, a chan
 - The alt text becomes the caption. Write it as a sentence that tells the reader what to notice, not "Diagram of X".
 - An image inside a sentence is dropped. The build fails if the file is missing or the name isn't a bare `name.svg`.
 
+## Cover
+
+Optional `cover: cover.svg` in the post frontmatter. It shows as the thumbnail on `/blog`, under the post title, and in the post's OG image (`/blog/<slug>/og.png`, dark paper palette, JetBrains Mono).
+
+- Canvas `viewBox="0 0 640 336"` (OG ratio). Same rules as any figure; prefix ids `<slug>-cover-`.
+- It must read as a thumbnail at ~190px wide: few boxes, few labels, one `hl`. Draw the post's point, not its whole story.
+- Don't also embed it in the body.
+
 ## Canvas rules
 
 - Root: `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 H" role="img" aria-label="...">`. No `width`/`height`; CSS scales it to the column.
