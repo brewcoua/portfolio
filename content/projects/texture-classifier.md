@@ -7,6 +7,7 @@ status: completed
 kind: coursework
 featured: true
 date: 2024-01
+commit: 5e01fdfeb28f0371d379a3b43b0cc1b583ba1950
 cover: cover.svg
 role: "[[roles/ai-engineer]]"
 tech:

@@ -158,6 +158,8 @@ export const projectFrontmatter = z.object({
 	duration: z.string().optional(),
 	thumbnail: z.string().min(1).optional(),
 	cover: z.string().min(1).optional(),
+	/** Repo commit the description was written against; needs a github link. */
+	commit: z.string().regex(/^[0-9a-f]{7,40}$/, 'commit must be a hex SHA').optional(),
 	role: wikilink,
 	tech: z.array(wikilink).default([]),
 	skills: z.array(wikilink).default([]),

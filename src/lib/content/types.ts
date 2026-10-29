@@ -242,6 +242,8 @@ export type Project = SlugEntity &
 	thumbnail?: string;
 	/** Inline SVG, used when there's no thumbnail image. */
 	cover?: string;
+	/** GitHub `owner/name` and the commit the description was written against. */
+	source?: { repo: string; commit: string };
 	technologies: string[];
 	skills: string[];
 	links: LinkItem[];

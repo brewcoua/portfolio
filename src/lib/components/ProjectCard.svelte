@@ -3,6 +3,7 @@
 	import ProjectStatusBadge from '$lib/components/ProjectStatusBadge.svelte';
 	import RoleBadge from '$lib/components/RoleBadge.svelte';
 	import { resolveLink } from '$lib/content/presentation';
+	import OutdatedIcon from '$lib/components/OutdatedIcon.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
 	import { PROJECT_KIND_LABELS } from '$lib/content/types';
@@ -89,5 +90,8 @@
 				rel={link.external ? 'noreferrer' : undefined}
 			>{link.label.toLowerCase()} ↗</a>
 		{/each}
+		{#if project.source}
+			<OutdatedIcon slug={project.slug} source={project.source} />
+		{/if}
 	</div>
 </article>

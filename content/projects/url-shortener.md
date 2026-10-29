@@ -7,6 +7,7 @@ status: completed
 kind: personal
 featured: false
 date: 2024-01
+commit: 62ae7eb764bd4fd268e08990d445eb68c0df7709
 cover: cover.svg
 role: "[[roles/backend-developer]]"
 tech:

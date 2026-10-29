@@ -9,6 +9,7 @@ featured: true
 date: 2026-06
 duration: 24 hours
 thumbnail: /thumbnails/revflow.png
+commit: 824246699e1620b12035e725323e1f81232cd96e
 role: "[[roles/fullstack-developer]]"
 tech:
   - "[[technologies/python]]"

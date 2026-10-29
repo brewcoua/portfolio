@@ -9,6 +9,7 @@ featured: true
 date: 2023-03
 duration: 3 weeks
 thumbnail: /thumbnails/jb.png
+commit: 3c9181f01ec002abe0465dd7b8edd31b17775971
 role: "[[roles/solo-developer]]"
 tech:
   - "[[technologies/rust]]"
