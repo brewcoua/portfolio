@@ -1,0 +1,35 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="A texture patch goes through a residual block with a skip connection, then a classification head, into class scores">
+  <defs>
+    <marker id="texture-classifier-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="texture-classifier-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M28 102 L150 100 L152 222 L30 224 Z" />
+    <path class="dim" d="M34 130 L60 104 M34 160 L92 104 M34 190 L122 104 M38 218 L148 108 M68 220 L150 138 M98 220 L150 168 M128 220 L150 198" stroke-width="1" />
+    <path class="ink" d="M156 162 L196 162" marker-end="url(#texture-classifier-cover-tip)" />
+    <path class="ink" d="M204 112 L318 110 L320 150 L206 152 Z" />
+    <path class="ink" d="M206 172 L320 174 L318 214 L204 212 Z" />
+    <path class="hl" stroke-width="2.5" d="M178 162 C 178 70, 352 70, 352 140" marker-end="url(#texture-classifier-cover-hltip)" />
+    <circle class="ink" cx="354" cy="162" r="13" />
+    <path class="ink" d="M347 162 L361 162 M354 155 L354 169" />
+    <path class="ink" d="M322 194 C 340 194, 352 188, 354 178" />
+    <path class="ink" d="M370 162 L396 162" marker-end="url(#texture-classifier-cover-tip)" />
+    <path class="ink fill-ink" d="M404 122 L486 120 L488 202 L406 204 Z" />
+    <path class="ink" d="M492 162 L510 162" marker-end="url(#texture-classifier-cover-tip)" />
+    <path class="hl fill-hl" d="M518 124 L618 124 L618 142 L518 142 Z" />
+    <path class="ink" d="M518 154 L578 154 L578 172 L518 172 Z" />
+    <path class="ink" d="M518 184 L552 184 L552 202 L518 202 Z" />
+  </g>
+
+  <text x="262" y="137" text-anchor="middle" class="dim">conv</text>
+  <text x="262" y="198" text-anchor="middle" class="dim">conv</text>
+  <text x="265" y="64" text-anchor="middle" font-size="16" class="hl">residual</text>
+  <text x="446" y="168" text-anchor="middle" font-size="18">head</text>
+  <text x="568" y="234" text-anchor="middle" class="dim">classes</text>
+  <text x="90" y="252" text-anchor="middle" class="dim">texture</text>
+</svg>

@@ -10,6 +10,7 @@ date:
   - 2025-09
   - 2025-11
 duration: ~2 months
+cover: cover.svg
 role: "[[roles/fullstack-developer]]"
 tech:
   - "[[technologies/react]]"

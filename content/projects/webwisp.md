@@ -8,6 +8,7 @@ featured: true
 date:
   - 2024-05
   - 2024-07
+cover: cover.svg
 role: "[[roles/fullstack-developer]]"
 tech:
   - "[[technologies/docker]]"

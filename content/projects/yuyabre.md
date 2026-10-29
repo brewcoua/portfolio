@@ -8,6 +8,7 @@ kind: hackathon
 featured: false
 date: 2025-11
 duration: 24 hours
+cover: cover.svg
 role: "[[roles/fullstack-developer]]"
 tech:
   - "[[technologies/python]]"

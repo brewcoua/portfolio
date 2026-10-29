@@ -240,6 +240,8 @@ export type Project = SlugEntity &
 	description: string;
 	descriptionMarkdown?: MarkdownDoc;
 	thumbnail?: string;
+	/** Inline SVG, used when there's no thumbnail image. */
+	cover?: string;
 	technologies: string[];
 	skills: string[];
 	links: LinkItem[];

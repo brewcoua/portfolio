@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="The core server enqueues jobs on RabbitMQ; ML and LLM workers scaled by KEDA from 0 to 10 replicas pick them up and write results to Redis">
+  <defs>
+    <marker id="mise-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="mise-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M24 130 L160 128 L162 206 L26 208 Z" />
+    <path class="ink" d="M166 168 L192 168" marker-end="url(#mise-cover-tip)" />
+    <path class="hl fill-hl" stroke-width="2.5" d="M200 142 L330 140 L332 196 L202 198 Z" />
+    <path class="hl" d="M234 144 L234 194 M266 142 L266 196 M298 142 L298 196" stroke-width="1" />
+    <path class="ink" d="M336 168 L362 168" marker-end="url(#mise-cover-tip)" />
+    <path class="dim" d="M394 100 L514 102 L512 150" stroke-dasharray="5 6" />
+    <path class="dim" d="M382 110 L504 112 L502 150" stroke-dasharray="5 6" />
+    <path class="ink paper" d="M370 122 L492 120 L494 200 L372 202 Z" />
+    <path class="ink" d="M498 162 L528 162" marker-end="url(#mise-cover-tip)" />
+    <path class="ink" d="M536 134 L616 136 L614 190 L538 188 Z" />
+  </g>
+
+  <text x="93" y="166" text-anchor="middle" font-size="20">core</text>
+  <text x="93" y="190" text-anchor="middle" class="dim">fastapi</text>
+  <text x="266" y="226" text-anchor="middle" font-size="16" class="hl">rabbitmq</text>
+  <text x="432" y="160" text-anchor="middle" font-size="18">workers</text>
+  <text x="432" y="184" text-anchor="middle" class="dim">0–10, keda</text>
+  <text x="576" y="168" text-anchor="middle" font-size="16">redis</text>
+  <text x="320" y="290" text-anchor="middle" class="dim">scales on queue depth</text>
+</svg>

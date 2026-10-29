@@ -157,6 +157,7 @@ export const projectFrontmatter = z.object({
 	date: dateValue,
 	duration: z.string().optional(),
 	thumbnail: z.string().min(1).optional(),
+	cover: z.string().min(1).optional(),
 	role: wikilink,
 	tech: z.array(wikilink).default([]),
 	skills: z.array(wikilink).default([]),

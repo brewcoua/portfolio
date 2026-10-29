@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="A short link goes into a non-blocking Actix service in Rust, which redirects to the long URL">
+  <defs>
+    <marker id="url-shortener-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="url-shortener-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M28 140 L152 138 L154 190 L30 192 Z" />
+    <path class="ink" d="M160 164 L210 164" marker-end="url(#url-shortener-cover-tip)" />
+    <path class="ink fill-ink" d="M220 118 L400 120 L398 210 L222 208 Z" />
+    <path class="hl" stroke-width="2.5" d="M406 164 L456 164" marker-end="url(#url-shortener-cover-hltip)" />
+    <path class="ink" d="M466 138 L614 140 L612 192 L468 190 Z" />
+  </g>
+
+  <text x="91" y="172" text-anchor="middle" font-size="20">/abc</text>
+  <text x="310" y="162" text-anchor="middle" font-size="22">actix</text>
+  <text x="310" y="188" text-anchor="middle" class="dim">rust, non-blocking</text>
+  <text x="540" y="170" text-anchor="middle" font-size="16">long url</text>
+  <text x="320" y="270" text-anchor="middle" class="hl" font-size="16">low-latency redirect</text>
+</svg>

@@ -7,6 +7,7 @@ status: completed
 kind: personal
 featured: false
 date: 2024-01
+cover: cover.svg
 role: "[[roles/backend-developer]]"
 tech:
   - "[[technologies/rust]]"

@@ -1,0 +1,29 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="git feeds Flux; three planes hand off once each: Talos for machines, Flux for the cluster, OpenTofu for cloud APIs">
+  <defs>
+    <marker id="futhark-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="futhark-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M268 24 L372 26 L370 76 L270 74 Z" />
+    <path class="hl" d="M320 82 L320 140" marker-end="url(#futhark-cover-hltip)" />
+    <path class="ink" d="M30 152 L198 150 L200 248 L32 250 Z" />
+    <path class="hl fill-hl" stroke-width="2.5" d="M236 150 L404 152 L402 250 L234 248 Z" />
+    <path class="ink" d="M440 150 L608 152 L610 248 L442 250 Z" />
+    <path class="ink" d="M204 200 L226 200" marker-end="url(#futhark-cover-tip)" />
+    <path class="ink" d="M408 200 L432 200" marker-end="url(#futhark-cover-tip)" />
+  </g>
+
+  <text x="320" y="57" text-anchor="middle" font-size="20">git</text>
+  <text x="115" y="198" text-anchor="middle" font-size="20">talos</text>
+  <text x="115" y="224" text-anchor="middle" class="dim">machine</text>
+  <text x="319" y="198" text-anchor="middle" font-size="20" class="hl">flux</text>
+  <text x="319" y="224" text-anchor="middle" class="dim">cluster</text>
+  <text x="525" y="198" text-anchor="middle" font-size="20">tofu</text>
+  <text x="525" y="224" text-anchor="middle" class="dim">cloud</text>
+  <text x="320" y="300" text-anchor="middle" class="dim">rebuildable from cold</text>
+</svg>

@@ -30,6 +30,7 @@ Optional `cover: cover.svg` in the post frontmatter. It shows as the thumbnail o
 - Canvas `viewBox="0 0 640 336"` (OG ratio). Same rules as any figure; prefix ids `<slug>-cover-`.
 - It must read as a thumbnail at ~190px wide: few boxes, few labels, one `hl`. Draw the post's point, not its whole story.
 - Don't also embed it in the body.
+- Projects take the same `cover: cover.svg` (in `content/projects/<slug>/`), shown on project cards and the project page. Projects without one fall back to their `thumbnail:` image.
 
 ## Canvas rules
 

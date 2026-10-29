@@ -7,6 +7,7 @@ status: completed
 kind: coursework
 featured: true
 date: 2024-01
+cover: cover.svg
 role: "[[roles/ai-engineer]]"
 tech:
   - "[[technologies/python]]"

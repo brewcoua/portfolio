@@ -127,12 +127,12 @@ async function readPosts() {
 	);
 }
 
-/** Figures live next to the post (`content/blog/<slug>/<name>.svg`) and are inlined so they inherit theme vars. */
-async function readFigure(slug: string, src: string): Promise<string> {
+/** Figures live next to their entry (`content/<dir>/<name>.svg`) and are inlined so they inherit theme vars. */
+async function readFigure(dir: string, src: string): Promise<string> {
 	if (!/^[\w-]+\.svg$/.test(src)) {
-		throw new Error(`blog/${slug}: figure "${src}" must be a bare name.svg next to the post`);
+		throw new Error(`${dir}: figure "${src}" must be a bare name.svg next to the entry`);
 	}
-	return readFile(join(CONTENT_DIR, 'blog', slug, src), 'utf-8');
+	return readFile(join(CONTENT_DIR, dir, src), 'utf-8');
 }
 
 /** Medium's estimate: 265 words a minute, plus 12s for the first image, 1s less for each next one, never under 3s. */
@@ -161,7 +161,7 @@ function withSectionIds(doc: MarkdownDoc, minutes: number): { body: MarkdownDoc;
 async function inlineFigures(doc: MarkdownDoc, slug: string): Promise<MarkdownDoc> {
 	const blocks = await Promise.all(
 		doc.blocks.map(async (block) =>
-			block.type === 'figure' ? { ...block, svg: await readFigure(slug, block.src) } : block
+			block.type === 'figure' ? { ...block, svg: await readFigure(`blog/${slug}`, block.src) } : block
 		)
 	);
 	return { blocks };
@@ -317,7 +317,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				return {
 					slug,
 					...data,
-					cover: data.cover && (await readFigure(slug, data.cover)),
+					cover: data.cover && (await readFigure(`blog/${slug}`, data.cover)),
 					readMinutes: minutes,
 					...withSectionIds(doc, minutes)
 				};
@@ -398,6 +398,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				duration: data.duration as string | undefined,
 				featured: Boolean(data.featured),
 				thumbnail: data.thumbnail as string | undefined,
+				cover: data.cover ? await readFigure(path, String(data.cover)) : undefined,
 				description: node.body,
 				descriptionMarkdown,
 				technologies: tech,

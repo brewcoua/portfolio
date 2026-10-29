@@ -1,0 +1,41 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="An orchestrator dispatches tasks over RabbitMQ to Playwright workers, which act on a page whose elements are numbered with Set-of-Marks">
+  <defs>
+    <marker id="webwisp-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="webwisp-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M22 124 L164 122 L166 204 L24 206 Z" />
+    <path class="ink" d="M170 164 L190 164" marker-end="url(#webwisp-cover-tip)" />
+    <path class="ink" d="M198 142 L278 140 L280 188 L200 190 Z" />
+    <path class="dim" d="M225 142 L225 188 M252 141 L252 189" stroke-width="1" />
+    <path class="ink" d="M284 164 L302 164" marker-end="url(#webwisp-cover-tip)" />
+    <path class="dim" d="M322 106 L428 108 L426 146" stroke-dasharray="5 6" />
+    <path class="ink paper" d="M310 120 L416 118 L418 200 L312 202 Z" />
+    <path class="ink" d="M422 160 L442 160" marker-end="url(#webwisp-cover-tip)" />
+    <path class="ink" d="M450 62 L618 64 L616 270 L452 268 Z" />
+    <path class="ink" d="M451 88 L617 90" />
+    <circle class="dim" cx="466" cy="76" r="4" />
+    <circle class="dim" cx="480" cy="76" r="4" />
+    <circle class="dim" cx="494" cy="76" r="4" />
+    <path class="ink" d="M478 112 L590 114 L588 140 L480 138 Z" />
+    <path class="ink" d="M480 164 L560 162 L562 188 L478 190 Z" />
+    <path class="ink" d="M478 214 L600 216 L598 242 L480 240 Z" />
+    <path class="hl fill-hl" stroke-width="2.5" d="M464 104 L482 104 L482 122 L464 122 Z" />
+    <path class="hl fill-hl" stroke-width="2.5" d="M464 156 L482 156 L482 174 L464 174 Z" />
+    <path class="hl fill-hl" stroke-width="2.5" d="M464 206 L482 206 L482 224 L464 224 Z" />
+  </g>
+
+  <text x="94" y="170" text-anchor="middle" font-size="16">orchestrator</text>
+  <text x="239" y="214" text-anchor="middle" class="dim">rabbitmq</text>
+  <text x="364" y="158" text-anchor="middle" font-size="16">workers</text>
+  <text x="364" y="182" text-anchor="middle" class="dim">playwright</text>
+  <text x="473" y="118" text-anchor="middle" font-size="12">1</text>
+  <text x="473" y="170" text-anchor="middle" font-size="12">2</text>
+  <text x="473" y="220" text-anchor="middle" font-size="12">3</text>
+  <text x="534" y="298" text-anchor="middle" class="hl" font-size="16">set-of-marks</text>
+</svg>

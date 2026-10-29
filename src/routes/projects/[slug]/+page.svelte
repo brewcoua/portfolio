@@ -52,7 +52,9 @@
 		{/if}
 	</div>
 
-	{#if data.project.thumbnail}
+	{#if data.project.cover}
+		<div class="figure">{@html data.project.cover}</div>
+	{:else if data.project.thumbnail}
 		<img
 			src={data.project.thumbnail}
 			alt={data.project.title}

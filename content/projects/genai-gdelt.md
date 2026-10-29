@@ -8,6 +8,7 @@ abstract: |
 status: completed
 kind: research
 date: 2026-06
+cover: cover.svg
 role: "[[roles/ai-engineer]]"
 tech:
   - "[[technologies/python]]"

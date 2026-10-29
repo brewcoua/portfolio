@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="A chat message reaches a tool-calling LLM agent, which calls tools for inventory, Splitwise, Discord and WhatsApp">
+  <defs>
+    <marker id="yuyabre-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="yuyabre-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M26 120 L186 118 L188 196 L84 198 L58 224 L62 198 L28 198 Z" />
+    <path class="ink" d="M194 160 L226 160" marker-end="url(#yuyabre-cover-tip)" />
+    <path class="hl fill-hl" stroke-width="2.5" d="M234 118 L364 120 L362 202 L236 200 Z" />
+    <path class="ink" d="M368 150 C 396 130, 400 70, 424 64" marker-end="url(#yuyabre-cover-tip)" />
+    <path class="ink" d="M368 156 C 392 150, 402 134, 424 132" marker-end="url(#yuyabre-cover-tip)" />
+    <path class="ink" d="M368 166 C 392 172, 402 196, 424 200" marker-end="url(#yuyabre-cover-tip)" />
+    <path class="ink" d="M368 172 C 396 196, 400 262, 424 268" marker-end="url(#yuyabre-cover-tip)" />
+    <path class="ink" d="M432 42 L610 44 L608 86 L434 84 Z" />
+    <path class="ink" d="M434 110 L608 112 L610 154 L432 152 Z" />
+    <path class="ink" d="M432 178 L610 180 L608 222 L434 220 Z" />
+    <path class="ink" d="M434 246 L608 248 L610 290 L432 288 Z" />
+  </g>
+
+  <text x="107" y="164" text-anchor="middle" font-size="20">chat</text>
+  <text x="299" y="158" text-anchor="middle" font-size="20" class="hl">agent</text>
+  <text x="299" y="182" text-anchor="middle" class="dim">llm, tools</text>
+  <text x="521" y="70" text-anchor="middle" font-size="16">inventory</text>
+  <text x="521" y="138" text-anchor="middle" font-size="16">splitwise</text>
+  <text x="521" y="206" text-anchor="middle" font-size="16">discord</text>
+  <text x="521" y="274" text-anchor="middle" font-size="16">whatsapp</text>
+  <text x="299" y="270" text-anchor="middle" class="dim">~15 tools</text>
+</svg>

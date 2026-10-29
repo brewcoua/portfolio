@@ -301,6 +301,11 @@ a:hover .org-logo,
 	stroke-linecap: round;
 	stroke-linejoin: round;
 }
+/* Banners letterbox the cover instead of cropping it. */
+.figure-banner svg {
+	width: auto;
+	height: 100%;
+}
 .figure text {
 	font-family: inherit;
 	fill: var(--fg);

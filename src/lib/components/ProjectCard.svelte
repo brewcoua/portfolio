@@ -41,6 +41,20 @@
 </script>
 
 <article class="space-y-1.5">
+	{#if project.cover || project.thumbnail}
+		<a
+			class="figure figure-banner mb-3 flex aspect-[3/1] items-center justify-center overflow-hidden border border-border bg-muted"
+			href={`/projects/${project.slug}`}
+			aria-hidden="true"
+			tabindex="-1"
+		>
+			{#if project.cover}
+				{@html project.cover}
+			{:else}
+				<img src={project.thumbnail} alt="" class="h-full w-full object-cover" />
+			{/if}
+		</a>
+	{/if}
 	<header class="flex items-baseline gap-3">
 		<a class="font-bold hover:text-primary" href={`/projects/${project.slug}`}>{project.title}</a>
 		<span class="leader" aria-hidden="true"></span>

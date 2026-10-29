@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="GDELT 2.0 via BigQuery narrows through a multilingual keyword pass and LaBSE validation into about 1.1 million articles scored on six frames">
+  <defs>
+    <marker id="genai-gdelt-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="genai-gdelt-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M28 112 L168 110 L170 226 L30 228 Z" />
+    <path class="ink" d="M184 168 L204 168" marker-end="url(#genai-gdelt-cover-tip)" />
+    <path class="ink" d="M212 88 L332 118 L330 218 L214 248 Z" />
+    <path class="hl fill-hl" stroke-width="2.5" d="M346 120 L462 146 L460 192 L348 216 Z" />
+    <path class="ink" d="M468 168 L486 168" marker-end="url(#genai-gdelt-cover-tip)" />
+    <path class="ink fill-ink" d="M494 100 L612 102 L610 236 L492 234 Z" />
+  </g>
+
+  <text x="99" y="166" text-anchor="middle" font-size="18">gdelt 2.0</text>
+  <text x="99" y="190" text-anchor="middle" class="dim">bigquery</text>
+  <text x="272" y="174" text-anchor="middle" font-size="16">keywords</text>
+  <text x="400" y="174" text-anchor="middle" font-size="16" class="hl">labse</text>
+  <text x="552" y="162" text-anchor="middle" font-size="22">1.1M</text>
+  <text x="552" y="186" text-anchor="middle" class="dim">articles</text>
+  <text x="552" y="206" text-anchor="middle" class="dim">6 frames</text>
+  <text x="272" y="284" text-anchor="middle" class="dim">100+ languages</text>
+</svg>
