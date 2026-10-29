@@ -1,0 +1,40 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="Before: the same secret pasted into a .env file on each host. After: one secret store feeding a cluster declared in git">
+  <defs>
+    <marker id="from-compose-to-talos-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+    <marker id="from-compose-to-talos-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="hl" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M34 62 L204 60 L206 136 L32 138 Z" />
+    <path class="ink" d="M32 202 L206 204 L204 280 L34 278 Z" />
+    <path class="dim fill-ink" d="M118 96 L190 95 L191 124 L117 125 Z" />
+    <path class="dim fill-ink" d="M118 236 L190 237 L189 266 L119 265 Z" />
+    <path class="dim" d="M154 130 C 176 160, 176 180, 156 230" stroke-dasharray="5 6" marker-end="url(#from-compose-to-talos-cover-tip)" />
+
+    <path class="ink" d="M240 170 L326 170" marker-end="url(#from-compose-to-talos-cover-tip)" />
+
+    <path class="hl fill-hl" stroke-width="2.5" d="M372 46 L606 48 L604 104 L370 102 Z" />
+    <path class="ink" d="M356 244 L456 242 L458 296 L354 298 Z" />
+    <path class="ink fill-ink" d="M482 150 L614 152 L612 296 L480 294 Z" />
+    <path class="hl" d="M547 108 L547 144" marker-end="url(#from-compose-to-talos-cover-hltip)" />
+    <path class="ink" d="M462 270 L474 270" marker-end="url(#from-compose-to-talos-cover-tip)" />
+  </g>
+
+  <text x="60" y="90" class="dim">host a</text>
+  <text x="60" y="230" class="dim">host b</text>
+  <text x="154" y="115" text-anchor="middle" font-size="16">.env</text>
+  <text x="154" y="256" text-anchor="middle" font-size="16">.env</text>
+  <text x="182" y="186" class="dim">paste</text>
+
+  <text x="488" y="81" text-anchor="middle" font-size="16" class="hl">one secret store</text>
+  <text x="406" y="275" text-anchor="middle" font-size="16">git</text>
+  <text x="547" y="215" text-anchor="middle" font-size="16">cluster</text>
+  <text x="547" y="237" text-anchor="middle" class="dim">nodes in code</text>
+
+  <text x="120" y="320" text-anchor="middle" class="dim">feb: compose</text>
+  <text x="488" y="320" text-anchor="middle" class="dim">now: talos</text>
+</svg>

@@ -1,4 +1,4 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 310" role="img" aria-label="A Hetzner VPS entrypoint joined over KubeSpan to laptops and a Raspberry Pi at home; NetBird peers reach local-only services">
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 340" role="img" aria-label="Two Hetzner nodes, ogma as edge and control plane and kenaz as worker, joined by KubeSpan; laptops and a Raspberry Pi at home are dashed as next to join; NetBird devices reach private services through a routing peer">
   <defs>
     <marker id="from-compose-to-talos-topology-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
       <path class="ink" d="M1 1 L8 5 L1 9" />
@@ -9,26 +9,36 @@
   </defs>
 
   <g>
-    <path class="ink" d="M92 52 L91 98" marker-end="url(#from-compose-to-talos-topology-tip)" />
-    <path class="ink" d="M30 108 L152 106 L154 172 L28 174 Z" />
+    <path class="dim" d="M22 40 L380 42 L378 176 L20 174 Z" stroke-dasharray="5 6" />
+    <path class="ink fill-ink" d="M44 82 L184 80 L186 150 L42 152 Z" />
+    <path class="ink fill-ink" d="M224 80 L358 82 L356 152 L226 150 Z" />
+    <path class="hl" stroke-width="2.5" d="M190 116 L218 116" marker-start="url(#from-compose-to-talos-topology-hltip)" marker-end="url(#from-compose-to-talos-topology-hltip)" />
 
-    <path class="dim" d="M266 40 L614 42 L616 252 L264 254 Z" stroke-dasharray="5 6" />
-    <path class="ink fill-ink" d="M290 110 L430 108 L432 168 L288 170 Z" />
-    <path class="ink fill-ink" d="M460 108 L590 110 L588 170 L462 168 Z" />
+    <path class="ink" d="M113 14 L113 76" marker-end="url(#from-compose-to-talos-topology-tip)" />
 
-    <path class="hl" stroke-width="2.5" d="M160 140 L280 140" marker-start="url(#from-compose-to-talos-topology-hltip)" marker-end="url(#from-compose-to-talos-topology-hltip)" />
+    <path class="dim" d="M404 40 L620 42 L618 176 L402 174 Z" stroke-dasharray="5 6" />
+    <path class="dim" d="M420 84 L512 82 L514 150 L418 152 Z" stroke-dasharray="5 6" />
+    <path class="dim" d="M530 82 L604 84 L602 150 L532 148 Z" stroke-dasharray="5 6" />
+    <path class="hl" d="M362 108 C 380 96, 396 96, 412 106" stroke-dasharray="5 6" marker-end="url(#from-compose-to-talos-topology-hltip)" />
 
-    <path class="dim" d="M150 270 C 260 296, 420 282, 446 204" stroke-dasharray="5 6" marker-end="url(#from-compose-to-talos-topology-tip)" />
+    <path class="ink" d="M44 256 L194 254 L196 306 L42 308 Z" />
+    <path class="ink" d="M200 280 C 260 280, 290 230, 292 162" marker-end="url(#from-compose-to-talos-topology-tip)" />
   </g>
 
-  <text x="92" y="40" text-anchor="middle" class="dim">internet</text>
-  <text x="91" y="138" text-anchor="middle" font-size="16">hetzner vps</text>
-  <text x="91" y="160" text-anchor="middle" class="dim">entrypoint</text>
-  <text x="220" y="126" text-anchor="middle" font-size="16" class="hl">kubespan</text>
+  <text x="124" y="30" class="dim">internet</text>
+  <text x="200" y="64" text-anchor="middle" class="dim">hetzner</text>
+  <text x="114" y="114" text-anchor="middle" font-size="16">ogma</text>
+  <text x="114" y="136" text-anchor="middle" class="dim">edge, control</text>
+  <text x="290" y="114" text-anchor="middle" font-size="16">kenaz</text>
+  <text x="290" y="136" text-anchor="middle" class="dim">worker</text>
+  <text x="204" y="200" text-anchor="middle" font-size="16" class="hl">kubespan</text>
+  <path class="dim" d="M204 186 C 204 170, 204 140, 204 124" stroke-width="1" />
 
-  <text x="598" y="68" text-anchor="end" font-size="16" class="dim">home</text>
-  <text x="360" y="144" text-anchor="middle" font-size="16">laptops</text>
-  <text x="525" y="144" text-anchor="middle" font-size="16">pi</text>
+  <text x="512" y="64" text-anchor="middle" class="dim">home, next</text>
+  <text x="466" y="122" text-anchor="middle" font-size="16" class="dim">laptops</text>
+  <text x="567" y="122" text-anchor="middle" font-size="16" class="dim">pi</text>
 
-  <text x="90" y="274" text-anchor="middle" font-size="16">netbird peers</text>
+  <text x="119" y="287" text-anchor="middle" font-size="16">my devices</text>
+  <text x="300" y="250" class="dim">netbird, private</text>
+  <text x="300" y="266" class="dim">services only</text>
 </svg>
