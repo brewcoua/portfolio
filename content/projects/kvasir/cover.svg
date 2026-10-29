@@ -1,0 +1,28 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="a topic goes into STORM, which researches through SearXNG and an LLM gateway, and comes out as a cited article">
+  <defs>
+    <marker id="kvasir-cover-tip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse">
+      <path class="ink" d="M1 1 L8 5 L1 9" />
+    </marker>
+  </defs>
+
+  <g>
+    <path class="ink" d="M30 124 L160 122 L162 198 L32 200 Z" />
+    <path class="ink" d="M168 162 L222 162" marker-end="url(#kvasir-cover-tip)" />
+    <path class="hl fill-hl" stroke-width="2.5" d="M232 112 L408 114 L406 210 L230 208 Z" />
+    <path class="ink" d="M414 162 L468 162" marker-end="url(#kvasir-cover-tip)" />
+    <path class="ink fill-ink" d="M478 104 L610 106 L608 218 L480 216 Z" />
+    <path class="ink" d="M226 262 L306 260 L308 300 L228 302 Z" />
+    <path class="ink" d="M334 260 L414 262 L412 302 L332 300 Z" />
+    <path class="ink" d="M268 256 L282 214" marker-start="url(#kvasir-cover-tip)" marker-end="url(#kvasir-cover-tip)" />
+    <path class="ink" d="M372 256 L358 214" marker-start="url(#kvasir-cover-tip)" marker-end="url(#kvasir-cover-tip)" />
+  </g>
+
+  <text x="96" y="168" text-anchor="middle" font-size="20">topic</text>
+  <text x="319" y="158" text-anchor="middle" font-size="22" class="hl">storm</text>
+  <text x="319" y="184" text-anchor="middle" class="dim">perspectives</text>
+  <text x="544" y="156" text-anchor="middle" font-size="18">article</text>
+  <text x="544" y="182" text-anchor="middle" class="dim">[1] [2] [3]</text>
+  <text x="267" y="286" text-anchor="middle" class="dim">searxng</text>
+  <text x="373" y="286" text-anchor="middle" class="dim">gateway</text>
+  <text x="320" y="60" text-anchor="middle" class="dim">self-hosted deep research</text>
+</svg>
