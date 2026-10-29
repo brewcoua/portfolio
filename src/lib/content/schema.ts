@@ -270,7 +270,8 @@ export const publicationFrontmatter = z.object({
 export const postFrontmatter = z.object({
 	title: z.string().min(1),
 	summary: z.string().min(1),
-	date: isoDate
+	date: isoDate,
+	cover: z.string().min(1).optional()
 });
 
 export const profileFrontmatter = z.object({

@@ -1,15 +1,9 @@
 import type { RequestHandler } from './$types';
 import { loadContent } from '$lib/server/content';
-import satori from 'satori';
-import { Resvg } from '@resvg/resvg-js';
-import { readFile } from 'node:fs/promises';
-import { join } from 'node:path';
+import { h, OG_H as H, OG_W as W, renderOgPng, toDataUri } from '$lib/server/og';
 import logoRaw from '$lib/assets/logo.svg?raw';
 
 export const prerender = true;
-
-const W = 1200;
-const H = 630;
 
 /** Strip pseudo-comments inside SVG path d="" values so strict parsers don't choke. */
 function cleanSvg(raw: string): string {
@@ -21,26 +15,8 @@ function colorizeSvg(raw: string, color: string): string {
 	return cleanSvg(raw).replace(/currentColor/g, color);
 }
 
-function toDataUri(svg: string): string {
-	return `data:image/svg+xml;base64,${Buffer.from(svg).toString('base64')}`;
-}
-
-/** Minimal h() so we can build a satori VDOM without importing React. */
-function h(
-	type: string,
-	props: Record<string, unknown>,
-	...children: unknown[]
-): unknown {
-	const resolved = children.length === 0 ? undefined : children.length === 1 ? children[0] : children;
-	return { type, key: null, props: resolved !== undefined ? { ...props, children: resolved } : props };
-}
-
 export const GET: RequestHandler = async () => {
 	const { profile } = await loadContent();
-
-	const fontData = await readFile(
-		join(process.cwd(), 'node_modules/@fontsource/jetbrains-mono/files/jetbrains-mono-latin-700-normal.woff')
-	);
 
 	const logoUri = toDataUri(colorizeSvg(logoRaw, '#ff6b2c'));
 
@@ -74,26 +50,5 @@ export const GET: RequestHandler = async () => {
 		)
 	);
 
-	const svg = await satori(tree as Parameters<typeof satori>[0], {
-		width: W,
-		height: H,
-		fonts: [
-			{
-				name: 'JetBrains Mono',
-				data: fontData,
-				weight: 700,
-				style: 'normal'
-			}
-		]
-	});
-
-	const resvg = new Resvg(svg, { fitTo: { mode: 'width', value: W } });
-	const png = resvg.render().asPng();
-
-	return new Response(png.buffer as ArrayBuffer, {
-		headers: {
-			'Content-Type': 'image/png',
-			'Cache-Control': 'public, max-age=31536000, immutable'
-		}
-	});
+	return renderOgPng(tree);
 };

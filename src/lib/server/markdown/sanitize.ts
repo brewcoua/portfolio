@@ -15,7 +15,7 @@ function sanitizeInline(nodes: MarkdownInlineNode[]): MarkdownInlineNode[] {
 				}
 			];
 		}
-		if (node.type === 'strong' || node.type === 'emphasis') {
+		if (node.type === 'strong' || node.type === 'emphasis' || node.type === 'sidenote') {
 			return [{ ...node, children: sanitizeInline(node.children) }];
 		}
 		return [node];
@@ -30,7 +30,7 @@ function sanitizeBlocks(nodes: MarkdownBlockNode[]): MarkdownBlockNode[] {
 				children: sanitizeInline(node.children)
 			};
 		}
-		if (node.type === 'blockquote') {
+		if (node.type === 'blockquote' || node.type === 'callout') {
 			return {
 				...node,
 				children: sanitizeBlocks(node.children)

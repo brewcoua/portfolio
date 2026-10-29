@@ -25,7 +25,7 @@
 			{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 		</h1>
 	{:else if node.level === 2}
-		<h2>
+		<h2 id={node.id}>
 			{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}
 		</h2>
 	{:else if node.level === 3}
@@ -51,6 +51,13 @@
 			<MarkdownBlockNode node={block} {skills} {technologies} />
 		{/each}
 	</blockquote>
+{:else if node.type === 'callout'}
+	<aside class="callout callout-{node.kind}" role="note">
+		<p class="callout-label">{node.kind}</p>
+		{#each node.children as block}
+			<MarkdownBlockNode node={block} {skills} {technologies} />
+		{/each}
+	</aside>
 {:else if node.type === 'list'}
 	{#if node.ordered}
 		<ol>
@@ -74,7 +81,7 @@
 		</ul>
 	{/if}
 {:else if node.type === 'code'}
-	<MarkdownCode value={node.value} language={node.language} />
+	<MarkdownCode value={node.value} language={node.language} title={node.title} lines={node.lines} />
 {:else if node.type === 'figure' && node.svg}
 	<figure class="figure">
 		{@html node.svg}

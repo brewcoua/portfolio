@@ -23,7 +23,7 @@
 	<meta name="keywords" content={data.site.defaultSeo.keywords.join(', ')} />
 	<meta property="og:title" content={title} />
 	<meta property="og:description" content={data.site.defaultSeo.description} />
-	<meta property="og:image" content={`${data.site.baseUrl}${data.site.defaultSeo.image}`} />
+	<meta property="og:image" content={`${data.site.baseUrl}${page.data.ogImage ?? data.site.defaultSeo.image}`} />
 	<meta property="og:url" content={data.site.baseUrl} />
 	<meta property="og:type" content="website" />
 	<meta property="og:locale" content="en_US" />

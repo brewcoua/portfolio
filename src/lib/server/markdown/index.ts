@@ -60,7 +60,7 @@ export function markdownDocToPlainText(doc: MarkdownDoc): string {
 			chunks.push(markdownInlineToPlainText(block.children));
 			continue;
 		}
-		if (block.type === 'blockquote') {
+		if (block.type === 'blockquote' || block.type === 'callout') {
 			chunks.push(markdownDocToPlainText({ blocks: block.children }));
 			continue;
 		}

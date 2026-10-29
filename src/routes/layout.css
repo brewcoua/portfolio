@@ -380,3 +380,151 @@ a:hover .org-logo,
 	font: inherit;
 	color: inherit;
 }
+
+/* Code: Shiki emits var(--shiki-*) colours; derive them from the palette so every theme works. */
+:root {
+	--shiki-foreground: var(--fg);
+	--shiki-background: transparent;
+	/* 80% accent keeps keywords at AA contrast on the light paper and amber surfaces. */
+	--shiki-token-keyword: color-mix(in oklab, var(--accent) 80%, var(--fg));
+	--shiki-token-string: color-mix(in oklab, var(--accent) 70%, var(--fg));
+	--shiki-token-string-expression: color-mix(in oklab, var(--accent) 70%, var(--fg));
+	--shiki-token-constant: color-mix(in oklab, var(--accent) 50%, var(--fg));
+	--shiki-token-parameter: var(--fg);
+	--shiki-token-function: var(--fg);
+	--shiki-token-comment: var(--muted);
+	--shiki-token-punctuation: var(--muted);
+	--shiki-token-link: color-mix(in oklab, var(--accent) 80%, var(--fg));
+}
+.markdown-block .code-block {
+	margin: 1.25em 0;
+	border: 1px solid var(--faint);
+	background: var(--surface);
+}
+.markdown-block .code-header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 1rem;
+	padding: 0.35rem 0.75rem;
+	border-bottom: 1px solid var(--faint);
+	color: var(--muted);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+}
+.markdown-block .code-header button {
+	color: var(--muted);
+	cursor: pointer;
+}
+.markdown-block .code-header button:hover {
+	color: var(--accent);
+}
+.markdown-block .code-block pre {
+	margin: 0;
+	border-radius: 0;
+	background: transparent;
+}
+
+/* Callouts: GitHub `> [!NOTE]` syntax. */
+.markdown-block .callout {
+	margin: 1.25em 0;
+	padding: 0.6rem 1rem;
+	border-left: 3px solid var(--muted);
+	background: var(--surface);
+}
+.markdown-block :is(.callout-warning, .callout-important, .callout-caution) {
+	border-left-color: var(--accent);
+	background: color-mix(in oklab, var(--accent) 8%, var(--bg));
+}
+.markdown-block .callout > :is(p, ul, ol) {
+	margin: 0.25rem 0;
+}
+.markdown-block .callout .callout-label {
+	margin: 0;
+	color: var(--muted);
+	font-family: var(--font-mono);
+	font-size: 0.75rem;
+	text-transform: lowercase;
+}
+.markdown-block :is(.callout-warning, .callout-important, .callout-caution) .callout-label {
+	color: var(--accent);
+}
+
+/* Sidenotes: GFM footnotes. Margin notes on wide screens, muted inline asides below that. */
+.markdown-block .sidenote-ref,
+.markdown-block .sidenote sup {
+	color: var(--accent);
+	font-family: var(--font-mono);
+}
+.markdown-block .sidenote {
+	color: var(--muted);
+	font-size: 0.85em;
+}
+.markdown-block .sidenote sup {
+	display: none;
+}
+.markdown-block .sidenote::before {
+	content: ' (';
+}
+.markdown-block .sidenote::after {
+	content: ')';
+}
+@media (min-width: 1280px) {
+	.markdown-block .sidenote {
+		float: right;
+		clear: right;
+		width: 14rem;
+		margin-right: -16rem;
+		font-family: var(--font-mono);
+		font-size: 0.75rem;
+		line-height: 1.5;
+	}
+	.markdown-block .sidenote sup {
+		display: inline;
+	}
+	.markdown-block .sidenote::before,
+	.markdown-block .sidenote::after {
+		content: none;
+	}
+}
+
+/* Post prose: proportional face and a reading measure; headings, code and figures stay mono. */
+.prose-post.markdown-block {
+	max-width: 68ch;
+	font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
+	font-size: 1.0625rem;
+	line-height: 1.7;
+}
+.prose-post.markdown-block p {
+	margin: 1.1em 0;
+}
+.prose-post.markdown-block :is(h1, h2, h3, h4, h5, h6, code, pre, figure, .callout-label) {
+	font-family: var(--font-mono);
+}
+.prose-post.markdown-block h2 {
+	margin-top: 2.25em;
+}
+.prose-post.markdown-block .figure {
+	margin: 2em 0;
+}
+
+/* Post contents: a panel set apart from the prose, numbered like a book's front matter. */
+.post-toc {
+	padding: 0.75rem 1rem;
+	border-left: 3px solid var(--accent);
+	background: var(--surface);
+	font-size: 0.875rem;
+}
+.post-toc ol {
+	counter-reset: toc;
+	columns: 2 12rem;
+	column-gap: 2rem;
+}
+.post-toc li {
+	counter-increment: toc;
+	break-inside: avoid;
+}
+.post-toc li::before {
+	content: counter(toc, decimal-leading-zero) ' ';
+	color: var(--accent);
+}

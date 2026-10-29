@@ -6,8 +6,10 @@ import {
 	renderMarkdownDoc,
 	renderMarkdownInline,
 	markdownDocToPlainText,
+	markdownInlineToPlainText,
 	type MentionDictionaries
 } from '$lib/server/markdown/index';
+import { highlightDoc } from '$lib/server/markdown/highlight';
 import { WIKILINK_SCHEME, type MentionTarget } from '$lib/server/markdown/mentions';
 import {
 	COLLECTION_TYPES,
@@ -126,15 +128,41 @@ async function readPosts() {
 }
 
 /** Figures live next to the post (`content/blog/<slug>/<name>.svg`) and are inlined so they inherit theme vars. */
+async function readFigure(slug: string, src: string): Promise<string> {
+	if (!/^[\w-]+\.svg$/.test(src)) {
+		throw new Error(`blog/${slug}: figure "${src}" must be a bare name.svg next to the post`);
+	}
+	return readFile(join(CONTENT_DIR, 'blog', slug, src), 'utf-8');
+}
+
+/** Medium's estimate: 265 words a minute, plus 12s for the first image, 1s less for each next one, never under 3s. */
+export function readMinutes(markdown: string): number {
+	const image = /!\[[^\]]*\]\([^)]*\)/g;
+	const images = markdown.match(image)?.length ?? 0;
+	const words = markdown.replace(image, '').split(/\s+/).filter(Boolean).length;
+	let seconds = (words / 265) * 60;
+	for (let i = 0; i < images; i++) seconds += Math.max(12 - i, 3);
+	return Math.max(1, Math.round(seconds / 60));
+}
+
+/** Gives `##` headings anchor ids; long posts (3+ sections, 6+ minutes) also get a contents list. */
+function withSectionIds(doc: MarkdownDoc, minutes: number): { body: MarkdownDoc; toc: Post['toc'] } {
+	const toc: Post['toc'] = [];
+	const blocks = doc.blocks.map((block) => {
+		if (block.type !== 'heading' || block.level !== 2) return block;
+		const text = markdownInlineToPlainText(block.children);
+		const id = text.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
+		toc.push({ id, text });
+		return { ...block, id };
+	});
+	return { body: { blocks }, toc: toc.length >= 3 && minutes >= 6 ? toc : [] };
+}
+
 async function inlineFigures(doc: MarkdownDoc, slug: string): Promise<MarkdownDoc> {
 	const blocks = await Promise.all(
-		doc.blocks.map(async (block) => {
-			if (block.type !== 'figure') return block;
-			if (!/^[\w-]+\.svg$/.test(block.src)) {
-				throw new Error(`blog/${slug}: figure "${block.src}" must be a bare name.svg next to the post`);
-			}
-			return { ...block, svg: await readFile(join(CONTENT_DIR, 'blog', slug, block.src), 'utf-8') };
-		})
+		doc.blocks.map(async (block) =>
+			block.type === 'figure' ? { ...block, svg: await readFigure(slug, block.src) } : block
+		)
 	);
 	return { blocks };
 }
@@ -283,11 +311,17 @@ export async function loadContent(): Promise<PortfolioContent> {
 	// Blog posts render mentions but stay out of the graph (throwaway edge set).
 	const posts: Post[] = (
 		await Promise.all(
-			(await readPosts()).map(async ({ slug, data, body }) => ({
-				slug,
-				...data,
-				body: await inlineFigures(renderDoc(body, `blog/${slug}`, new Set()), slug)
-			}))
+			(await readPosts()).map(async ({ slug, data, body }) => {
+				const minutes = readMinutes(body);
+				const doc = await highlightDoc(await inlineFigures(renderDoc(body, `blog/${slug}`, new Set()), slug));
+				return {
+					slug,
+					...data,
+					cover: data.cover && (await readFigure(slug, data.cover)),
+					readMinutes: minutes,
+					...withSectionIds(doc, minutes)
+				};
+			})
 		)
 	).sort((a, b) => b.date.localeCompare(a.date));
 

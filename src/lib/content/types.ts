@@ -84,6 +84,7 @@ export type MarkdownInlineNode =
 	| { type: 'emphasis'; children: MarkdownInlineNode[] }
 	| { type: 'inlineCode'; value: string }
 	| { type: 'link'; href: string; children: MarkdownInlineNode[]; external: boolean }
+	| { type: 'sidenote'; n: number; children: MarkdownInlineNode[] }
 	| {
 			type: 'mention';
 			mentionKind: MarkdownMentionKind;
@@ -94,12 +95,18 @@ export type MarkdownInlineNode =
 			popoverBody?: string;
 	  };
 
+export type CalloutKind = 'note' | 'tip' | 'important' | 'warning' | 'caution';
+
+/** One highlighted token; `color` is a `var(--shiki-…)` reference resolved by layout.css. */
+export type CodeToken = { content: string; color?: string; italic?: boolean };
+
 export type MarkdownBlockNode =
 	| { type: 'paragraph'; children: MarkdownInlineNode[] }
-	| { type: 'heading'; level: 1 | 2 | 3 | 4 | 5 | 6; children: MarkdownInlineNode[] }
+	| { type: 'heading'; level: 1 | 2 | 3 | 4 | 5 | 6; children: MarkdownInlineNode[]; id?: string }
 	| { type: 'blockquote'; children: MarkdownBlockNode[] }
+	| { type: 'callout'; kind: CalloutKind; children: MarkdownBlockNode[] }
 	| { type: 'list'; ordered: boolean; items: MarkdownBlockNode[][] }
-	| { type: 'code'; language?: string; value: string }
+	| { type: 'code'; language?: string; title?: string; value: string; lines?: CodeToken[][] }
 	| { type: 'figure'; src: string; caption: string; svg?: string };
 
 export type MarkdownDoc = {
@@ -372,6 +379,10 @@ export type Post = {
 	title: string;
 	summary: string;
 	date: string;
+	/** Inlined SVG markup of `content/blog/<slug>/<cover>`. */
+	cover?: string;
+	readMinutes: number;
+	toc: { id: string; text: string }[];
 	body: MarkdownDoc;
 };
 

@@ -7,6 +7,7 @@ import {
 	renderMarkdownInline
 } from '$lib/server/markdown/index';
 import type { MentionDictionaries } from '$lib/server/markdown/index';
+import { highlightDoc } from '$lib/server/markdown/highlight';
 
 describe('custom markdown pipeline', () => {
 	it('parses core blocks and inline styles', () => {
@@ -19,6 +20,39 @@ describe('custom markdown pipeline', () => {
 		const doc = renderMarkdownDoc('![what to notice](loop.svg)\n\ntext ![inline](x.svg) stays');
 		expect(doc.blocks[0]).toEqual({ type: 'figure', src: 'loop.svg', caption: 'what to notice' });
 		expect(doc.blocks[1]?.type).toBe('paragraph');
+	});
+
+	it('turns GitHub alert blockquotes into callouts and leaves plain quotes alone', () => {
+		const doc = renderMarkdownDoc('> [!WARNING]\n> Copy it **byte-exact**.\n\n> just a quote');
+		expect(doc.blocks[0]).toMatchObject({ type: 'callout', kind: 'warning' });
+		expect(markdownDocToPlainText(doc)).toBe('Copy it byte-exact . just a quote');
+		expect(doc.blocks[1]?.type).toBe('blockquote');
+	});
+
+	it('turns footnotes into numbered sidenotes and drops the definitions', () => {
+		const doc = renderMarkdownDoc('One[^b] two[^a].\n\n[^a]: Second [link](javascript:alert(1)).\n[^b]: First.');
+		expect(doc.blocks).toHaveLength(1);
+		const [paragraph] = doc.blocks;
+		if (paragraph.type !== 'paragraph') throw new Error('expected paragraph');
+		const notes = paragraph.children.filter((node) => node.type === 'sidenote');
+		expect(notes.map((note) => note.type === 'sidenote' && note.n)).toEqual([1, 2]);
+		// Links inside sidenotes are sanitized like any other.
+		expect(JSON.stringify(notes[1])).not.toContain('javascript:');
+	});
+
+	it('reads a code fence title from its meta', () => {
+		const doc = renderMarkdownDoc('```yaml title=talos/talconfig.yaml\na: 1\n```\n\n```text title="git log"\nx\n```');
+		expect(doc.blocks[0]).toMatchObject({ type: 'code', language: 'yaml', title: 'talos/talconfig.yaml' });
+		expect(doc.blocks[1]).toMatchObject({ title: 'git log' });
+	});
+
+	it('highlights known languages with palette variables and leaves others plain', async () => {
+		const doc = await highlightDoc(renderMarkdownDoc('```yaml\nkey: value # note\n```\n\n```text\nplain\n```'));
+		const [yaml, text] = doc.blocks;
+		if (yaml.type !== 'code' || text.type !== 'code') throw new Error('expected code');
+		expect(yaml.lines?.flat().map((token) => token.content).join('')).toBe('key: value # note');
+		expect(yaml.lines?.flat().some((token) => token.color?.startsWith('var(--shiki-'))).toBe(true);
+		expect(text.lines).toBeUndefined();
 	});
 
 	it('supports inline markdown rendering', () => {

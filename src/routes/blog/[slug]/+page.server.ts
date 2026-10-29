@@ -13,6 +13,7 @@ export async function load({ params }) {
 
 	return {
 		title: post.title,
+		ogImage: post.cover ? `/blog/${post.slug}/og.png` : undefined,
 		post,
 		technologies: content.technologies,
 		skills: content.skills

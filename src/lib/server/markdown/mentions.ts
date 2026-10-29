@@ -66,7 +66,7 @@ function transformInlineNodes(
 ): MarkdownInlineNode[] {
 	const transformed: MarkdownInlineNode[] = [];
 	for (const node of nodes) {
-		if (node.type === 'strong' || node.type === 'emphasis') {
+		if (node.type === 'strong' || node.type === 'emphasis' || node.type === 'sidenote') {
 			transformed.push({ ...node, children: transformInlineNodes(node.children, dictionaries) });
 			continue;
 		}
@@ -95,7 +95,7 @@ function transformBlockNodes(
 		if (node.type === 'paragraph' || node.type === 'heading') {
 			return { ...node, children: transformInlineNodes(node.children, dictionaries) };
 		}
-		if (node.type === 'blockquote') {
+		if (node.type === 'blockquote' || node.type === 'callout') {
 			return { ...node, children: transformBlockNodes(node.children, dictionaries) };
 		}
 		if (node.type === 'list') {
