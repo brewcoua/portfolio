@@ -1,9 +1,10 @@
 import { loadContent } from '$lib/server/content';
 import { getDateSortKey } from '$lib/content/format';
+import { sortProjects } from '$lib/content/project-discovery';
 
 export async function load() {
 	const content = await loadContent();
-	const featuredProjects = content.projects.filter((project) => project.featured);
+	const featuredProjects = sortProjects(content.projects, 'score').slice(0, 6);
 	const sortedExperience = [...content.experience].sort((a, b) =>
 		getDateSortKey(b).localeCompare(getDateSortKey(a))
 	);

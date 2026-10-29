@@ -4,24 +4,26 @@
 	let {
 		label,
 		items,
-		value = $bindable('all')
+		value = $bindable('all'),
+		includeAll = true
 	}: {
 		label: string;
 		items: { value: string; label: string }[];
 		value: string;
+		includeAll?: boolean;
 	} = $props();
 
-	const options = $derived([{ value: 'all', label: 'all' }, ...items]);
+	const options = $derived(includeAll ? [{ value: 'all', label: 'all' }, ...items] : items);
 	const current = $derived(options.find((o) => o.value === value)?.label ?? value);
 </script>
 
 <Select.Root type="single" bind:value items={options}>
 	<Select.Trigger
 		class="flex w-full cursor-pointer items-baseline gap-2 py-1 text-left text-sm hover:text-primary"
-		aria-label={`Filter by ${label}`}
+		aria-label={includeAll ? `Filter by ${label}` : label}
 	>
 		<span class="text-muted-foreground">{label}:</span>
-		<span class={value === 'all' ? 'text-muted-foreground' : 'text-primary'}>{current.toLowerCase()}</span>
+		<span class={includeAll && value === 'all' ? 'text-muted-foreground' : 'text-primary'}>{current.toLowerCase()}</span>
 		<span class="ml-auto text-muted-foreground" aria-hidden="true">▾</span>
 	</Select.Trigger>
 	<Select.Portal>

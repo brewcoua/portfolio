@@ -1,5 +1,4 @@
 import { loadContent } from '$lib/server/content';
-import { getDateSortKey } from '$lib/content/format';
 import { getProjectFilterOptions, resolveProjectsForDiscovery } from '$lib/content/project-discovery';
 
 export async function load() {
@@ -14,7 +13,7 @@ export async function load() {
 
 	return {
 		title: 'Projects',
-		projects: [...resolvedProjects].sort((a, b) => getDateSortKey(b).localeCompare(getDateSortKey(a))),
+		projects: resolvedProjects,
 		technologies: content.technologies,
 		skills: content.skills,
 		roles: content.roles,

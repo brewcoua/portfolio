@@ -1,3 +1,4 @@
+import { getDateSortKey } from '$lib/content/format';
 import { PROJECT_KIND_LABELS } from '$lib/content/types';
 import type {
 	MarkdownBlockNode,
@@ -119,6 +120,23 @@ export function filterProjects(projects: ResolvedProject[], filters: ProjectFilt
 
 		return matchesQuery && matchesTechnology && matchesStatus && matchesRole && matchesKind;
 	});
+}
+
+export type ProjectSort = 'newest' | 'oldest' | 'complexity' | 'value' | 'score';
+
+const sortKeys: Record<Exclude<ProjectSort, 'newest' | 'oldest'>, (project: Project) => number> = {
+	complexity: (project) => project.complexity,
+	value: (project) => project.value,
+	score: (project) => project.complexity + project.value
+};
+
+/** Level sorts are descending, ties broken newest-first. */
+export function sortProjects<T extends Project>(projects: T[], sort: ProjectSort): T[] {
+	const byNewest = (a: T, b: T) => getDateSortKey(b).localeCompare(getDateSortKey(a));
+	if (sort === 'newest') return [...projects].sort(byNewest);
+	if (sort === 'oldest') return [...projects].sort((a, b) => byNewest(b, a));
+	const key = sortKeys[sort];
+	return [...projects].sort((a, b) => key(b) - key(a) || byNewest(a, b));
 }
 
 export function getProjectFilterOptions(content: PortfolioContent) {

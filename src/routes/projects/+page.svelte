@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { filterProjects } from '$lib/content/project-discovery';
+	import { filterProjects, sortProjects, type ProjectSort } from '$lib/content/project-discovery';
 	import ProjectCard from '$lib/components/ProjectCard.svelte';
 	import FilterSelect from '$lib/components/FilterSelect.svelte';
 	import { getProjectStatusLabel } from '$lib/content/presentation';
@@ -11,15 +11,20 @@
 	let selectedStatus = $state<string>('all');
 	let selectedRole = $state<string>('all');
 	let selectedKind = $state<string>('all');
+	let sort = $state<string>('newest');
+	const sortItems = (['newest', 'oldest', 'complexity', 'value'] as const).map((value) => ({
+		value,
+		label: value
+	}));
 
 	const filteredProjects = $derived(
-		filterProjects(data.projects, {
+		sortProjects(filterProjects(data.projects, {
 			query,
 			technology: selectedTech,
 			status: selectedStatus as ProjectStatus | 'all',
 			role: selectedRole,
 			kind: selectedKind as ProjectKind | 'all'
-		})
+		}), sort as ProjectSort)
 	);
 </script>
 
@@ -31,15 +36,20 @@
 </section>
 
 <section class="mt-6 space-y-1 border-y border-dashed py-3">
-	<label class="flex items-baseline gap-2 py-1 text-sm">
-		<span class="text-muted-foreground">search:</span>
-		<input
-			bind:value={query}
-			type="search"
-			placeholder="_"
-			class="w-full border-0 bg-transparent p-0 text-sm outline-none placeholder:text-muted-foreground focus:ring-0"
-		/>
-	</label>
+	<div class="flex items-baseline gap-6">
+		<label class="flex min-w-0 flex-1 items-baseline gap-2 py-1 text-sm">
+			<span class="text-muted-foreground">search:</span>
+			<input
+				bind:value={query}
+				type="search"
+				placeholder="_"
+				class="w-full border-0 bg-transparent p-0 text-sm outline-none placeholder:text-muted-foreground focus:ring-0"
+			/>
+		</label>
+		<div class="w-40 shrink-0">
+			<FilterSelect label="sort" items={sortItems} includeAll={false} bind:value={sort} />
+		</div>
+	</div>
 	<div class="grid gap-x-6 sm:grid-cols-2">
 		<FilterSelect
 			label="tech"

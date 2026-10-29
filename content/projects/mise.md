@@ -5,7 +5,8 @@ abstract: |
   An AI-powered restaurant analytics platform that helps reduce food waste, optimize ordering, and make data-driven decisions through ML predictions, LLM-powered insights, and interactive dashboards.
 status: completed
 kind: coursework
-featured: false
+complexity: 3
+value: 3
 date:
   - 2025-09
   - 2025-11

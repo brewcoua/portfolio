@@ -7,6 +7,8 @@ abstract: |
   and ships the dataset plus an interactive companion site.
 status: completed
 kind: research
+complexity: 4
+value: 5
 date: 2026-06
 commit: 0e76801f4242cf71501449a762d8b9bee7742dbe
 cover: cover.svg

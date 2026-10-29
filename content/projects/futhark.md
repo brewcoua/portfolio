@@ -5,6 +5,8 @@ abstract: |
   A two-node Talos Kubernetes cluster that can be rebuilt from a cold start: Talos and Packer define the nodes, Flux reconciles the cluster from git, and OpenTofu manages what lives outside it. It runs SSO, encrypted backups and monitoring, and is secured to be published as a public repository.
 status: active
 kind: personal
+complexity: 5
+value: 4
 date:
   - 2026-02
   - present

@@ -14,13 +14,15 @@
 		technologies = [],
 		skills = [],
 		roles = [],
-		maxVisibleTechnologies
+		maxVisibleTechnologies,
+		compact = false
 	} = $props<{
 		project: Project;
 		technologies?: Technology[];
 		skills?: Skill[];
 		roles?: Role[];
 		maxVisibleTechnologies?: number;
+		compact?: boolean;
 	}>();
 
 	const kindLabel = $derived(
@@ -64,7 +66,9 @@
 	{#if project.subtitle}
 		<p class="text-sm text-muted-foreground">{project.subtitle}</p>
 	{/if}
-	<MarkdownInline markdown={abstractInline()} {skills} {technologies} class="block text-sm" />
+	{#if !compact}
+		<MarkdownInline markdown={abstractInline()} {skills} {technologies} class="block text-sm" />
+	{/if}
 	<div class="flex flex-wrap items-center gap-x-2 gap-y-1">
 		{#each visibleTechnologies as tech}
 			<TechBadge techId={tech} {technologies} {skills} />
@@ -73,25 +77,27 @@
 			<span class="tag">+{hiddenTechnologiesCount}</span>
 		{/if}
 	</div>
-	<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
-		<RoleBadge roleId={project.role} {roles} />
-		<ProjectStatusBadge status={project.status} />
-		{#if kindLabel}
-			<span class="meta lowercase" data-sigil="#">{kindLabel}</span>
-		{/if}
-		{#if project.duration}
-			<span class="meta" data-sigil="~">{project.duration}</span>
-		{/if}
-		{#each resolvedLinks.slice(0, 2) as link}
-			<a
-				class="link"
-				href={link.url}
-				target={link.external ? '_blank' : undefined}
-				rel={link.external ? 'noreferrer' : undefined}
-			>{link.label.toLowerCase()} ↗</a>
-		{/each}
-		{#if project.source}
-			<OutdatedIcon slug={project.slug} source={project.source} />
-		{/if}
-	</div>
+	{#if !compact}
+		<div class="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm text-muted-foreground">
+			<RoleBadge roleId={project.role} {roles} />
+			<ProjectStatusBadge status={project.status} />
+			{#if kindLabel}
+				<span class="meta lowercase" data-sigil="#">{kindLabel}</span>
+			{/if}
+			{#if project.duration}
+				<span class="meta" data-sigil="~">{project.duration}</span>
+			{/if}
+			{#each resolvedLinks.slice(0, 2) as link}
+				<a
+					class="link"
+					href={link.url}
+					target={link.external ? '_blank' : undefined}
+					rel={link.external ? 'noreferrer' : undefined}
+				>{link.label.toLowerCase()} ↗</a>
+			{/each}
+			{#if project.source}
+				<OutdatedIcon slug={project.slug} source={project.source} />
+			{/if}
+		</div>
+	{/if}
 </article>

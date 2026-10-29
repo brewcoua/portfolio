@@ -5,7 +5,8 @@ abstract: |
   A financial intelligence platform built in 24 hours at HackDelft 2026 for the Revolut challenge. It fixes broken merchant labels and generic categorisation with a two-stage ML pipeline (rule pre-pass plus CalibratedLinearSVC on sentence embeddings), KMeans life-stage personalisation, an Isolation Forest subscription engine, and a Claude Haiku money coach with one-tap action cards.
 status: completed
 kind: hackathon
-featured: true
+complexity: 4
+value: 3
 date: 2026-06
 duration: 24 hours
 thumbnail: /thumbnails/revflow.png

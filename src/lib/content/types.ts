@@ -234,7 +234,8 @@ export type Project = SlugEntity &
 	kind?: ProjectKind;
 	role: string;
 	duration?: string;
-	featured: boolean;
+	complexity: number;
+	value: number;
 	summary?: string;
 	summaryMarkdown?: MarkdownDoc;
 	description: string;

@@ -27,8 +27,11 @@
 </section>
 
 <section class="mt-16 space-y-6">
-	<h2 class="h-section">featured projects</h2>
-	<ul class="space-y-8">
+	<div class="flex items-baseline justify-between gap-4">
+		<h2 class="h-section">featured projects</h2>
+		<a class="link text-sm" href="/projects">all projects →</a>
+	</div>
+	<ul class="grid gap-8 sm:grid-cols-2">
 		{#each data.featuredProjects as project (project.slug)}
 			<li>
 				<ProjectCard
@@ -36,7 +39,8 @@
 					technologies={data.technologies}
 					skills={data.skills}
 					roles={data.roles}
-					maxVisibleTechnologies={6}
+					maxVisibleTechnologies={3}
+					compact
 				/>
 			</li>
 		{/each}

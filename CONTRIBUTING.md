@@ -40,7 +40,7 @@ Relationships between entries (e.g. project ↔ technology ↔ experience) are v
 
 Project description fields support Markdown (processed via `src/lib/server/markdown/`).
 
-**Projects** (`content/projects/`): optional `commit: <sha>` records which commit of the project's `github` link the description was written against (required with it). When the default branch has moved past it, project cards and pages show an out-of-date icon linking to the diff. Bump it when you update the description.
+**Projects** (`content/projects/`): optional `commit: <sha>` records which commit of the project's `github` link the description was written against (required with it). When the default branch has moved past it, project cards and pages show an out-of-date icon linking to the diff. Bump it when you update the description. Required `complexity` and `value` (integers 1–5) drive sorting on `/projects`; the home page features the six with the highest sum, newest first on ties.
 
 **Education** (`content/education/`): Optional `grade` — exactly one of:
 

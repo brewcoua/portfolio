@@ -5,7 +5,8 @@ abstract: |
   A robust CLI tool for installing, updating, and configuring JetBrains IDEs from the command line. Built with Rust for high performance, it features concurrent downloads, progress tracking, and background updates with system notifications.
 status: completed
 kind: personal
-featured: true
+complexity: 3
+value: 3
 date: 2023-03
 duration: 3 weeks
 thumbnail: /thumbnails/jb.png

@@ -5,7 +5,8 @@ abstract: |
   An AI-powered "smart roommate" built in 24 hours at the Prosus AI Hackathon 2025. It handles natural-language commands, tracks pantry inventory, coordinates group grocery orders, and logs shared expenses to Splitwise, all through a chat interface backed by a tool-calling LLM agent.
 status: completed
 kind: hackathon
-featured: false
+complexity: 3
+value: 2
 date: 2025-11
 duration: 24 hours
 commit: 6c30ea4c39ae338284b4c5e5c0ae732d81c35f85

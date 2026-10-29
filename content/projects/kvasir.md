@@ -5,7 +5,8 @@ abstract: |
   A self-hostable HTTP service for Stanford STORM and Co-STORM that turns a topic into a cited, Wikipedia-style article or runs an interactive research round table, with an Open WebUI client.
 status: active
 kind: personal
-featured: true
+complexity: 4
+value: 4
 date:
   - 2026-08
   - present
