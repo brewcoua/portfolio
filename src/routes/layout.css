@@ -493,18 +493,14 @@ a:hover .org-logo,
 	}
 }
 
-/* Post prose: proportional face and a reading measure; headings, code and figures stay mono. */
+/* Post prose: reading measure. */
 .prose-post.markdown-block {
 	max-width: 68ch;
-	font-family: 'Inter Variable', ui-sans-serif, system-ui, sans-serif;
 	font-size: 1.0625rem;
 	line-height: 1.7;
 }
 .prose-post.markdown-block p {
 	margin: 1.1em 0;
-}
-.prose-post.markdown-block :is(h1, h2, h3, h4, h5, h6, code, pre, figure, .callout-label) {
-	font-family: var(--font-mono);
 }
 .prose-post.markdown-block h2 {
 	margin-top: 2.25em;

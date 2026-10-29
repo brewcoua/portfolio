@@ -1,5 +1,4 @@
 <script lang="ts">
-	import '@fontsource-variable/inter';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 
 	let { data } = $props();
