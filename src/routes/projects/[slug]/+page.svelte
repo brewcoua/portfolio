@@ -3,10 +3,11 @@
 	import RoleBadge from '$lib/components/RoleBadge.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
+	import References from '$lib/components/References.svelte';
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
 	import SkillBadge from '$lib/components/SkillBadge.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
-	import { formatEntityDate, formatReferenceMeta } from '$lib/content/format';
+	import { formatEntityDate } from '$lib/content/format';
 	import { resolveLink } from '$lib/content/presentation';
 	import { PROJECT_KIND_LABELS } from '$lib/content/types';
 
@@ -147,37 +148,7 @@
 			{/if}
 
 			{#if data.project.references?.length}
-				<section>
-					<h2 class="h-section mb-3">References</h2>
-					<ol class="space-y-2.5 text-sm">
-						{#each data.project.references as reference}
-							<li class="flex gap-2 leading-snug">
-								<span class="mt-px shrink-0 text-muted-foreground">[{reference.year}]</span>
-								<span class="min-w-0">
-									{#if reference.url}
-										<a
-											href={reference.url}
-											target="_blank"
-											rel="noreferrer"
-											class="font-medium underline-offset-2 hover:text-primary hover:underline"
-										>{reference.title}</a>
-									{:else}
-										<span class="font-medium">{reference.title}</span>
-									{/if}
-									<span class="text-muted-foreground"> — {formatReferenceMeta(reference)}</span>
-									{#if reference.doi}
-										<a
-											href={`https://doi.org/${reference.doi}`}
-											target="_blank"
-											rel="noreferrer"
-											class="ml-1 whitespace-nowrap text-xs text-muted-foreground underline-offset-2 hover:text-primary hover:underline"
-										>DOI ↗</a>
-									{/if}
-								</span>
-							</li>
-						{/each}
-					</ol>
-				</section>
+				<References references={data.project.references} />
 			{/if}
 		</div>
 	</div>

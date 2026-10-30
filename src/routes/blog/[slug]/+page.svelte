@@ -1,5 +1,6 @@
 <script lang="ts">
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
+	import References from '$lib/components/References.svelte';
 
 	let { data } = $props();
 </script>
@@ -33,4 +34,8 @@
 		skills={data.skills}
 		technologies={data.technologies}
 	/>
+
+	{#if data.post.references?.length}
+		<References references={data.post.references} />
+	{/if}
 </article>

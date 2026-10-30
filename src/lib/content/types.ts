@@ -385,6 +385,7 @@ export type Post = {
 	/** Inlined SVG markup of `content/blog/<slug>/<cover>`. */
 	cover?: string;
 	readMinutes: number;
+	references?: ProjectReference[];
 	toc: { id: string; text: string }[];
 	body: MarkdownDoc;
 };
