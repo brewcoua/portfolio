@@ -86,7 +86,7 @@ export type MarkdownInlineNode =
 	| { type: 'inlineCode'; value: string }
 	| { type: 'link'; href: string; children: MarkdownInlineNode[]; external: boolean }
 	| { type: 'sidenote'; n: number; children: MarkdownInlineNode[] }
-	| { type: 'citation'; label: string; items: Reference[] }
+	| { type: 'citation'; label: string; items: Reference[]; trailing?: string }
 	| {
 			type: 'mention';
 			mentionKind: MarkdownMentionKind;

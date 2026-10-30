@@ -104,6 +104,16 @@ function transformInlineNodes(
 			transformed.push({ ...node, children: transformInlineNodes(node.children, dictionaries, references) });
 			continue;
 		}
+		// The citation renders as a button, which lets a line break before the punctuation after it.
+		const previous = transformed.at(-1);
+		if (node.type === 'text' && previous?.type === 'citation') {
+			const punctuation = /^[.,;:!?)]+/.exec(node.value)?.[0];
+			if (punctuation) {
+				previous.trailing = punctuation;
+				if (node.value.length > punctuation.length) transformed.push({ ...node, value: node.value.slice(punctuation.length) });
+				continue;
+			}
+		}
 		transformed.push(node);
 	}
 	return transformed;

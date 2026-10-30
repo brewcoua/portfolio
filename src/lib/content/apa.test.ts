@@ -93,4 +93,12 @@ describe('citation nodes', () => {
 		]);
 		expect(paragraph.children.some((node) => node.type === 'link')).toBe(true);
 	});
+
+	it('keeps punctuation after a citation with it, so it never wraps onto its own line', () => {
+		const doc = renderMarkdownDoc(`As shown [cite](${CITE_SCHEME}pair2020). Next.`, { references: refs });
+		const [paragraph] = doc.blocks;
+		if (paragraph.type !== 'paragraph') throw new Error('expected paragraph');
+		expect(paragraph.children.at(-2)).toMatchObject({ type: 'citation', trailing: '.' });
+		expect(paragraph.children.at(-1)).toEqual({ type: 'text', value: ' Next.' });
+	});
 });

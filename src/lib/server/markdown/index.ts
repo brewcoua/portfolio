@@ -43,7 +43,8 @@ export function markdownInlineToPlainText(nodes: MarkdownInlineNode[]): string {
 	return nodes
 		.map((node) => {
 			if (node.type === 'text' || node.type === 'inlineCode') return node.value;
-			if (node.type === 'mention' || node.type === 'citation') return node.label;
+			if (node.type === 'citation') return node.label + (node.trailing ?? '');
+			if (node.type === 'mention') return node.label;
 			if (node.type === 'strong' || node.type === 'emphasis' || node.type === 'link') {
 				return markdownInlineToPlainText(node.children);
 			}
