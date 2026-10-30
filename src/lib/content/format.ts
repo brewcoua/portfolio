@@ -54,7 +54,8 @@ export function formatReferenceMeta(reference: {
 	journal?: string;
 	venue?: string;
 }): string {
-	const authors = reference.authors.join(', ');
+	// Initials already end in a period ("Lam, M. S."), so don't add a second one.
+	const authors = reference.authors.join(', ').replace(/\.$/, '');
 	const container = reference.journal ?? reference.venue;
 	return [authors, container].filter(Boolean).join('. ');
 }
