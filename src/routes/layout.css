@@ -510,6 +510,13 @@ a:hover .org-logo,
 	margin: 2em 0;
 }
 
+/* TL;DR: same panel as the contents, so the two read as the page's front matter. */
+.tldr {
+	padding: 0.75rem 1rem;
+	border-left: 3px solid var(--accent);
+	background: var(--surface);
+}
+
 /* Contents: a panel set apart from the prose, numbered like a book's front matter. */
 .toc {
 	padding: 0.75rem 1rem;

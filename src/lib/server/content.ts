@@ -355,6 +355,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 					...data,
 					cover: data.cover && (await readFigure(`blog/${slug}`, data.cover)),
 					readMinutes: minutes,
+					tldrMarkdown: data.tldr ? renderDoc(data.tldr, `blog/${slug}`, new Set()) : undefined,
 					references: referencesFor(`blog/${slug}`, data.references),
 					...withSectionIds(doc)
 				};
@@ -440,6 +441,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				description: node.body,
 				descriptionMarkdown,
 				toc,
+				tldrMarkdown: data.tldr ? renderDoc(String(data.tldr), path, mentions) : undefined,
 				technologies: tech,
 				skills: skillPaths,
 				links: (data.links as Project['links']) ?? [],
@@ -483,6 +485,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				description: node.body,
 				descriptionMarkdown,
 				toc,
+				tldrMarkdown: data.tldr ? renderDoc(String(data.tldr), path, mentions) : undefined,
 				technologies: tech,
 				skills: skillPaths,
 				logo: data.logo as string | undefined,

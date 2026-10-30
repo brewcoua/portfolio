@@ -4,6 +4,7 @@
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import References from '$lib/components/References.svelte';
+	import Tldr from '$lib/components/Tldr.svelte';
 	import Toc from '$lib/components/Toc.svelte';
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
 	import SkillBadge from '$lib/components/SkillBadge.svelte';
@@ -63,6 +64,8 @@
 			class="max-h-80 w-full border border-border object-cover"
 		/>
 	{/if}
+
+	<Tldr markdown={data.project.tldrMarkdown} skills={data.skills} technologies={data.technologies} />
 
 	<MarkdownBlock
 		markdown={data.project.abstractMarkdown}

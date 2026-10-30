@@ -158,6 +158,7 @@ export const projectFrontmatter = z.object({
 	related: z.array(wikilink).default([]),
 	links: z.array(linkItem).default([]),
 	references: referenceKeys,
+	tldr: z.string().min(1).optional(),
 	highlights: z.array(z.string().min(1)).default([]),
 	searchKeywords: z.array(z.string()).optional(),
 	cv: cvBlock.optional()
@@ -179,6 +180,7 @@ export const experienceFrontmatter = z.object({
 	related: z.array(wikilink).default([]),
 	details: z.array(z.string().min(1)).default([]),
 	references: referenceKeys,
+	tldr: z.string().min(1).optional(),
 	cv: cvBlock.optional()
 });
 
@@ -268,7 +270,8 @@ export const postFrontmatter = z.object({
 	summary: z.string().min(1),
 	date: isoDate,
 	cover: z.string().min(1).optional(),
-	references: referenceKeys
+	references: referenceKeys,
+	tldr: z.string().min(1).optional()
 });
 
 export const profileFrontmatter = z.object({

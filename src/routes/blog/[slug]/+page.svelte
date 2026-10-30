@@ -1,6 +1,7 @@
 <script lang="ts">
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import References from '$lib/components/References.svelte';
+	import Tldr from '$lib/components/Tldr.svelte';
 	import Toc from '$lib/components/Toc.svelte';
 
 	let { data } = $props();
@@ -17,6 +18,8 @@
 	{#if data.post.cover}
 		<div class="figure">{@html data.post.cover}</div>
 	{/if}
+
+	<Tldr markdown={data.post.tldrMarkdown} skills={data.skills} technologies={data.technologies} />
 
 	<Toc items={data.post.toc} />
 

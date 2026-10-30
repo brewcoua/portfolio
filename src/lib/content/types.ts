@@ -233,6 +233,7 @@ export type Project = SlugEntity &
 	description: string;
 	descriptionMarkdown?: MarkdownDoc;
 	toc: TocItem[];
+	tldrMarkdown?: MarkdownDoc;
 	thumbnail?: string;
 	/** Inline SVG, used when there's no thumbnail image. */
 	cover?: string;
@@ -261,6 +262,7 @@ export type Experience = SlugEntity &
 	description: string;
 	descriptionMarkdown?: MarkdownDoc;
 	toc: TocItem[];
+	tldrMarkdown?: MarkdownDoc;
 	technologies: string[];
 	skills: string[];
 	logo?: string;
@@ -382,6 +384,7 @@ export type Post = {
 	/** Inlined SVG markup of `content/blog/<slug>/<cover>`. */
 	cover?: string;
 	readMinutes: number;
+	tldrMarkdown?: MarkdownDoc;
 	references: Reference[];
 	toc: TocItem[];
 	body: MarkdownDoc;

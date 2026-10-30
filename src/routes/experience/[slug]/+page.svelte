@@ -6,6 +6,7 @@
 	import OrgName from '$lib/components/OrgName.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import References from '$lib/components/References.svelte';
+	import Tldr from '$lib/components/Tldr.svelte';
 	import Toc from '$lib/components/Toc.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import { formatEntityDate } from '$lib/content/format';
@@ -36,6 +37,8 @@
 			</div>
 		</div>
 	</header>
+
+	<Tldr markdown={data.experience.tldrMarkdown} skills={data.skills} technologies={data.technologies} />
 
 	<MarkdownBlock
 		markdown={data.experience.summaryMarkdown}
