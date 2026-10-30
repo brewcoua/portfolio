@@ -123,7 +123,7 @@ Plot real data by computing coordinates (a short script is fine), never by eyeba
 
 ## Reference
 
-`content/blog/hello-world/loop.svg` uses all of the above.
+`content/blog/from-compose-to-talos/path.svg` (boxes, arrows, dashed paths) and `content/experience/labri/marks.svg` (hatching).
 
 ## Verify
 

@@ -1,7 +1,11 @@
 ---
 title: WebWisp
-subtitle: Autonomous distributed web testing agent
-abstract: An autonomous web agent for end-to-end website testing with distributed workers, task orchestration, and browser-grounded execution.
+subtitle: "A GPT-4o agent that runs website tests written in plain language"
+abstract: "Built during my LaBRI internship: describe a website task in plain language and a GPT-4o agent carries it out in a real browser, reading screenshots annotated with Set-of-Marks. An orchestrator dispatches tasks over RabbitMQ to a pool of Playwright workers."
+tldr: |
+  - End-to-end tests written as plain-language tasks, so they stop breaking when a button's text or a CSS selector changes.
+  - GPT-4o picks elements from numbered boxes that web-som draws on each screenshot [@yang2023set].
+  - A NestJS orchestrator and scalable Playwright workers; scored 2–3 points above the then state of the art on VisualWebArena [@koh2024visualwebarena].
 status: completed
 kind: research
 complexity: 4

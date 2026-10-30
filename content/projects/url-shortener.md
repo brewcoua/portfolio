@@ -1,8 +1,7 @@
 ---
 title: URL Shortener
-subtitle: High-performance short-link backend in Rust
-abstract: |
-  High-performance Rust URL shortener service focused on low-latency redirection and non-blocking request handling.
+subtitle: "Short-link service in Rust"
+abstract: "A URL shortener in Rust on Actix, built around non-blocking request handling for fast redirects."
 status: completed
 kind: personal
 complexity: 2

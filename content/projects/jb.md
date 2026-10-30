@@ -1,8 +1,11 @@
 ---
 title: JetBrains CLI
-subtitle: Rust CLI for JetBrains IDE lifecycle management
-abstract: |
-  A robust CLI tool for installing, updating, and configuring JetBrains IDEs from the command line. Built with Rust for high performance, it features concurrent downloads, progress tracking, and background updates with system notifications.
+subtitle: "Install and update JetBrains IDEs from the terminal"
+abstract: "A Rust CLI that installs, updates and links JetBrains IDEs on Linux, written to replace the Toolbox app on my own machines. Downloads run concurrently, archives are checksum-verified before extraction, and an auto mode checks for updates in the background."
+tldr: |
+  - Replaces JetBrains Toolbox on Linux: install, uninstall and list IDEs, link them on the PATH, generate `.desktop` entries.
+  - Concurrent downloads with progress bars, and a SHA-256 check on each archive before extraction.
+  - Background update checks that raise desktop notifications.
 status: completed
 kind: personal
 complexity: 3

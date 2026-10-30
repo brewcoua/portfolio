@@ -1,8 +1,11 @@
 ---
 title: futhark
-subtitle: GitOps-driven infrastructure for my own homelab
-abstract: |
-  A two-node Talos Kubernetes cluster that can be rebuilt from a cold start: Talos and Packer define the nodes, Flux reconciles the cluster from git, and OpenTofu manages what lives outside it. It runs SSO, encrypted backups and monitoring, and is secured to be published as a public repository.
+subtitle: "My homelab as code, on Talos Kubernetes"
+abstract: "Two Hetzner servers running one Talos Kubernetes cluster that I can rebuild from nothing by following the repository. Talos and Packer define the nodes, Flux reconciles the cluster from git, and OpenTofu handles the cloud APIs. It runs single sign-on, encrypted backups and monitoring, and the repository is public."
+tldr: |
+  - A two-node Talos cluster on Hetzner, rebuildable from a cold start with documented, re-runnable steps.
+  - No shell or SSH on the nodes, Flux as the only writer to the cluster, and every image and chart pinned to an exact version.
+  - How it got here: [from compose to Talos](/blog/from-compose-to-talos).
 status: active
 kind: personal
 complexity: 5

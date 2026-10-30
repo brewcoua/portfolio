@@ -1,6 +1,10 @@
 ---
 title: From compose to Talos
 summary: One OIDC secret pasted into a second .env file sent my homelab through Komodo, k3s, k0s, a self-hosted vault I couldn't trust, and finally Talos.
+tldr: |
+  - Compose couldn't pull secrets from an external manager, so my homelab went through Komodo, k3s and k0s before landing on Talos.
+  - I dropped my self-hosted OpenBao for Infisical Cloud: a vault on a shared, un-isolated host was the single point of breach Infisical was there to remove.
+  - Today it's two Hetzner nodes on Talos and KubeSpan, reconciled from git by Flux. I'd skip Komodo if I started over.
 date: 2026-10-23
 cover: cover.svg
 ---

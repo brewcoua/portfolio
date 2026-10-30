@@ -1,8 +1,11 @@
 ---
 title: Yuyabre
-subtitle: AI flatmate agent for shared living
-abstract: |
-  An AI-powered "smart roommate" built in 24 hours at the Prosus AI Hackathon 2025. It handles natural-language commands, tracks pantry inventory, coordinates group grocery orders, and logs shared expenses to Splitwise, all through a chat interface backed by a tool-calling LLM agent.
+subtitle: "A chat agent that runs a shared flat's groceries and bills"
+abstract: "Built in 24 hours with a friend at the Prosus AI Hackathon 2025. Tell it what the flat needs in plain language, and a tool-calling LLM agent tracks the pantry, coordinates group grocery orders and logs shared expenses to Splitwise."
+tldr: |
+  - 24-hour prototype from the Prosus AI Hackathon 2025, built with a friend.
+  - An LLM agent with about 15 tools covers pantry inventory, group grocery orders, Splitwise expenses, and Discord and WhatsApp messages.
+  - Replies stream into a React chat over WebSocket; it also runs as a terminal demo.
 status: completed
 kind: hackathon
 complexity: 3

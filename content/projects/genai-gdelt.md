@@ -1,10 +1,11 @@
 ---
 title: GenAI-GDELT
-subtitle: Data pipeline, dataset, and companion site for the generative-AI governance framing study
-abstract: |
-  End-to-end data-science pipeline that mines GDELT 2.0 via BigQuery, scores ~1.1M
-  multilingual articles across six governance frames with a LaBSE-validated matcher,
-  and ships the dataset plus an interactive companion site.
+subtitle: "Pipeline and dataset behind a study of how news frames generative-AI governance"
+abstract: "Pulls generative-AI governance coverage out of GDELT 2.0 with BigQuery, scores about 1.1M articles in 100+ languages across six governance frames, and publishes the dataset on Hugging Face with an interactive companion site."
+tldr: |
+  - About 1.1M news articles in 100+ languages, extracted from GDELT 2.0 through BigQuery.
+  - A multilingual keyword pass, checked by LaBSE sentence embeddings, flags each article for six governance frames.
+  - Ships the code, a Hugging Face dataset with the frame flags and embeddings, and a site showing the frame trends and policy event study.
 status: completed
 kind: research
 complexity: 4

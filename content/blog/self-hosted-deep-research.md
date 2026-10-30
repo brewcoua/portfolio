@@ -1,6 +1,10 @@
 ---
 title: The bugs that wrote articles
 summary: I wanted deep research I could host myself, so I forked Stanford's STORM into a service. The bugs I found didn't raise errors. They wrote worse articles.
+tldr: |
+  - I forked STORM and Co-STORM into kvasir, a self-hosted research API with an Open WebUI client, to stop handing my research to a SaaS.
+  - The upstream bugs I fixed didn't crash: a canned apology went into the research corpus, and one failed search query dropped a whole batch of sources.
+  - Cutting unused retrievers and the local embedding model took the lockfile from 114 packages to 77.
 date: 2026-11-06
 cover: cover.svg
 references:

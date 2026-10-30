@@ -1,8 +1,11 @@
 ---
 title: mise.ai
-subtitle: AI-powered restaurant analytics platform
-abstract: |
-  An AI-powered restaurant analytics platform that helps reduce food waste, optimize ordering, and make data-driven decisions through ML predictions, LLM-powered insights, and interactive dashboards.
+subtitle: "Restaurant analytics to cut food waste"
+abstract: "Team project for TU Delft's Software Architecture course: a restaurant analytics platform that predicts waste and suggests orders with Random Forest models, turns results into insights with an LLM, and scales its ML workers on Kubernetes by queue depth."
+tldr: |
+  - Team project for CS4505 Software Architecture at TU Delft.
+  - Random Forest models predict wastage and per-item orders; an LLM (OpenAI, with Vertex AI as fallback) turns the results into insights.
+  - Jobs run asynchronously over RabbitMQ, and KEDA scales the ML and LLM workers from 0 to 10 replicas on queue depth.
 status: completed
 kind: coursework
 complexity: 3

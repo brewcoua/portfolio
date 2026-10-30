@@ -1,8 +1,11 @@
 ---
 title: Kvasir
 subtitle: Self-hosted STORM and Co-STORM research API
-abstract: |
-  A self-hostable HTTP service for Stanford STORM and Co-STORM that turns a topic into a cited, Wikipedia-style article or runs an interactive research round table, with an Open WebUI client.
+abstract: "A self-hosted service around Stanford's STORM and Co-STORM: give it a topic and it streams back a cited, Wikipedia-style article, or opens a research round table you take part in. Ships with an Open WebUI client."
+tldr: |
+  - An HTTP API for STORM and Co-STORM that streams progress over SSE, with a runs page showing stage timings and token cost.
+  - Forked upstream onto dspy 3.3.0 and fixed bugs that quietly made articles worse instead of raising errors.
+  - A hardened, digest-pinned image, and an Open WebUI pipe to run research from chat. The story: [the bugs that wrote articles](/blog/self-hosted-deep-research).
 status: active
 kind: personal
 complexity: 4

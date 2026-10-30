@@ -1,8 +1,7 @@
 ---
 title: Texture Classifier
-subtitle: Modular deep learning framework for texture classification
-abstract: |
-  PyTorch framework for texture classification with custom residual architectures and transfer-learning benchmarking.
+subtitle: "Custom CNNs against transfer learning for texture classification"
+abstract: "Coursework in PyTorch: custom residual CNNs with a feature-enhancement head, benchmarked against EfficientNet and ResNet transfer-learning baselines."
 status: completed
 kind: coursework
 complexity: 2

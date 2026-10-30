@@ -1,6 +1,10 @@
 ---
 title: The outline did the research
 summary: I opened the STORM paper expecting a better prompt. Its tables put most of the gain on an outline step, and its citations held up less well than they looked.
+tldr: |
+  - In STORM's own results, adding an outline step to plain retrieval brings most of the gain, and removing it drops STORM below plain retrieval [@shao2024storm].
+  - Better structure didn't make the articles easier to check: about 15% of sentences aren't supported by the source they cite.
+  - So I read a generated report's outline first, then open two or three citations on the claims I'd act on.
 date: 2026-10-30
 cover: cover.svg
 ---

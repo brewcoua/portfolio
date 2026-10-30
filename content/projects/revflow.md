@@ -1,8 +1,11 @@
 ---
 title: RevFlōw
-subtitle: Intelligent transaction categorisation and financial coaching for Revolut
-abstract: |
-  A financial intelligence platform built in 24 hours at HackDelft 2026 for the Revolut challenge. It fixes broken merchant labels and generic categorisation with a two-stage ML pipeline (rule pre-pass plus CalibratedLinearSVC on sentence embeddings), KMeans life-stage personalisation, an Isolation Forest subscription engine, and a Claude Haiku money coach with one-tap action cards.
+subtitle: "Transaction categorisation and money coaching, built in 24 hours for Revolut"
+abstract: "Built in 24 hours at HackDelft 2026 for the Revolut challenge. RevFlōw fixes vague merchant labels with keyword rules and a classifier on sentence embeddings, groups users by life stage, surfaces hidden subscriptions, and has Claude Haiku turn each insight into short advice with one-tap actions."
+tldr: |
+  - 24-hour build for Revolut's challenge at HackDelft 2026, with Team YUBRE.
+  - 18 Dutch keyword rules, then a calibrated linear SVM on MiniLM embeddings across 12 categories: 75% accuracy on confident predictions, under 50 ms. Uncertain merchants fall back to Miscellaneous instead of a wrong label.
+  - Isolation Forest surfaces hidden recurring costs, and Claude Haiku writes the advice.
 status: completed
 kind: hackathon
 complexity: 4

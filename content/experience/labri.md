@@ -9,7 +9,11 @@ employmentType: internship
 date:
   - 2024-05
   - 2024-07
-summary: Built autonomous web-agent workflows for research and startup collaboration.
+summary: "Built WebWisp, a GPT-4o agent that runs website tests from plain-language tasks, and web-som, the Set-of-Marks script it sees the page through."
+tldr: |
+  - The question: can a multimodal LLM carry out a website task written in plain language, so end-to-end tests stop breaking on every selector change?
+  - Built WebWisp, a distributed agent, and web-som, which marks interactive elements on its screenshots [@yang2023set].
+  - Shown at JFTL 2024, and scored 2–3 points above the then state of the art on VisualWebArena [@koh2024visualwebarena].
 tech:
   - "[[technologies/react]]"
   - "[[technologies/nestjs]]"
@@ -46,7 +50,7 @@ Each worker has four parts:
 
 ## Grounding
 
-Grounding (getting from "click the search button" to one specific element) was the main obstacle. I compared five approaches from the literature: element attributes, ranked textual choices (which needs a pretrained ranker such as DeBERTa), image annotation, pixel coordinates, and the raw HTML or accessibility tree. I settled on image annotation with Set-of-Marks: every interactive element gets a coloured box and a label on the screenshot, and the model answers with a label.
+Grounding (getting from "click the search button" to one specific element) was the main obstacle. I compared five approaches from the literature: element attributes, ranked textual choices (which needs a pretrained ranker such as DeBERTa [@he2020deberta]), image annotation, pixel coordinates, and the raw HTML or accessibility tree. I settled on image annotation with Set-of-Marks [@yang2023set]: every interactive element gets a coloured box and a label on the screenshot, and the model answers with a label.
 
 ![The model never names a selector: it reads the numbered boxes on the screenshot and answers with one. The striped box is an editable field.](marks.svg)
 
@@ -59,8 +63,8 @@ Grounding (getting from "click the search button" to one specific element) was t
 
 ## Prompting
 
-I compared few-shot, Chain-of-Thought, Tree of Thoughts and ReAct prompting, then used **Multimodal Chain-of-Thought**. Each step, the model gets the list of possible actions (click, type, scroll, select, …), the annotated screenshot, the page URL and title, and its previous actions. It writes out its reasoning before returning one or more valid actions.
+I compared few-shot [@brown2020language], Chain-of-Thought [@wei2022chain], Tree of Thoughts [@yao2023tree] and ReAct [@yao2022react] prompting, then used **Multimodal Chain-of-Thought** [@zhang2023multimodal]. Each step, the model gets the list of possible actions (click, type, scroll, select, …), the annotated screenshot, the page URL and title, and its previous actions. It writes out its reasoning before returning one or more valid actions.
 
 ## Looking back
 
-It was my first research setting after a startup internship the year before, and a useful contrast. A month in, the prototype was shown at [JFTL 2024](https://cftl.fr/jftl-archives-2-2/jftl-2024/), the French software testing conference, in Paris on 11 June. The VisualWebArena evaluation took longer than planned: the dataset is large and needed a lot of tuning. web-som would also gain from splitting element discovery from rendering. Both projects are open source.
+It was my first research setting after a startup internship the year before, and a useful contrast. A month in, the prototype was shown at [JFTL 2024](https://cftl.fr/jftl-archives-2-2/jftl-2024/), the French software testing conference, in Paris on 11 June. The VisualWebArena [@koh2024visualwebarena] evaluation took longer than planned: the dataset is large and needed a lot of tuning. web-som would also gain from splitting element discovery from rendering. Both projects are open source.

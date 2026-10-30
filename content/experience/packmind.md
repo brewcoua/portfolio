@@ -9,7 +9,11 @@ employmentType: internship
 date:
   - 2023-06
   - 2023-08
-summary: Built code-review intelligence and repository integration capabilities.
+summary: "Took Promyze (now Packmind) from the IDE into repositories: integrations with four Git platforms, a role system, and relevance-sorted reviews for team leads."
+tldr: |
+  - Summer 2023 at Promyze (now Packmind), whose product helps teams write down their coding best practices and spot them in code.
+  - Added GitHub, GitLab, Bitbucket and Azure DevOps integrations (self-hosted editions too), a role system, and diff reviews sorted by a relevance score.
+  - OpenAI models add insight on top of that ranking, not instead of it.
 tech:
   - "[[technologies/typescript]]"
   - "[[technologies/react]]"
