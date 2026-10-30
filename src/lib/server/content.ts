@@ -10,7 +10,14 @@ import {
 	type MentionDictionaries
 } from '$lib/server/markdown/index';
 import { highlightDoc } from '$lib/server/markdown/highlight';
-import { WIKILINK_SCHEME, type MentionTarget } from '$lib/server/markdown/mentions';
+import {
+	CITE_NARRATIVE_SCHEME,
+	CITE_SCHEME,
+	WIKILINK_SCHEME,
+	type MentionTarget
+} from '$lib/server/markdown/mentions';
+import { parseBibtex } from '$lib/server/bibtex';
+import { formatBibliography, sortReferences, type Reference } from '$lib/content/apa';
 import {
 	COLLECTION_TYPES,
 	FRONTMATTER_SCHEMAS,
@@ -226,6 +233,22 @@ export async function loadContent(): Promise<PortfolioContent> {
 	const siteRaw = parse(await readFile(join(CONTENT_DIR, 'site.yaml'), 'utf-8'));
 	const site = validate(siteConfig, siteRaw, 'site.yaml') as SiteConfig;
 
+	const bibliography = formatBibliography(parseBibtex(await readFile(join(CONTENT_DIR, 'references.bib'), 'utf-8')));
+	/** Cite keys each document used, keyed by the label passed to `preprocess`. */
+	const citedBy = new Map<string, Set<string>>();
+
+	function cite(key: string, sourceLabel: string): string {
+		if (!bibliography.has(key)) throw new Error(`${sourceLabel}: unknown reference "@${key}"`);
+		citedBy.set(sourceLabel, (citedBy.get(sourceLabel) ?? new Set()).add(key));
+		return key;
+	}
+
+	/** Cited keys plus frontmatter `references:` (nocite), in APA order. */
+	function referencesFor(sourceLabel: string, nocite: unknown): Reference[] {
+		const keys = new Set([...(citedBy.get(sourceLabel) ?? []), ...((nocite as string[] | undefined) ?? [])]);
+		return sortReferences([...keys].map((key) => bibliography.get(cite(key, sourceLabel))!));
+	}
+
 	// Resolution index (Obsidian-style: full path, or unique filename fallback).
 	const byPath = new Map<string, RawNode>();
 	const byFilename = new Map<string, string[]>();
@@ -288,9 +311,21 @@ export async function loadContent(): Promise<PortfolioContent> {
 		}
 	}
 
-	/** Rewrite `[[target|alias]]` -> `[alias](wikilink:path)` and collect edge targets. */
+	/**
+	 * Rewrite `[[target|alias]]` -> `[alias](wikilink:path)` and collect edge targets; rewrite pandoc
+	 * citations `[@a; @b]` and narrative `@a` (only for keys in the bibliography, so emails and `@media`
+	 * pass through) into `cite:`/`citet:` links.
+	 */
 	function preprocess(source: string, sourceLabel: string, collect: Set<string>): string {
-		return source.replace(/\[\[([^\]]+)\]\]/g, (_match, inner: string) => {
+		return source
+			.replace(/\[(@[^\]\s;]+(?:\s*;\s*@[^\]\s;]+)*)\]/g, (_match, inner: string) => {
+				const keys = inner.split(';').map((key) => cite(key.trim().slice(1), sourceLabel));
+				return `[cite](${CITE_SCHEME}${keys.join(';')})`;
+			})
+			.replace(/(^|[\s(])@([\w-]+(?:[:.][\w-]+)*)/g, (match, before: string, key: string) =>
+				bibliography.has(key) ? `${before}[cite](${CITE_NARRATIVE_SCHEME}${cite(key, sourceLabel)})` : match
+			)
+			.replace(/\[\[([^\]]+)\]\]/g, (_match, inner: string) => {
 			const pipe = inner.indexOf('|');
 			const target = (pipe === -1 ? inner : inner.slice(0, pipe)).trim();
 			const alias = pipe === -1 ? undefined : inner.slice(pipe + 1).trim();
@@ -302,9 +337,9 @@ export async function loadContent(): Promise<PortfolioContent> {
 	}
 
 	const renderDoc = (src: string | undefined, label: string, collect: Set<string>) =>
-		renderMarkdownDoc(preprocess(src ?? '', label, collect), { mentions: mentionDict });
+		renderMarkdownDoc(preprocess(src ?? '', label, collect), { mentions: mentionDict, references: bibliography });
 	const renderInline = (src: string | undefined, label: string, collect: Set<string>): MarkdownInlineNode[] =>
-		renderMarkdownInline(preprocess(src ?? '', label, collect), { mentions: mentionDict });
+		renderMarkdownInline(preprocess(src ?? '', label, collect), { mentions: mentionDict, references: bibliography });
 	const renderInlineList = (arr: string[] | undefined, label: string, collect: Set<string>) =>
 		(arr ?? []).map((item) => renderInline(item, label, collect));
 
@@ -319,6 +354,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 					...data,
 					cover: data.cover && (await readFigure(`blog/${slug}`, data.cover)),
 					readMinutes: minutes,
+					references: referencesFor(`blog/${slug}`, data.references),
 					...withSectionIds(doc, minutes)
 				};
 			})
@@ -405,9 +441,9 @@ export async function loadContent(): Promise<PortfolioContent> {
 				technologies: tech,
 				skills: skillPaths,
 				links: (data.links as Project['links']) ?? [],
-				references: data.references as Project['references'],
 				highlights: (data.highlights as string[]) ?? [],
 				highlightsMarkdown: renderInlineList(data.highlights as string[], path, mentions),
+				references: referencesFor(path, data.references),
 				searchKeywords: data.searchKeywords as string[] | undefined,
 				date: data.date as Project['date'],
 				cv: data.cv as CvBlock | undefined
@@ -445,6 +481,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				skills: skillPaths,
 				logo: data.logo as string | undefined,
 				website: data.website as string | undefined,
+				references: referencesFor(path, data.references),
 				date: data.date as Experience['date'],
 				cv: data.cv as CvBlock | undefined
 			});
@@ -593,9 +630,9 @@ export async function loadContent(): Promise<PortfolioContent> {
 				links: (data.links as Publication['links']) ?? [],
 				technologies: tech,
 				skills: skillPaths,
-				references: data.references as Publication['references'],
 				highlights: (data.highlights as string[]) ?? [],
 				highlightsMarkdown: renderInlineList(data.highlights as string[], path, mentions),
+				references: referencesFor(path, data.references),
 				description: node.body,
 				descriptionMarkdown,
 				searchKeywords: data.searchKeywords as string[] | undefined,

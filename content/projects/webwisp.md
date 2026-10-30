@@ -34,45 +34,6 @@ links:
     label: Set-of-Marks
     icon: circle-dot
     url: https://github.com/brewcoua/web-som
-references:
-  - title: Language Models are Few-Shot Learners
-    authors:
-      - Brown, T. B.
-      - Mann, B.
-      - Ryder, N.
-      - Subbiah, M.
-      - Kaplan, J.
-      - Dhariwal, P.
-      - Neelakantan, A.
-      - Shyam, P.
-      - Sastry, G.
-      - Askell, A.
-      - Agarwal, S.
-      - Herbert-Voss, A.
-      - Krueger, G.
-      - Henighan, T.
-      - Child, R.
-      - Ramesh, A.
-      - Ziegler, D. M.
-      - Wu, J.
-      - Winter, C.
-      - Amodei, D.
-    year: "2020"
-    journal: arXiv preprint arXiv:2005.14165
-    doi: 10.48550/arXiv.2005.14165
-    url: https://arxiv.org/abs/2005.14165
-  - title: Set-of-mark prompting unleashes extraordinary visual grounding in GPT-4V
-    authors:
-      - Yang, J.
-      - Zhang, H.
-      - Li, F.
-      - Zou, X.
-      - Li, C.
-      - Gao, J.
-    year: "2023"
-    journal: arXiv preprint arXiv:2310.11441
-    doi: 10.48550/arXiv.2310.11441
-    url: https://arxiv.org/abs/2310.11441
 highlights:
   - Designed and implemented a distributed orchestrator-worker architecture
   - Built Docker-based deployment and configurable worker pools
@@ -102,7 +63,7 @@ It uses a distributed architecture for scalable web testing and automation:
 The system is containerized with Docker and includes JWT-based auth, persistent storage,
 configurable worker pools, and LLM-assisted testing flows.
 
-This implementation is informed by advances in in-context language modeling and visual
-grounding for web interfaces.
+This implementation is informed by advances in in-context language modeling [@brown2020language]
+and visual grounding for web interfaces [@yang2023set].
 
 For how it was built (the worker internals, the grounding and prompting choices, and what was left unfinished), see the [[experience/labri|internship write-up]].

@@ -109,4 +109,11 @@ describe('custom markdown pipeline', () => {
 		const societyNodes = msc?.societiesMarkdown?.[0];
 		expect(societyNodes?.some((n) => n.type === 'link')).toBe(true);
 	});
+
+	it('resolves pandoc citations into nodes and per-page reference lists', async () => {
+		const content = await loadContent();
+		const kvasir = content.projects.find((p) => p.slug === 'kvasir');
+		expect(kvasir?.references.map((r) => r.key)).toEqual(['jiang2024costorm', 'shao2024storm']);
+		expect(JSON.stringify(kvasir?.descriptionMarkdown)).toContain('"label":"(Shao et al., 2024)"');
+	});
 });

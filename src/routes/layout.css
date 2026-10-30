@@ -368,7 +368,8 @@ a:hover .org-logo,
 .markdown-inline a.mention-link,
 .markdown-block a.mention-link,
 .markdown-inline .mention-static,
-.markdown-block .mention-static {
+.markdown-block .mention-static,
+.markdown-block .citation {
 	text-decoration-line: underline !important;
 	text-decoration-style: dashed !important;
 	text-decoration-thickness: 1px !important;

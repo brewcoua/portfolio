@@ -4,29 +4,7 @@ summary: I wanted deep research I could host myself, so I forked Stanford's STOR
 date: 2026-11-06
 cover: cover.svg
 references:
-  - title: Assisting in Writing Wikipedia-like Articles From Scratch with Large Language Models
-    authors:
-      - Shao, Y.
-      - Jiang, Y.
-      - Kanell, T. A.
-      - Xu, P.
-      - Khattab, O.
-      - Lam, M. S.
-    year: "2024"
-    journal: arXiv preprint arXiv:2402.14207
-    doi: 10.48550/arXiv.2402.14207
-    url: https://arxiv.org/abs/2402.14207
-  - title: "Into the Unknown Unknowns: Engaged Human Learning through Participation in Language Model Agent Conversations"
-    authors:
-      - Jiang, Y.
-      - Shao, Y.
-      - Ma, D.
-      - Semnani, S. J.
-      - Lam, M. S.
-    year: "2024"
-    journal: arXiv preprint arXiv:2408.15232
-    doi: 10.48550/arXiv.2408.15232
-    url: https://arxiv.org/abs/2408.15232
+  - jiang2024costorm
 ---
 
 A restored Co-STORM session in Stanford's code reads its saved state, throws away the model configuration it saved, and rebuilds one from defaults: OpenAI's API, called directly, and Bing for search. Nothing logs it, and nothing fails. The round table carries on, on someone else's account and someone else's search engine. That bug set the tone for the whole fork.
@@ -37,7 +15,7 @@ I wanted deep research I could run on my own infrastructure. A hosted tool like 
 
 [GPT Researcher](https://github.com/assafelovic/gpt-researcher) came closest. Its interface looked heavily vibe coded, and using it was miserable. Its API wasn't what I wanted either. I already did my chatting in [[technologies/open-webui]], and I wanted research to show up there, not in a second app.
 
-Then, going through recent papers, I found [STORM](https://arxiv.org/abs/2402.14207). [The last post](/blog/deep-research-is-a-pipeline) covers what it does and why its outline step matters. What mattered here: it was a pipeline I could read, with a paper explaining each stage, and building on it looked more interesting than bending someone else's product into shape.
+Then, going through recent papers, I found STORM [@shao2024storm]. [The last post](/blog/deep-research-is-a-pipeline) covers what it does and why its outline step matters. What mattered here: it was a pipeline I could read, with a paper explaining each stage, and building on it looked more interesting than bending someone else's product into shape.
 
 ## the missing middle
 

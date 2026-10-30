@@ -1,29 +1,30 @@
 import type { MarkdownDoc, MarkdownInlineNode } from '$lib/content/types';
-import { applyMentions, type MentionDictionaries } from './mentions';
+import { applyMentions, type MentionDictionaries, type ReferenceDictionary } from './mentions';
 import { normalizeMarkdownAst } from './normalize';
 import { parseMarkdown } from './parse';
 import { sanitizeMarkdownDoc } from './sanitize';
 
 type RenderOptions = {
 	mentions?: MentionDictionaries;
+	references?: ReferenceDictionary;
 };
 
 const DOC_CACHE = new Map<string, MarkdownDoc>();
 
-function cacheKey(source: string, mentions?: MentionDictionaries): string {
-	return `${source}::${mentions ? 'mentions' : 'plain'}`;
+function cacheKey(source: string, options: RenderOptions): string {
+	return `${source}::${options.mentions ? 'mentions' : 'plain'}::${options.references ? 'refs' : ''}`;
 }
 
 export function renderMarkdownDoc(source: string | undefined, options: RenderOptions = {}): MarkdownDoc {
 	const value = source?.trim();
 	if (!value) return { blocks: [] };
-	const key = cacheKey(value, options.mentions);
+	const key = cacheKey(value, options);
 	const cached = DOC_CACHE.get(key);
 	if (cached) return cached;
 
 	const ast = parseMarkdown(value);
 	const normalized = normalizeMarkdownAst(ast);
-	const withMentions = applyMentions(normalized, options.mentions);
+	const withMentions = applyMentions(normalized, options.mentions, options.references);
 	const sanitized = sanitizeMarkdownDoc(withMentions);
 	DOC_CACHE.set(key, sanitized);
 	return sanitized;
@@ -42,7 +43,7 @@ export function markdownInlineToPlainText(nodes: MarkdownInlineNode[]): string {
 	return nodes
 		.map((node) => {
 			if (node.type === 'text' || node.type === 'inlineCode') return node.value;
-			if (node.type === 'mention') return node.label;
+			if (node.type === 'mention' || node.type === 'citation') return node.label;
 			if (node.type === 'strong' || node.type === 'emphasis' || node.type === 'link') {
 				return markdownInlineToPlainText(node.children);
 			}
@@ -78,4 +79,4 @@ export function markdownDocToPlainText(doc: MarkdownDoc): string {
 	return chunks.join(' ').replace(/\s+/g, ' ').trim();
 }
 
-export type { MentionDictionaries, MentionLinkTarget, MentionPopoverTarget } from './mentions';
+export type { MentionDictionaries, MentionLinkTarget, MentionPopoverTarget, ReferenceDictionary } from './mentions';

@@ -29,30 +29,6 @@ related:
 links:
   - type: github
     url: https://github.com/brewcoua/kvasir
-references:
-  - title: Assisting in Writing Wikipedia-like Articles From Scratch with Large Language Models
-    authors:
-      - Shao, Y.
-      - Jiang, Y.
-      - Kanell, T. A.
-      - Xu, P.
-      - Khattab, O.
-      - Lam, M. S.
-    year: "2024"
-    journal: arXiv preprint arXiv:2402.14207
-    doi: 10.48550/arXiv.2402.14207
-    url: https://arxiv.org/abs/2402.14207
-  - title: "Into the Unknown Unknowns: Engaged Human Learning through Participation in Language Model Agent Conversations"
-    authors:
-      - Jiang, Y.
-      - Shao, Y.
-      - Ma, D.
-      - Semnani, S. J.
-      - Lam, M. S.
-    year: "2024"
-    journal: arXiv preprint arXiv:2408.15232
-    doi: 10.48550/arXiv.2408.15232
-    url: https://arxiv.org/abs/2408.15232
 highlights:
   - Vendored and forked knowledge_storm, porting it to dspy 3.3.0 with typed signatures in place of regex-parsed prose
   - Built a FastAPI service streaming research progress over SSE, with a run registry tracking stage timings and token cost per role and model
@@ -62,8 +38,8 @@ highlights:
 ---
 
 [STORM](https://github.com/stanford-oval/storm) turns a topic into a Wikipedia-style article with
-citations by simulating multi-perspective research conversations. Co-STORM is its interactive
-sibling: a turn-based round table between you and several agents that builds a shared mind map.
+citations by simulating multi-perspective research conversations [@shao2024storm]. Co-STORM is its
+interactive sibling: a turn-based round table between you and several agents that builds a shared mind map [@jiang2024costorm].
 
 Upstream ships a Python library and a Streamlit demo, but no server and no container image.
 Kvasir supplies the missing middle:

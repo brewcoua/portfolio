@@ -114,15 +114,8 @@ export const linkItem = z
 
 export type LinkItem = z.infer<typeof linkItem>;
 
-export const projectReference = z.object({
-	title: z.string().min(1),
-	authors: z.array(z.string().min(1)).min(1),
-	year: z.string().regex(/^\d{4}$/),
-	journal: z.string().optional(),
-	venue: z.string().optional(),
-	doi: z.string().min(1).optional(),
-	url: z.string().url().optional()
-});
+/** Cite keys from `content/references.bib` listed without being cited in the text (pandoc's nocite). */
+const referenceKeys = z.array(z.string().min(1)).optional();
 
 /** Grade is normalized/validated by the loader (honors enum + fraction format). */
 const gradeInput = z.record(z.string(), z.unknown());
@@ -164,7 +157,7 @@ export const projectFrontmatter = z.object({
 	skills: z.array(wikilink).default([]),
 	related: z.array(wikilink).default([]),
 	links: z.array(linkItem).default([]),
-	references: z.array(projectReference).optional(),
+	references: referenceKeys,
 	highlights: z.array(z.string().min(1)).default([]),
 	searchKeywords: z.array(z.string()).optional(),
 	cv: cvBlock.optional()
@@ -185,6 +178,7 @@ export const experienceFrontmatter = z.object({
 	skills: z.array(wikilink).default([]),
 	related: z.array(wikilink).default([]),
 	details: z.array(z.string().min(1)).default([]),
+	references: referenceKeys,
 	cv: cvBlock.optional()
 });
 
@@ -263,7 +257,7 @@ export const publicationFrontmatter = z.object({
 	tech: z.array(wikilink).default([]),
 	skills: z.array(wikilink).default([]),
 	related: z.array(wikilink).default([]),
-	references: z.array(projectReference).optional(),
+	references: referenceKeys,
 	highlights: z.array(z.string().min(1)).default([]),
 	searchKeywords: z.array(z.string()).optional()
 });
@@ -274,7 +268,7 @@ export const postFrontmatter = z.object({
 	summary: z.string().min(1),
 	date: isoDate,
 	cover: z.string().min(1).optional(),
-	references: z.array(projectReference).optional()
+	references: referenceKeys
 });
 
 export const profileFrontmatter = z.object({

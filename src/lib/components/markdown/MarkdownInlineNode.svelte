@@ -1,4 +1,5 @@
 <script lang="ts">
+	import MarkdownCitation from './MarkdownCitation.svelte';
 	import MarkdownCode from './MarkdownCode.svelte';
 	import MarkdownLink from './MarkdownLink.svelte';
 	import MarkdownMention from './MarkdownMention.svelte';
@@ -46,5 +47,5 @@
 {:else if node.type === 'sidenote'}<sup class="sidenote-ref">{node.n}</sup><span class="sidenote"
 		><sup>{node.n}</sup>
 		{#each node.children as child}<MarkdownInlineNode node={child} {skills} {technologies} />{/each}</span
-	>{:else if node.type === 'mention'}<MarkdownMention mentionKind={node.mentionKind} label={node.label} entityId={node.entityId} href={node.href} popoverTitle={node.popoverTitle} popoverBody={node.popoverBody} {skills} {technologies} />
+	>{:else if node.type === 'mention'}<MarkdownMention mentionKind={node.mentionKind} label={node.label} entityId={node.entityId} href={node.href} popoverTitle={node.popoverTitle} popoverBody={node.popoverBody} {skills} {technologies} />{:else if node.type === 'citation'}<MarkdownCitation label={node.label} items={node.items} />
 {/if}

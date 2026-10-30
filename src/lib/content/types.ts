@@ -1,3 +1,4 @@
+import type { Reference } from './apa';
 import type { CvBlock, NodeType } from './schema';
 
 export type { NodeType } from './schema';
@@ -85,6 +86,7 @@ export type MarkdownInlineNode =
 	| { type: 'inlineCode'; value: string }
 	| { type: 'link'; href: string; children: MarkdownInlineNode[]; external: boolean }
 	| { type: 'sidenote'; n: number; children: MarkdownInlineNode[] }
+	| { type: 'citation'; label: string; items: Reference[] }
 	| {
 			type: 'mention';
 			mentionKind: MarkdownMentionKind;
@@ -111,16 +113,6 @@ export type MarkdownBlockNode =
 
 export type MarkdownDoc = {
 	blocks: MarkdownBlockNode[];
-};
-
-export type ProjectReference = {
-	title: string;
-	authors: string[];
-	year: string;
-	journal?: string;
-	venue?: string;
-	doi?: string;
-	url?: string;
 };
 
 export type MentionSourceKind = 'project' | 'experience' | 'education';
@@ -246,7 +238,7 @@ export type Project = SlugEntity &
 	technologies: string[];
 	skills: string[];
 	links: LinkItem[];
-	references?: ProjectReference[];
+	references: Reference[];
 	highlights: string[];
 	highlightsMarkdown?: MarkdownInlineNode[][];
 	searchKeywords?: string[];
@@ -271,6 +263,7 @@ export type Experience = SlugEntity &
 	skills: string[];
 	logo?: string;
 	website?: string;
+	references: Reference[];
 	cv?: CvBlock;
 };
 
@@ -369,7 +362,7 @@ export type Publication = SlugEntity &
 	links: LinkItem[];
 	technologies: string[];
 	skills: string[];
-	references?: ProjectReference[];
+	references: Reference[];
 	highlights: string[];
 	highlightsMarkdown?: MarkdownInlineNode[][];
 	description: string;
@@ -385,7 +378,7 @@ export type Post = {
 	/** Inlined SVG markup of `content/blog/<slug>/<cover>`. */
 	cover?: string;
 	readMinutes: number;
-	references?: ProjectReference[];
+	references: Reference[];
 	toc: { id: string; text: string }[];
 	body: MarkdownDoc;
 };
