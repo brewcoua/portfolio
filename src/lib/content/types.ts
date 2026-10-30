@@ -232,6 +232,7 @@ export type Project = SlugEntity &
 	summaryMarkdown?: MarkdownDoc;
 	description: string;
 	descriptionMarkdown?: MarkdownDoc;
+	toc: TocItem[];
 	thumbnail?: string;
 	/** Inline SVG, used when there's no thumbnail image. */
 	cover?: string;
@@ -259,6 +260,7 @@ export type Experience = SlugEntity &
 	detailsMarkdown?: MarkdownInlineNode[][];
 	description: string;
 	descriptionMarkdown?: MarkdownDoc;
+	toc: TocItem[];
 	technologies: string[];
 	skills: string[];
 	logo?: string;
@@ -370,6 +372,8 @@ export type Publication = SlugEntity &
 	searchKeywords?: string[];
 };
 
+export type TocItem = { id: string; text: string };
+
 export type Post = {
 	slug: string;
 	title: string;
@@ -379,7 +383,7 @@ export type Post = {
 	cover?: string;
 	readMinutes: number;
 	references: Reference[];
-	toc: { id: string; text: string }[];
+	toc: TocItem[];
 	body: MarkdownDoc;
 };
 

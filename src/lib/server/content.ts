@@ -45,6 +45,7 @@ import {
 	type NodeType,
 	type PortfolioContent,
 	type Post,
+	type TocItem,
 	type Profile,
 	type Project,
 	type Publication,
@@ -152,9 +153,9 @@ export function readMinutes(markdown: string): number {
 	return Math.max(1, Math.round(seconds / 60));
 }
 
-/** Gives `##` headings anchor ids; long posts (3+ sections, 6+ minutes) also get a contents list. */
-function withSectionIds(doc: MarkdownDoc, minutes: number): { body: MarkdownDoc; toc: Post['toc'] } {
-	const toc: Post['toc'] = [];
+/** Gives `##` headings anchor ids; a doc with 2+ of them also gets a contents list. */
+function withSectionIds(doc: MarkdownDoc): { body: MarkdownDoc; toc: TocItem[] } {
+	const toc: TocItem[] = [];
 	const blocks = doc.blocks.map((block) => {
 		if (block.type !== 'heading' || block.level !== 2) return block;
 		const text = markdownInlineToPlainText(block.children);
@@ -162,7 +163,7 @@ function withSectionIds(doc: MarkdownDoc, minutes: number): { body: MarkdownDoc;
 		toc.push({ id, text });
 		return { ...block, id };
 	});
-	return { body: { blocks }, toc: toc.length >= 3 && minutes >= 6 ? toc : [] };
+	return { body: { blocks }, toc: toc.length >= 2 ? toc : [] };
 }
 
 async function inlineFigures(doc: MarkdownDoc, dir: string): Promise<MarkdownDoc> {
@@ -355,7 +356,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 					cover: data.cover && (await readFigure(`blog/${slug}`, data.cover)),
 					readMinutes: minutes,
 					references: referencesFor(`blog/${slug}`, data.references),
-					...withSectionIds(doc, minutes)
+					...withSectionIds(doc)
 				};
 			})
 		)
@@ -413,7 +414,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 			const tech = resolveRefs(data.tech as string[], path);
 			const skillPaths = resolveRefs(data.skills as string[], path);
 			const related = resolveRefs(data.related as string[], path);
-			const descriptionMarkdown = renderDoc(node.body, path, mentions);
+			const { body: descriptionMarkdown, toc } = withSectionIds(renderDoc(node.body, path, mentions));
 			linkTargets(path, [role], 'role');
 			linkTargets(path, tech, 'technology');
 			linkTargets(path, skillPaths, 'skill');
@@ -438,6 +439,7 @@ export async function loadContent(): Promise<PortfolioContent> {
 				cover: data.cover ? await readFigure(path, String(data.cover)) : undefined,
 				description: node.body,
 				descriptionMarkdown,
+				toc,
 				technologies: tech,
 				skills: skillPaths,
 				links: (data.links as Project['links']) ?? [],
@@ -459,6 +461,9 @@ export async function loadContent(): Promise<PortfolioContent> {
 			linkTargets(path, skillPaths, 'skill');
 			linkTargets(path, tech, 'technology');
 			linkTargets(path, related, 'mention');
+			const { body: descriptionMarkdown, toc } = withSectionIds(
+				await inlineFigures(renderDoc(node.body, path, mentions), path)
+			);
 			experience.push({
 				id: path,
 				path,
@@ -476,7 +481,8 @@ export async function loadContent(): Promise<PortfolioContent> {
 				details: (data.details as string[]) ?? [],
 				detailsMarkdown: renderInlineList(data.details as string[], path, mentions),
 				description: node.body,
-				descriptionMarkdown: await inlineFigures(renderDoc(node.body, path, mentions), path),
+				descriptionMarkdown,
+				toc,
 				technologies: tech,
 				skills: skillPaths,
 				logo: data.logo as string | undefined,

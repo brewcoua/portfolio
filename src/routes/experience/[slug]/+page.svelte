@@ -5,6 +5,8 @@
 	import OrgLogo from '$lib/components/OrgLogo.svelte';
 	import OrgName from '$lib/components/OrgName.svelte';
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
+	import References from '$lib/components/References.svelte';
+	import Toc from '$lib/components/Toc.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import { formatEntityDate } from '$lib/content/format';
 
@@ -57,6 +59,8 @@
 		</ul>
 	</section>
 
+	<Toc items={data.experience.toc} />
+
 	{#if data.experience.description.trim()}
 		<hr class="border-t-2 border-dashed border-muted-foreground/40" />
 		<MarkdownBlock
@@ -92,5 +96,9 @@
 
 	{#if data.linkedProjects.length > 0}
 		<RelationshipPanel title="Linked Projects" items={linkedProjectItems} />
+	{/if}
+
+	{#if data.experience.references.length}
+		<References references={data.experience.references} />
 	{/if}
 </article>

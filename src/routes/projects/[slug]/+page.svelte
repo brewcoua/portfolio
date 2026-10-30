@@ -4,6 +4,7 @@
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import MarkdownInline from '$lib/components/MarkdownInline.svelte';
 	import References from '$lib/components/References.svelte';
+	import Toc from '$lib/components/Toc.svelte';
 	import RelationshipPanel from '$lib/components/RelationshipPanel.svelte';
 	import SkillBadge from '$lib/components/SkillBadge.svelte';
 	import TechBadge from '$lib/components/TechBadge.svelte';
@@ -82,6 +83,8 @@
 			{/each}
 		</ul>
 	</section>
+
+	<Toc items={data.project.toc} />
 
 	{#if data.project.description.trim()}
 		<hr class="border-t-2 border-dashed border-muted-foreground/40" />

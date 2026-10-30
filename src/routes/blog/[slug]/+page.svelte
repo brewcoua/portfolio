@@ -1,6 +1,7 @@
 <script lang="ts">
 	import MarkdownBlock from '$lib/components/MarkdownBlock.svelte';
 	import References from '$lib/components/References.svelte';
+	import Toc from '$lib/components/Toc.svelte';
 
 	let { data } = $props();
 </script>
@@ -17,16 +18,7 @@
 		<div class="figure">{@html data.post.cover}</div>
 	{/if}
 
-	{#if data.post.toc.length}
-		<nav aria-label="Contents" class="post-toc">
-			<p class="mb-1 text-xs text-muted-foreground">contents</p>
-			<ol class="space-y-0.5">
-				{#each data.post.toc as item}
-					<li><a class="hover:text-primary" href={`#${item.id}`}>{item.text}</a></li>
-				{/each}
-			</ol>
-		</nav>
-	{/if}
+	<Toc items={data.post.toc} />
 
 	<MarkdownBlock
 		class="prose-post"
