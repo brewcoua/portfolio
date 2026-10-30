@@ -4,24 +4,25 @@
 	let { items }: { items: TocItem[] } = $props();
 	let active = $state('');
 
-	// The section whose heading last crossed the top 30% of the viewport is the one being read.
+	// The section being read is the last one whose heading sits above 30% of the viewport.
+	// Measured on scroll rather than with an IntersectionObserver, which misses headings skipped by a fast jump.
 	$effect(() => {
-		const observer = new IntersectionObserver(
-			(entries) => {
-				for (const entry of entries) if (entry.isIntersecting) active = entry.target.id;
-			},
-			{ rootMargin: '0px 0px -70% 0px' }
-		);
-		for (const item of items) {
-			const heading = document.getElementById(item.id);
-			if (heading) observer.observe(heading);
-		}
-		return () => observer.disconnect();
+		const update = () => {
+			const line = window.innerHeight * 0.3;
+			active = '';
+			for (const item of items) {
+				const heading = document.getElementById(item.id);
+				if (heading && heading.getBoundingClientRect().top <= line) active = item.id;
+			}
+		};
+		update();
+		window.addEventListener('scroll', update, { passive: true });
+		return () => window.removeEventListener('scroll', update);
 	});
 </script>
 
-{#if items.length}
-	<nav aria-label="Contents" class="toc">
+{#snippet list(label: string, cls: string)}
+	<nav aria-label={label} class={cls}>
 		<p class="mb-1 text-xs text-muted-foreground">contents</p>
 		<ol class="space-y-0.5">
 			{#each items as item (item.id)}
@@ -31,4 +32,9 @@
 			{/each}
 		</ol>
 	</nav>
+{/snippet}
+
+{#if items.length}
+	{@render list('Contents', 'toc')}
+	{@render list('Contents, pinned', 'toc toc-pinned')}
 {/if}

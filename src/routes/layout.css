@@ -540,9 +540,13 @@ a:hover .org-logo,
 .toc a.active {
 	color: var(--accent);
 }
-/* Wide screens: pinned in the left margin (sidenotes take the right one), beside the 78ch column. */
+.toc-pinned {
+	display: none;
+}
+/* Wide screens: a second copy pinned in the left margin (sidenotes take the right one), beside the 78ch column. */
 @media (min-width: 1280px) {
-	.toc {
+	.toc-pinned {
+		display: block;
 		position: fixed;
 		top: 6rem;
 		left: max(1rem, calc(50% - 39ch - 15rem));
@@ -554,7 +558,7 @@ a:hover .org-logo,
 		/* `ch` above must match the column's font size; the list sets its own. */
 		font-size: 1rem;
 	}
-	.toc ol {
+	.toc-pinned ol {
 		columns: auto;
 		font-size: 0.875rem;
 	}
