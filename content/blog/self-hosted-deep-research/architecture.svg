@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 300" role="img" aria-label="Open WebUI sends research requests to kvasir on the cluster; kvasir calls models through a gateway and searches the web through SearXNG">
+<defs><marker id="self-hosted-deep-research-architecture-inktip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ink" d="M1 1 L8 5 L1 9" /></marker><marker id="self-hosted-deep-research-architecture-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="hl" d="M1 1 L8 5 L1 9" /></marker></defs>
+<g>
+<path class="ink" d="M20 101 L169 100 L170 162 L18 160 Z" />
+<path class="hl fill-hl" stroke-width="2.5" d="M240 98 L388 100 L390 161 L238 160 Z" />
+<path class="ink" d="M460 49 L608 50 L610 98 L462 100 Z" />
+<path class="ink" d="M460 162 L608 160 L610 209 L458 210 Z" />
+<path class="ink" d="M174 130 L234 130" marker-end="url(#self-hosted-deep-research-architecture-inktip)" />
+<path class="ink" d="M394 120 C 420 110, 430 80, 454 76" marker-end="url(#self-hosted-deep-research-architecture-inktip)" />
+<path class="ink" d="M394 140 C 420 150, 430 180, 454 184" marker-end="url(#self-hosted-deep-research-architecture-inktip)" />
+<path class="ink" d="M535 104 L535 150" stroke-dasharray="5 6" marker-end="url(#self-hosted-deep-research-architecture-inktip)" />
+<path class="ink" d="M535 214 L535 262" stroke-dasharray="5 6" marker-end="url(#self-hosted-deep-research-architecture-inktip)" />
+</g>
+<text x="95" y="136" text-anchor="middle" font-size="16">open webui</text>
+<text x="315" y="136" text-anchor="middle" font-size="16" class="hl">kvasir</text>
+<text x="535" y="81" text-anchor="middle" font-size="16">gateway</text>
+<text x="535" y="191" text-anchor="middle" font-size="16">searxng</text>
+<text x="545" y="130" text-anchor="start" font-size="14" class="dim">models</text>
+<text x="535" y="284" text-anchor="middle" font-size="14" class="dim">the web</text>
+</svg>

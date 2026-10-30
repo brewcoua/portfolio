@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 330" role="img" aria-label="Article entity recall: direct generation 5.1%, RAG 7.6%, outline-driven RAG 12.6%, STORM 14.1%, STORM without its outline step 7.4%">
+<g>
+<path class="ink" d="M210 29 L343 30 L342 62 L212 64 Z" />
+<path class="ink" d="M210 84 L406 82 L407 114 L208 116 Z" />
+<path class="ink fill-ink" d="M210 132 L539 134 L537 169 L208 168 Z" />
+<path class="ink fill-ink" d="M210 185 L578 186 L577 221 L209 220 Z" />
+<path class="hl fill-hl " stroke-width="2.5" d="M210 236 L403 238 L402 271 L208 272 Z" />
+<path class="dim" d="M210 20 L210 284" />
+</g>
+<text x="196" y="53" text-anchor="end" font-size="16">direct gen</text>
+<text x="352" y="53" font-size="16">5.1%</text>
+<text x="196" y="105" text-anchor="end" font-size="16">rag</text>
+<text x="417" y="105" font-size="16">7.6%</text>
+<text x="196" y="157" text-anchor="end" font-size="16">outline + rag</text>
+<text x="547" y="157" font-size="16">12.6%</text>
+<text x="196" y="209" text-anchor="end" font-size="16">storm</text>
+<text x="587" y="209" font-size="16">14.1%</text>
+<text x="196" y="261" text-anchor="end" font-size="16" class="hl">storm, no outline</text>
+<text x="412" y="261" font-size="16" class="hl">7.4%</text>
+<text x="210" y="310" font-size="14" class="dim">entity recall, generated vs real article</text>
+</svg>

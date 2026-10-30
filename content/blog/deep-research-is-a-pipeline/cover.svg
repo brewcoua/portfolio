@@ -1,0 +1,25 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 336" role="img" aria-label="STORM pipeline: perspectives, conversations, outline, article, with the outline highlighted">
+<defs>
+<marker id="deep-research-is-a-pipeline-cover-inktip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="ink" d="M1 1 L8 5 L1 9" /></marker>
+<marker id="deep-research-is-a-pipeline-cover-hltip" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path class="hl" d="M1 1 L8 5 L1 9" /></marker>
+</defs>
+<g>
+<path class="ink" d="M18 141 L153 140 L152 199 L17 200 Z" />
+<path class="ink" d="M176 141 L311 140 L310 201 L174 200 Z" />
+<path class="hl fill-hl" stroke-width="2.5" d="M334 141 L470 140 L468 199 L333 200 Z" />
+<path class="ink" d="M492 139 L628 140 L626 201 L490 200 Z" />
+<path class="ink" d="M156 170 L172 170" marker-end="url(#deep-research-is-a-pipeline-cover-inktip)" />
+<path class="ink" d="M314 170 L330 170" marker-end="url(#deep-research-is-a-pipeline-cover-inktip)" />
+<path class="ink" d="M472 170 L488 170" marker-end="url(#deep-research-is-a-pipeline-cover-inktip)" />
+<path class="hl" d="M300 70 C 360 74, 400 92, 402 130" marker-end="url(#deep-research-is-a-pipeline-cover-hltip)" />
+</g>
+<text x="85" y="176" text-anchor="middle" font-size="16">perspectives</text>
+<text x="243" y="176" text-anchor="middle" font-size="16">interviews</text>
+<text x="401" y="176" text-anchor="middle" font-size="16" class="hl">outline</text>
+<text x="559" y="176" text-anchor="middle" font-size="16">article</text>
+<text x="292" y="72" text-anchor="end" font-size="16" class="hl">most of the gain</text>
+<text x="230" y="250" text-anchor="middle" font-size="14" class="dim">research</text>
+<path class="dim" d="M24 228 L304 228" stroke-dasharray="5 6" />
+<text x="559" y="250" text-anchor="middle" font-size="14" class="dim">writing</text>
+<path class="dim" d="M492 228 L626 228" stroke-dasharray="5 6" />
+</svg>

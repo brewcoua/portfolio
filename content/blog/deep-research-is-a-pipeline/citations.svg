@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 410" role="img" aria-label="Deep research agents by citation accuracy and unsupported statements: GPT-5 79% and 12.5%, YouChat 72% and 75%, Copilot 62% and 90%, Perplexity 58% and 97.5%, Gemini 50% and 54%">
+<g>
+<path class="dim" d="M90 54 L90 340 L610 340" />
+<path class="dim" stroke-width="1" d="M192 340 L192 346" />
+<path class="dim" stroke-width="1" d="M294 340 L294 346" />
+<path class="dim" stroke-width="1" d="M396 340 L396 346" />
+<path class="dim" stroke-width="1" d="M498 340 L498 346" />
+<path class="dim" stroke-width="1" d="M600 340 L600 346" />
+<path class="dim" stroke-width="1" d="M84 340 L90 340" />
+<path class="dim" stroke-width="1" d="M84 200 L90 200" />
+<path class="dim" stroke-width="1" d="M84 60 L90 60" />
+<path class="hl fill-hl" stroke-width="2.5" d="M482 305 C 482 296, 496 296, 496 305 C 496 313, 483 314, 482 306" />
+<path class="ink fill-ink" d="M412 131 C 412 122, 426 122, 426 131 C 426 139, 413 140, 412 132" />
+<path class="ink fill-ink" d="M308 87 C 308 78, 322 78, 322 87 C 322 95, 309 96, 308 88" />
+<path class="ink fill-ink" d="M267 67 C 267 58, 281 58, 281 67 C 281 75, 268 76, 267 68" />
+<path class="ink fill-ink" d="M188 190 C 188 181, 202 181, 202 190 C 202 198, 189 199, 188 191" />
+</g>
+<text x="503" y="310" text-anchor="start" font-size="16" class="hl">gpt-5</text>
+<text x="433" y="136" text-anchor="start" font-size="16">youchat</text>
+<text x="329" y="92" text-anchor="start" font-size="16">copilot</text>
+<text x="260" y="72" text-anchor="end" font-size="16">perplexity</text>
+<text x="209" y="195" text-anchor="start" font-size="16">gemini</text>
+<text x="192" y="364" text-anchor="middle" font-size="14" class="dim">50%</text>
+<text x="396" y="364" text-anchor="middle" font-size="14" class="dim">70%</text>
+<text x="600" y="364" text-anchor="middle" font-size="14" class="dim">90%</text>
+<text x="78" y="345" text-anchor="end" font-size="14" class="dim">0%</text>
+<text x="78" y="205" text-anchor="end" font-size="14" class="dim">50%</text>
+<text x="78" y="65" text-anchor="end" font-size="14" class="dim">100%</text>
+<text x="345" y="392" text-anchor="middle" font-size="14" class="dim">citation accuracy</text>
+<text x="98" y="30" font-size="14" class="dim">unsupported statements</text>
+</svg>
